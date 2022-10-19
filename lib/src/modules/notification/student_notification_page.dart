@@ -4,15 +4,14 @@ import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:simlk_app/src/modules/common/widgets/loading_overlay.dart';
 import 'package:simlk_app/src/modules/common/widgets/state_handle_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
-import 'package:simlk_app/src/modules/history/controllers/student_reservation_history_controller.dart';
-import 'package:simlk_app/src/modules/reservation/widgets/reservation_schedule_tile.dart';
+import 'package:simlk_app/src/modules/notification/controllers/student_notification_controller.dart';
+import 'package:simlk_app/src/modules/notification/widgets/notification_tile.dart';
 import 'package:simlk_app/src/res/resources.dart';
 import 'package:simlk_app/src/utils/helper/constant.dart';
 import 'package:sizer/sizer.dart';
 
-class StudentReservationHistoryPage
-    extends GetView<StudentReservationHistoryController> {
-  const StudentReservationHistoryPage({Key? key}) : super(key: key);
+class StudentNotificationPage extends GetView<StudentNotificationController> {
+  const StudentNotificationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +25,13 @@ class StudentReservationHistoryPage
           ),
         ),
         title: TextNunito(
-          text: 'Riwayat Konseling',
+          text: 'Notifikasi',
           size: 15.sp,
           fontWeight: Weightenum.BOLD,
         ),
         foregroundColor: Resources.color.neutral50,
       ),
-      body: GetBuilder<StudentReservationHistoryController>(
+      body: GetBuilder<StudentNotificationController>(
         builder: (_) {
           return StateHandleWidget(
             shimmerView: const LoadingOverlay(),
@@ -59,19 +58,19 @@ class StudentReservationHistoryPage
                   shrinkWrap: true,
                   primary: false,
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
                     vertical: 10,
                   ),
                   itemBuilder: (_, index) {
-                    return ReservationScheduleTile(
-                      onTap: () {
-                        // controller.goToDetail(id: index);
-                      },
-                      isStudentHistoryLayout: true,
+                    return NotificationTile(
+                      title: 'Title',
+                      content: 'Content',
+                      isRead: index % 2 == 0 ? true : false,
+                      date: DateTime.now().toLocal().toString(),
+                      onTap: () {},
                     );
                   },
                   separatorBuilder: (_, index) {
-                    return const SizedBox(height: 8);
+                    return const SizedBox(height: 4);
                   },
                   itemCount: 2,
                 ),

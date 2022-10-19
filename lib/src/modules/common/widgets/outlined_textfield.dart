@@ -77,7 +77,7 @@ class OutlinedTextfield extends StatelessWidget {
               ),
             ),
             hintText: hintText,
-            hintMaxLines: 1,
+            hintMaxLines: 2,
             hintStyle: GoogleFonts.nunitoSans(
               fontWeight: FontWeight.w400,
               fontSize: 13.sp,

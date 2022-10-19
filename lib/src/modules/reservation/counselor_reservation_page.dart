@@ -66,6 +66,7 @@ class CounselorReservationPage extends GetView<CounselorReservationController> {
                       onTap: () {
                         controller.goToDetail(id: index);
                       },
+                      isStudentHistoryLayout: false,
                     );
                   },
                   separatorBuilder: (_, index) {

@@ -16,7 +16,9 @@ import 'package:simlk_app/src/modules/home/bindings/student_home_binding.dart';
 import 'package:simlk_app/src/modules/home/counselor_home.dart';
 import 'package:simlk_app/src/modules/home/student_home.dart';
 import 'package:simlk_app/src/modules/notification/bindings/counselor_notification_binding.dart';
+import 'package:simlk_app/src/modules/notification/bindings/student_notification_binding.dart';
 import 'package:simlk_app/src/modules/notification/counselor_notification_page.dart';
+import 'package:simlk_app/src/modules/notification/student_notification_page.dart';
 import 'package:simlk_app/src/modules/profile/bindings/counselor_profile_binding.dart';
 import 'package:simlk_app/src/modules/profile/bindings/student_profile_binding.dart';
 import 'package:simlk_app/src/modules/profile/counselor_profile_page.dart';
@@ -89,6 +91,11 @@ class Routes {
       name: PageName.notificationKonselor,
       page: () => CounselorNotificationPage(),
       binding: CounselorNotificationBinding(),
+    ),
+    GetPage(
+      name: PageName.notificationStudent,
+      page: () => StudentNotificationPage(),
+      binding: StudentNotificationBinding(),
     ),
     GetPage(
       name: PageName.profileKonselor,

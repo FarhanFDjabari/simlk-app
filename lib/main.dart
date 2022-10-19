@@ -26,10 +26,11 @@ class MyApp extends StatelessWidget {
         child: GetMaterialApp(
           title: 'SIMPL-K',
           locale: const Locale('en'),
+          debugShowCheckedModeBanner: false,
           fallbackLocale: const Locale('en'),
           theme: AppTheme.buildThemeData(),
           getPages: Routes.pages,
-          initialRoute: PageName.splash,
+          initialRoute: PageName.root,
           builder: (BuildContext context, child) {
             return MediaQuery(
               data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
