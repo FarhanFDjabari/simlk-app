@@ -7,10 +7,12 @@ import 'package:simlk_app/src/modules/history/bindings/counselor_reservation_his
 import 'package:simlk_app/src/modules/history/bindings/counselor_student_history_binding.dart';
 import 'package:simlk_app/src/modules/history/bindings/counselor_student_list_binding.dart';
 import 'package:simlk_app/src/modules/history/bindings/student_reservation_history_binding.dart';
+import 'package:simlk_app/src/modules/history/bindings/student_reservation_history_detail_binding.dart';
 import 'package:simlk_app/src/modules/history/counselor_reservation_history_detail_page.dart';
 import 'package:simlk_app/src/modules/history/counselor_student_history_page.dart';
 import 'package:simlk_app/src/modules/history/counselor_student_list_page.dart';
 import 'package:simlk_app/src/modules/history/student_reservation_history.dart';
+import 'package:simlk_app/src/modules/history/student_reservation_history_detail_page.dart';
 import 'package:simlk_app/src/modules/home/bindings/counselor_home_binding.dart';
 import 'package:simlk_app/src/modules/home/bindings/student_home_binding.dart';
 import 'package:simlk_app/src/modules/home/counselor_home.dart';
@@ -20,14 +22,18 @@ import 'package:simlk_app/src/modules/notification/bindings/student_notification
 import 'package:simlk_app/src/modules/notification/counselor_notification_page.dart';
 import 'package:simlk_app/src/modules/notification/student_notification_page.dart';
 import 'package:simlk_app/src/modules/profile/bindings/counselor_profile_binding.dart';
+import 'package:simlk_app/src/modules/profile/bindings/student_complete_profile_binding.dart';
 import 'package:simlk_app/src/modules/profile/bindings/student_profile_binding.dart';
 import 'package:simlk_app/src/modules/profile/counselor_profile_page.dart';
+import 'package:simlk_app/src/modules/profile/student_complete_profile_page.dart';
 import 'package:simlk_app/src/modules/profile/student_profile_page.dart';
 import 'package:simlk_app/src/modules/reservation/bindings/counselor_reservation_binding.dart';
 import 'package:simlk_app/src/modules/reservation/bindings/counselor_reservation_detail_binding.dart';
 import 'package:simlk_app/src/modules/reservation/bindings/student_reservation_binding.dart';
+import 'package:simlk_app/src/modules/reservation/bindings/student_reservation_detail_binding.dart';
 import 'package:simlk_app/src/modules/reservation/counselor_reservation_detail_page.dart';
 import 'package:simlk_app/src/modules/reservation/counselor_reservation_page.dart';
+import 'package:simlk_app/src/modules/reservation/student_reservation_detail_page.dart';
 import 'package:simlk_app/src/modules/reservation/student_reservation_page.dart';
 import 'package:simlk_app/src/modules/splash/bindings/splash_binding.dart';
 import 'package:simlk_app/src/modules/splash/splash_page.dart';
@@ -73,6 +79,11 @@ class Routes {
       binding: CounselorReservationDetailBinding(),
     ),
     GetPage(
+      name: PageName.reservationDetailStudent,
+      page: () => StudentReservationDetailPage(),
+      binding: StudentReservationDetailBinding(),
+    ),
+    GetPage(
       name: PageName.counselorStudentList,
       page: () => CounselorStudentListPage(),
       binding: CounselorStudentListBinding(),
@@ -88,6 +99,11 @@ class Routes {
       binding: CounselorReservationHistoryDetailBinding(),
     ),
     GetPage(
+      name: PageName.reservationHistoryDetailStudent,
+      page: () => StudentReservationHistoryDetailPage(),
+      binding: StudentReservationHistoryDetailBinding(),
+    ),
+    GetPage(
       name: PageName.notificationKonselor,
       page: () => CounselorNotificationPage(),
       binding: CounselorNotificationBinding(),
@@ -101,6 +117,11 @@ class Routes {
       name: PageName.profileKonselor,
       page: () => CounselorProfilePage(),
       binding: CounselorProfileBinding(),
+    ),
+    GetPage(
+      name: PageName.profileCompleteStudent,
+      page: () => StudentCompleteProfilePage(),
+      binding: StudentCompleteProfileBinding(),
     ),
     GetPage(
       name: PageName.splash,

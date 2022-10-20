@@ -42,6 +42,7 @@ dependencies:
   sizer: ^2.0.15
   shimmer: ^2.0.0
   table_calendar: ^3.0.7
+  timelines: ^0.1.0
 
 dev_dependencies:
   build_runner: any
@@ -74,9 +75,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - lib/src/res/images/app_logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

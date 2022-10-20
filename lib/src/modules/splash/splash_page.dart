@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:simlk_app/src/modules/common/widgets/app_logo_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/statefull_wrapper.dart';
 import 'package:simlk_app/src/modules/splash/controllers/splash_controller.dart';
+import 'package:sizer/sizer.dart';
 
 class SplashPage extends GetView<SplashController> {
   const SplashPage({Key? key}) : super(key: key);
@@ -13,13 +13,13 @@ class SplashPage extends GetView<SplashController> {
       onInit: () {
         controller.initSplash();
       },
-      child: const Scaffold(
+      child: Scaffold(
         body: Center(
-          // child: Assets.lib.theme.resources.images.appLogo.image(
-          //   width: 88,
-          //   height: 88,
-          // ),
-          child: AppLogoWidget(),
+          child: Image(
+            image: const AssetImage('lib/src/res/images/app_logo.png'),
+            width: 100.sp,
+            height: 50.sp,
+          ),
         ),
       ),
     );

@@ -10,7 +10,7 @@ import 'package:simlk_app/src/utils/helper/validator.dart';
 import 'package:sizer/sizer.dart';
 
 class StudentLoginFragment extends GetView<StudentLoginController> {
-  StudentLoginFragment({super.key});
+  StudentLoginFragment({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
 
@@ -68,7 +68,8 @@ class StudentLoginFragment extends GetView<StudentLoginController> {
                   label: 'Masuk Sebagai Mahasiswa',
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      controller.goToHome();
+                      // controller.goToHome();
+                      controller.goToCompleteProfile();
                     }
                   },
                 );

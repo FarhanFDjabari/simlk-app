@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           fallbackLocale: const Locale('en'),
           theme: AppTheme.buildThemeData(),
           getPages: Routes.pages,
-          initialRoute: PageName.root,
+          initialRoute: PageName.splash,
           builder: (BuildContext context, child) {
             return MediaQuery(
               data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),

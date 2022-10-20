@@ -64,7 +64,7 @@ class StudentReservationPage extends GetView<StudentReservationController> {
                   itemBuilder: (_, index) {
                     return ReservationScheduleTile(
                       onTap: () {
-                        // controller.goToDetail(id: index);
+                        controller.goToDetail(id: index);
                       },
                     );
                   },

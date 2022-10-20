@@ -65,7 +65,7 @@ class StudentReservationHistoryPage
                   itemBuilder: (_, index) {
                     return ReservationScheduleTile(
                       onTap: () {
-                        // controller.goToDetail(id: index);
+                        controller.goToDetail(id: index);
                       },
                       isStudentHistoryLayout: true,
                     );

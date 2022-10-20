@@ -11,4 +11,8 @@ class StudentLoginController extends BaseObjectController {
   void goToHome() {
     Get.offNamed(PageName.root);
   }
+
+  void goToCompleteProfile() {
+    Get.toNamed(PageName.profileCompleteStudent);
+  }
 }

@@ -7,7 +7,7 @@ import 'package:simlk_app/src/res/resources.dart';
 import 'package:simlk_app/src/utils/routes/routes.dart';
 
 class ViewPage extends GetView<ViewController> {
-  const ViewPage({super.key});
+  const ViewPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

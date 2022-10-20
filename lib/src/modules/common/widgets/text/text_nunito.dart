@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:simlk_app/src/utils/helper/constant.dart';
 
@@ -9,6 +10,7 @@ class TextNunito extends StatelessWidget {
   final String? text;
   final TextAlign? align;
   final int? maxLines;
+  final TextDecoration? textDecoration;
 
   weightSwitch() {
     switch (fontWeight) {
@@ -36,6 +38,7 @@ class TextNunito extends StatelessWidget {
     this.text,
     this.align,
     this.maxLines,
+    this.textDecoration,
   });
 
   @override
@@ -47,6 +50,7 @@ class TextNunito extends StatelessWidget {
         fontWeight: weightSwitch(),
         fontSize: size,
         color: color,
+        decoration: textDecoration,
       ),
       softWrap: true,
       overflow: TextOverflow.ellipsis,

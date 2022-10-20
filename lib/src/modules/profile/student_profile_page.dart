@@ -86,6 +86,15 @@ class StudentProfilePage extends GetView<StudentProfileController> {
                     PrimaryButton(
                       height: 45,
                       elevation: 0,
+                      label: 'Lengkapi Profil',
+                      onPressed: () {
+                        controller.goToCompleteProfile();
+                      },
+                    ),
+                    const SizedBox(height: 5),
+                    PrimaryButton(
+                      height: 45,
+                      elevation: 0,
                       label: 'Ubah Foto Profil',
                       onPressed: () {},
                     ),

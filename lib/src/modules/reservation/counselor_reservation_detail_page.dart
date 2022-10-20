@@ -53,29 +53,77 @@ class CounselorReservationDetailPage
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundColor: Resources.color.indigo300,
+                      TextNunito(
+                        text: 'Informasi Mahasiswa',
+                        size: 18,
+                        fontWeight: Weightenum.BOLD,
+                      ),
+                      const SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          CircleAvatar(
+                            radius: 30,
+                            backgroundColor: Resources.color.indigo300,
+                          ),
+                          const SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              TextNunito(
+                                text: 'Mahasiswa Satu',
+                                size: 16,
+                                fontWeight: Weightenum.REGULAR,
+                                maxLines: 2,
+                                align: TextAlign.center,
+                              ),
+                              TextNunito(
+                                text: '195150xxxxxxx',
+                                size: 14,
+                                fontWeight: Weightenum.REGULAR,
+                                maxLines: 2,
+                                align: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 10),
                       TextNunito(
-                        text: 'Mahasiswa Satu',
-                        size: 16,
+                        text: 'Dosen Pembimbing Akademik',
+                        size: 14,
                         fontWeight: Weightenum.REGULAR,
-                        maxLines: 2,
-                        align: TextAlign.center,
                       ),
                       const SizedBox(height: 5),
                       TextNunito(
-                        text: '195150xxxxxxx',
+                        text: 'Dosen PA FILKOM',
+                        size: 16,
+                        fontWeight: Weightenum.REGULAR,
+                      ),
+                      const SizedBox(height: 10),
+                      TextNunito(
+                        text: 'Kontak',
                         size: 14,
                         fontWeight: Weightenum.REGULAR,
-                        maxLines: 2,
-                        align: TextAlign.center,
+                      ),
+                      const SizedBox(height: 5),
+                      TextNunito(
+                        text: '08xxxx/lineid',
+                        size: 16,
+                        fontWeight: Weightenum.REGULAR,
                       ),
                       const SizedBox(height: 16),
+                      TextNunito(
+                        text: 'Informasi Reservasi',
+                        size: 18,
+                        fontWeight: Weightenum.BOLD,
+                      ),
+                      const SizedBox(height: 5),
                       TextNunito(
                         text: 'Tanggal Konsultasi',
                         size: 14,
@@ -84,20 +132,20 @@ class CounselorReservationDetailPage
                       const SizedBox(height: 5),
                       TextNunito(
                         text: '14 Oktober 2022',
-                        size: 18,
-                        fontWeight: Weightenum.BOLD,
+                        size: 16,
+                        fontWeight: Weightenum.REGULAR,
                       ),
                       const SizedBox(height: 10),
                       TextNunito(
                         text: 'Waktu Konsultasi',
-                        size: 14,
+                        size: 16,
                         fontWeight: Weightenum.REGULAR,
                       ),
                       const SizedBox(height: 5),
                       TextNunito(
                         text: '14.00',
-                        size: 18,
-                        fontWeight: Weightenum.BOLD,
+                        size: 16,
+                        fontWeight: Weightenum.REGULAR,
                       ),
                       const SizedBox(height: 10),
                       TextNunito(
@@ -109,12 +157,12 @@ class CounselorReservationDetailPage
                       DescriptionTextWidget(
                         text:
                             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius turpis eget ante pharetra sodales. Vestibulum et commodo ex. Ut ut velit purus. Donec id lacus pharetra turpis aliquam cursus. Nulla sed nunc porta, hendrerit ante molestie, pellentesque justo. Nam sit amet dolor tempus dui luctus elementum tempor rutrum felis. Donec volutpat metus lacus, sed congue augue congue non.',
-                        size: 18,
-                        fontWeight: Weightenum.BOLD,
+                        size: 16,
+                        fontWeight: Weightenum.REGULAR,
                         color: Resources.color.neutral900,
                         textAlign: TextAlign.justify,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 32),
                       PrimaryButton(
                         elevation: 0,
                         height: 45,

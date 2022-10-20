@@ -10,7 +10,7 @@ import 'package:simlk_app/src/utils/helper/validator.dart';
 import 'package:sizer/sizer.dart';
 
 class CounselorLoginFragment extends GetView<CounselorLoginController> {
-  CounselorLoginFragment({super.key});
+  CounselorLoginFragment({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
 

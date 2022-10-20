@@ -3,13 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:simlk_app/src/modules/auth/widgets/counselor_login_fragment.dart';
 import 'package:simlk_app/src/modules/auth/widgets/student_login_fragment.dart';
 import 'package:simlk_app/src/modules/common/widgets/app_logo_widget.dart';
-import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
 import 'package:simlk_app/src/res/resources.dart';
-import 'package:simlk_app/src/utils/helper/constant.dart';
 import 'package:sizer/sizer.dart';
 
 class AuthPage extends StatefulWidget {
-  const AuthPage({super.key});
+  const AuthPage({Key? key}) : super(key: key);
 
   @override
   State<AuthPage> createState() => _AuthPageState();

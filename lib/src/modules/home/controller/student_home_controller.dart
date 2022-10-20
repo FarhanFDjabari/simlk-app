@@ -29,4 +29,8 @@ class StudentHomeController extends BaseListController {
   void goToNotification() {
     Get.toNamed(PageName.notificationStudent);
   }
+
+  void goToCompleteProfile() {
+    Get.toNamed(PageName.profileCompleteStudent);
+  }
 }

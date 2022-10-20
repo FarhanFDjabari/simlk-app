@@ -105,9 +105,32 @@ class StudentHome extends GetView<StudentHomeController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          CircleAvatar(
-                            radius: 32,
-                            backgroundColor: Resources.color.indigo300,
+                          Container(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            decoration: BoxDecoration(
+                              color: Resources.color.indigo50,
+                              border: Border.all(
+                                color: Resources.color.indigo700,
+                              ),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: ListTile(
+                              onTap: () {
+                                controller.goToCompleteProfile();
+                              },
+                              title: TextNunito(
+                                text: 'Profilmu belum lengkap',
+                                size: 16,
+                                fontWeight: Weightenum.BOLD,
+                              ),
+                              subtitle: TextNunito(
+                                text:
+                                    'Lengkapi profilmu untuk memudahkan kami dalam melakukan pendataan',
+                                maxLines: 3,
+                                size: 16,
+                                fontWeight: Weightenum.REGULAR,
+                              ),
+                            ),
                           ),
                           const SizedBox(height: 10),
                           TextNunito(
@@ -195,7 +218,7 @@ class StudentHome extends GetView<StudentHomeController> {
                               return null;
                             },
                             hint: TextNunito(
-                              text: '13.00',
+                              text: 'Pilih waktu konseling',
                               size: 12.sp,
                               fontWeight: Weightenum.REGULAR,
                             ),
@@ -207,7 +230,6 @@ class StudentHome extends GetView<StudentHomeController> {
                                   fontWeight: Weightenum.REGULAR,
                                 ),
                                 value: Time(13),
-                                enabled: false,
                               ),
                               DropdownMenuItem(
                                 child: TextNunito(

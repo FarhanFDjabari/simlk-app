@@ -14,6 +14,7 @@ class PageName {
   static const reservationHistoryDetailStudent = '/mahasiswa/history/:id';
   static const reservationHistoryDetailKonselor = '/konselor/history/:id';
   static const profileStudent = '/mahasiswa/profile';
+  static const profileCompleteStudent = '/mahasiswa/profile/complete';
   static const profileKonselor = '/konselor/profile';
   static const notificationKonselor = '/konselor/notification';
   static const notificationStudent = '/mahasiswa/notification';

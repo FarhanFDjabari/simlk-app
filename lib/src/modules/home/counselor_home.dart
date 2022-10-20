@@ -26,9 +26,12 @@ class CounselorHome extends GetView<CounselorHomeController> {
                   fontWeight: Weightenum.BOLD,
                 ),
                 const SizedBox(height: 18),
-                CircleAvatar(
-                  radius: 40,
-                  backgroundColor: Resources.color.indigo300,
+                Align(
+                  alignment: Alignment.center,
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundColor: Resources.color.indigo300,
+                  ),
                 ),
                 const SizedBox(height: 26),
                 GridView(
