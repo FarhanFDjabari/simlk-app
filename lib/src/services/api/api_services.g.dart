@@ -376,13 +376,13 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<ApiResponses<Mahasiswa>> fetchMahasiswaReservationHistory() async {
+  Future<ApiResponse<Mahasiswa>> fetchMahasiswaReservationHistory() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponses<Mahasiswa>>(Options(
+        _setStreamType<ApiResponse<Mahasiswa>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -394,7 +394,7 @@ class _RestClient implements RestClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponses<Mahasiswa>.fromJson(_result.data!);
+    final value = ApiResponse<Mahasiswa>.fromJson(_result.data!);
     return value;
   }
 
@@ -509,29 +509,6 @@ class _RestClient implements RestClient {
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ApiResponse<dynamic>.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<ApiResponses<Mahasiswa>> fetchMahasiswaReservationList() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponses<Mahasiswa>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/reservation-history',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponses<Mahasiswa>.fromJson(_result.data!);
     return value;
   }
 

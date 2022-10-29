@@ -34,8 +34,16 @@ class $LibSrcResImagesGen {
   AssetGenImage get appLogo =>
       const AssetGenImage('lib/src/res/images/app_logo.png');
 
+  /// File path: lib/src/res/images/data_empty.png
+  AssetGenImage get dataEmpty =>
+      const AssetGenImage('lib/src/res/images/data_empty.png');
+
+  /// File path: lib/src/res/images/notification_empty.png
+  AssetGenImage get notificationEmpty =>
+      const AssetGenImage('lib/src/res/images/notification_empty.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [appLogo];
+  List<AssetGenImage> get values => [appLogo, dataEmpty, notificationEmpty];
 }
 
 class Assets {

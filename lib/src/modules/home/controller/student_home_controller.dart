@@ -69,7 +69,9 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
           .fetchReservationTimeByDate(date: date)
           .validateStatus()
           .then((data) {
-        data.data?.map((e) => reservationTimeAvailable.add(e.timeHours ?? ''));
+        final availableTimeFromApi =
+            data.data?.map((e) => e.timeHours ?? "").toList();
+        reservationTimeAvailable(availableTimeFromApi);
         finishLoadData();
       }).handleError((onError) {
         debugPrint(onError.toString());

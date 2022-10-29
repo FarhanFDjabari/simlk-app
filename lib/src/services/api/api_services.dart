@@ -105,7 +105,7 @@ abstract class RestClient {
   Future<ApiResponses<Mahasiswa>> fetchKonselorReservationHistory();
 
   @GET('/mahasiswa/history-completed')
-  Future<ApiResponses<Mahasiswa>> fetchMahasiswaReservationHistory();
+  Future<ApiResponse<Mahasiswa>> fetchMahasiswaReservationHistory();
 
   @GET('/konselor/history-uncompleted')
   Future<ApiResponses<ReservationSchedule>> fetchKonselorOngoingReservation();
@@ -126,8 +126,8 @@ abstract class RestClient {
     @Query("location") String? location,
   });
 
-  @GET('/reservation-history')
-  Future<ApiResponses<Mahasiswa>> fetchMahasiswaReservationList();
+  // @GET('/reservation-history')
+  // Future<ApiResponses<Mahasiswa>> fetchMahasiswaReservationList();
 
   @GET('/reservation-history/{nim}')
   Future<ApiResponses<ReservationSchedule>> fetchReservationScheduleByNim({

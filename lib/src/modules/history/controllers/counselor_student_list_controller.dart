@@ -29,7 +29,7 @@ class CounselorStudentListController extends BaseListController<Mahasiswa> {
   Future<void> getMahasiswaList() async {
     loadingState();
     await client().then((value) {
-      value.fetchMahasiswaReservationList().validateStatus().then((data) {
+      value.fetchKonselorReservationHistory().validateStatus().then((data) {
         dataList.clear();
         setFinishCallbacks(data.data ?? []);
       }).handleError((onError) {

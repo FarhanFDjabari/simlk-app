@@ -31,7 +31,7 @@ class CounselorLoginController extends BaseObjectController<Konselor> {
 
     await client().then((value) {
       value
-          .loginMahasiswa(
+          .loginKonselor(
             emailController.text,
             passwordController.text,
             fcmToken,
@@ -41,6 +41,7 @@ class CounselorLoginController extends BaseObjectController<Konselor> {
         await SecureStorageManager().setToken(value: data.data?.token);
         await saveAuthData();
       }).handleError((onError) {
+        SecureStorageManager().setToken(value: null);
         debugPrint(onError.toString());
         finishLoadData(errorMessage: onError.toString());
       });
@@ -55,6 +56,7 @@ class CounselorLoginController extends BaseObjectController<Konselor> {
         setFinishCallbacks(data.data);
         goToHome();
       }).handleError((onError) {
+        SecureStorageManager().setToken(value: null);
         debugPrint(onError.toString());
         finishLoadData(errorMessage: onError.toString());
       });

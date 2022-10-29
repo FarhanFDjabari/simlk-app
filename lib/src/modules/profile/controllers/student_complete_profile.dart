@@ -18,12 +18,13 @@ class StudentCompleteProfileController extends BaseObjectController {
 
   @override
   void onInit() {
-    if (Get.arguments['from_login'] == true) {
+    if (Get.arguments?['from_login'] == true) {
       isFromLogin = true;
     }
     if (StorageManager().has(StorageName.MAHASISWA)) {
       final mahasiswa =
           Mahasiswa.fromJson(StorageManager().get(StorageName.MAHASISWA));
+      studentEmailController.text = mahasiswa.email ?? "";
       dosenPaController.text = mahasiswa.dpa ?? "";
       phoneNumberController.text = mahasiswa.noHp ?? "";
       lineIdController.text = mahasiswa.idLine ?? "";

@@ -3,6 +3,7 @@ import 'package:simlk_app/src/data/model/reservation/reservation_schedule.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
 import 'package:simlk_app/src/res/resources.dart';
 import 'package:simlk_app/src/utils/helper/constant.dart';
+import 'package:simlk_app/src/utils/helper/extensions/date_time_extension.dart';
 
 class ReservationScheduleTile extends StatelessWidget {
   const ReservationScheduleTile({
@@ -53,7 +54,8 @@ class ReservationScheduleTile extends StatelessWidget {
                 ),
               if (isStudentHistoryLayout == false) const SizedBox(height: 5),
               TextNunito(
-                text: '${data?.reservationTime}',
+                text: DateTimeExtension(data?.reservationTime ?? DateTime.now())
+                    .dayFullMonthYear,
                 size: 18,
                 fontWeight: Weightenum.REGULAR,
               ),
@@ -71,10 +73,10 @@ class ReservationScheduleTile extends StatelessWidget {
                     color: data?.status == 1
                         ? Resources.color.indigo200
                         : data?.status == 2
-                            ? Resources.color.stateWarning200
+                            ? Resources.color.stateWarning50
                             : data?.status == 3
                                 ? Resources.color.indigo300
-                                : Resources.color.statePositive200,
+                                : Resources.color.statePositive50,
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,

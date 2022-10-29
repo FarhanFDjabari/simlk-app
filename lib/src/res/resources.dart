@@ -33,9 +33,9 @@ class AppColors {
   // state color
   Color statePositive = const Color(0xFF2DCC70);
   Color statePositive200 = const Color.fromARGB(255, 76, 202, 129);
-  Color statePositive50 = const Color.fromARGB(255, 178, 201, 187);
+  Color statePositive50 = Color.fromARGB(255, 235, 255, 243);
   Color stateNegative = const Color(0xFFE84C3D);
-  Color stateNegative50 = const Color.fromARGB(255, 227, 203, 201);
+  Color stateNegative50 = Color.fromARGB(255, 255, 238, 237);
   Color stateWarning = const Color(0xFFFB9E2E);
   Color stateWarning200 = const Color.fromARGB(255, 247, 171, 77);
   Color stateWarning50 = const Color.fromARGB(255, 250, 237, 221);

@@ -36,4 +36,33 @@ class CounselorNotificationController extends BaseListController<Notification> {
       });
     });
   }
+
+  Future<void> markReadNotificationById({required int id}) async {
+    loadingState();
+    await client().then((value) {
+      value
+          .markNotificationById(notificationId: id)
+          .validateStatus()
+          .then((data) {
+        finishLoadData();
+        getAllNotifications();
+      }).handleError((onError) {
+        debugPrint(onError.toString());
+        finishLoadData(errorMessage: onError.toString());
+      });
+    });
+  }
+
+  Future<void> markReadAllNotifications() async {
+    loadingState();
+    await client().then((value) {
+      value.markAllNotifications().validateStatus().then((data) {
+        finishLoadData();
+        getAllNotifications();
+      }).handleError((onError) {
+        debugPrint(onError.toString());
+        finishLoadData(errorMessage: onError.toString());
+      });
+    });
+  }
 }

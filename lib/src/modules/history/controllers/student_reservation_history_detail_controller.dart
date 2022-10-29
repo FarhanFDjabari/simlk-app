@@ -10,7 +10,8 @@ class StudentReservationHistoryDetailController
   @override
   void onInit() {
     id = Get.parameters['id'].toString();
-    getReservationDetail(id: Get.parameters['id'] as int);
+    getReservationDetail(
+        id: int.tryParse(Get.parameters['id'].toString()) ?? 0);
     super.onInit();
   }
 

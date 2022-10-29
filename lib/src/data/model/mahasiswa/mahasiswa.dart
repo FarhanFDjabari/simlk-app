@@ -70,7 +70,7 @@ class Mahasiswa implements ModelFactory {
             : DateTime.parse(json["updatedAt"]),
         reservations: json["reservations"] == null
             ? null
-            : List<ReservationSchedule>.from(json["reservations"]
+            : List<ReservationSchedule>.from((json["reservations"] as List)
                 .map((e) => ReservationSchedule.fromJson(e))),
       );
 
@@ -87,7 +87,5 @@ class Mahasiswa implements ModelFactory {
         "fcm_token": fcmToken,
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
-        "reservations": List<ReservationSchedule>.from(
-            reservations!.map((e) => e.toJson())),
       };
 }

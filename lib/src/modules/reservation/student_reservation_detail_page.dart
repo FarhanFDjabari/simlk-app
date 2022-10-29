@@ -8,6 +8,7 @@ import 'package:simlk_app/src/modules/reservation/controller/student_reservation
 import 'package:simlk_app/src/modules/reservation/widgets/reservation_timeline.dart';
 import 'package:simlk_app/src/res/resources.dart';
 import 'package:simlk_app/src/utils/helper/constant.dart';
+import 'package:simlk_app/src/utils/helper/extensions/date_time_extension.dart';
 import 'package:sizer/sizer.dart';
 
 class StudentReservationDetailPage
@@ -70,7 +71,10 @@ class StudentReservationDetailPage
                       ),
                       const SizedBox(height: 5),
                       TextNunito(
-                        text: '${controller.mData?.reservationTime}',
+                        text: DateTimeExtension(
+                                controller.mData?.reservationTime ??
+                                    DateTime.now())
+                            .dayFullMonthYear,
                         size: 18,
                         fontWeight: Weightenum.BOLD,
                       ),

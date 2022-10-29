@@ -6,6 +6,7 @@ import 'package:simlk_app/src/modules/common/widgets/state_handle_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
 import 'package:simlk_app/src/modules/history/controllers/student_reservation_history_controller.dart';
 import 'package:simlk_app/src/modules/reservation/widgets/reservation_schedule_tile.dart';
+import 'package:simlk_app/src/res/gen/assets.gen.dart';
 import 'package:simlk_app/src/res/resources.dart';
 import 'package:simlk_app/src/utils/helper/constant.dart';
 import 'package:sizer/sizer.dart';
@@ -42,6 +43,9 @@ class StudentReservationHistoryPage
             },
             // errorEnabled: controller.isError,
             // errorText: 'txt_error_general'.tr,
+            emptyImage: AssetImage(
+              Assets.lib.src.res.images.dataEmpty.path,
+            ),
             emptyTitle: 'txt_empty_title'.tr,
             emptySubtitle: 'txt_empty_description'.tr,
             emptyEnabled: controller.isEmptyData,

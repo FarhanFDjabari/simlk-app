@@ -31,8 +31,8 @@ class StudentHome extends GetView<StudentHomeController> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: TextNunito(
-          text: 'Selamat Datang, Mahasiswa Satu!',
-          maxLines: 2,
+          text: 'Selamat Datang, ${controller.localUserData.name}!',
+          maxLines: 1,
           size: 14.sp,
           fontWeight: Weightenum.BOLD,
         ),
@@ -224,14 +224,14 @@ class StudentHome extends GetView<StudentHomeController> {
                               DropdownMenuItem(
                                 value: const Time(13),
                                 enabled: !controller.reservationTimeAvailable
-                                    .contains('13.00'),
+                                    .contains('13:00'),
                                 child: TextNunito(
-                                  text: '13.00',
+                                  text: '13:00',
                                   size: 12.sp,
                                   fontWeight: Weightenum.REGULAR,
                                   textDecoration: controller
                                           .reservationTimeAvailable
-                                          .contains('13.00')
+                                          .contains('13:00')
                                       ? TextDecoration.lineThrough
                                       : null,
                                 ),
@@ -239,14 +239,14 @@ class StudentHome extends GetView<StudentHomeController> {
                               DropdownMenuItem(
                                 value: const Time(14),
                                 enabled: !controller.reservationTimeAvailable
-                                    .contains('14.00'),
+                                    .contains('14:00'),
                                 child: TextNunito(
-                                  text: '14.00',
+                                  text: '14:00',
                                   size: 12.sp,
                                   fontWeight: Weightenum.REGULAR,
                                   textDecoration: controller
                                           .reservationTimeAvailable
-                                          .contains('14.00')
+                                          .contains('14:00')
                                       ? TextDecoration.lineThrough
                                       : null,
                                 ),
@@ -254,27 +254,28 @@ class StudentHome extends GetView<StudentHomeController> {
                               DropdownMenuItem(
                                 value: const Time(15),
                                 enabled: !controller.reservationTimeAvailable
-                                    .contains('15.00'),
+                                    .contains('15:00'),
                                 child: TextNunito(
-                                  text: '15.00',
+                                  text: '15:00',
                                   size: 12.sp,
                                   fontWeight: Weightenum.REGULAR,
                                   textDecoration: controller
                                           .reservationTimeAvailable
-                                          .contains('15.00')
+                                          .contains('15:00')
                                       ? TextDecoration.lineThrough
                                       : null,
                                 ),
                               ),
                             ],
                             onChanged: (value) {
-                              controller.timeHour('${value?.hour}.00');
+                              controller.timeHour('${value?.hour}:00');
                               final reservationTime = DateTime(
                                 controller.selectedDay.value.year,
                                 controller.selectedDay.value.month,
                                 controller.selectedDay.value.day,
                                 value?.hour ?? 0,
                               );
+                              print(controller.reservationTimeAvailable);
                               print(reservationTime.toLocal().toString());
                               controller.selectedDay(reservationTime);
                             },

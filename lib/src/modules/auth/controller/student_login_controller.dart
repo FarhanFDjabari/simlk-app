@@ -46,6 +46,7 @@ class StudentLoginController extends BaseObjectController<Mahasiswa> {
         await SecureStorageManager().setToken(value: data.data?.token);
         await saveAuthData();
       }).handleError((onError) {
+        SecureStorageManager().setToken(value: null);
         debugPrint(onError.toString());
         finishLoadData(errorMessage: onError.toString());
       });
@@ -64,6 +65,7 @@ class StudentLoginController extends BaseObjectController<Mahasiswa> {
           goToCompleteProfile();
         }
       }).handleError((onError) {
+        SecureStorageManager().setToken(value: null);
         debugPrint(onError.toString());
         finishLoadData(errorMessage: onError.toString());
       });

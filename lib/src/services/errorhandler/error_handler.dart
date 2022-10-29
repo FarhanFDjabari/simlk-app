@@ -13,10 +13,16 @@ class ErrorHandler {
         if (error is DioError) {
           switch (error.type) {
             case DioErrorType.connectTimeout:
-              networkExceptions = NetworkExceptions.requestTimeout();
+              networkExceptions = error.response?.data['message'] != null
+                  ? NetworkExceptions.defaultError(
+                      error.response?.data['message'])
+                  : NetworkExceptions.requestTimeout();
               break;
             case DioErrorType.sendTimeout:
-              networkExceptions = NetworkExceptions.sendTimeout();
+              networkExceptions = error.response?.data['message'] != null
+                  ? NetworkExceptions.defaultError(
+                      error.response?.data['message'])
+                  : NetworkExceptions.sendTimeout();
               break;
             case DioErrorType.receiveTimeout:
               networkExceptions = NetworkExceptions.sendTimeout();
@@ -30,13 +36,19 @@ class ErrorHandler {
                       : NetworkExceptions.unauthorisedRequest();
                   break;
                 case 401:
-                  networkExceptions = NetworkExceptions.unauthorisedRequest();
+                  networkExceptions = error.response?.data['message'] != null
+                      ? NetworkExceptions.defaultError(
+                          error.response?.data['message'])
+                      : NetworkExceptions.unauthorisedRequest();
                   break;
                 case 403:
                   networkExceptions = NetworkExceptions.unauthorisedRequest();
                   break;
                 case 404:
-                  networkExceptions = NetworkExceptions.notFound("Not found");
+                  networkExceptions = error.response?.data['message'] != null
+                      ? NetworkExceptions.defaultError(
+                          error.response?.data['message'])
+                      : NetworkExceptions.notFound("Not found");
                   break;
                 case 405:
                   networkExceptions = NetworkExceptions.methodNotAllowed();
@@ -48,19 +60,29 @@ class ErrorHandler {
                   networkExceptions = NetworkExceptions.requestTimeout();
                   break;
                 case 422:
-                  networkExceptions = NetworkExceptions.badRequest();
+                  networkExceptions = error.response?.data['message'] != null
+                      ? NetworkExceptions.defaultError(
+                          error.response?.data['message'])
+                      : NetworkExceptions.badRequest();
                   break;
                 case 500:
-                  networkExceptions = NetworkExceptions.internalServerError();
+                  networkExceptions = networkExceptions =
+                      error.response?.data['message'] != null
+                          ? NetworkExceptions.defaultError(
+                              error.response?.data['message'])
+                          : NetworkExceptions.internalServerError();
                   break;
                 case 503:
                   networkExceptions = NetworkExceptions.serviceUnavailable();
                   break;
                 default:
                   var responseCode = error.response?.statusCode;
-                  networkExceptions = NetworkExceptions.defaultError(
-                    "Received invalid status code: $responseCode",
-                  );
+                  networkExceptions = error.response?.data['message'] != null
+                      ? NetworkExceptions.defaultError(
+                          error.response?.data['message'])
+                      : NetworkExceptions.defaultError(
+                          "Received invalid status code: $responseCode",
+                        );
               }
               break;
             case DioErrorType.cancel:

@@ -5,6 +5,7 @@ import 'package:simlk_app/src/modules/common/widgets/loading_overlay.dart';
 import 'package:simlk_app/src/modules/common/widgets/state_handle_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
 import 'package:simlk_app/src/modules/history/controllers/counselor_student_list_controller.dart';
+import 'package:simlk_app/src/res/gen/assets.gen.dart';
 import 'package:simlk_app/src/res/resources.dart';
 import 'package:simlk_app/src/utils/helper/constant.dart';
 import 'package:sizer/sizer.dart';
@@ -41,6 +42,9 @@ class CounselorStudentListPage extends GetView<CounselorStudentListController> {
             },
             // errorEnabled: controller.isError,
             // errorText: 'txt_error_general'.tr,
+            emptyImage: AssetImage(
+              Assets.lib.src.res.images.dataEmpty.path,
+            ),
             emptyTitle: 'txt_empty_title'.tr,
             emptySubtitle: 'txt_empty_description'.tr,
             emptyEnabled: controller.isEmptyData,
@@ -61,7 +65,7 @@ class CounselorStudentListPage extends GetView<CounselorStudentListController> {
                 ),
                 shrinkWrap: true,
                 padding: const EdgeInsets.all(16),
-                itemCount: 4,
+                itemCount: controller.dataList.length,
                 itemBuilder: (_, index) {
                   return InkWell(
                     onTap: () {
