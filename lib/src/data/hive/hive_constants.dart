@@ -1,4 +1,4 @@
 class HiveConstants {
-  static const USERS_BOX = "users";
-  static const USERSCOUNT_BOX = "users_count";
+  static const MAHASISWA_BOX = "mahasiswa";
+  static const KONSELOR_BOX = "konselor";
 }

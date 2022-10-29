@@ -1,0 +1,69 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
+import 'package:simlk_app/src/res/resources.dart';
+import 'package:simlk_app/src/utils/helper/constant.dart';
+import 'package:simlk_app/src/utils/helper/snackbar_state_enum.dart';
+
+class SIMLKSnackbar extends GetSnackBar {
+  final String? snackbarMessage;
+  final String? snackbarTitle;
+  final SnackbarStateEnum snackbarStateEnum;
+
+  SIMLKSnackbar({
+    this.snackbarMessage,
+    this.snackbarTitle,
+    this.snackbarStateEnum = SnackbarStateEnum.NORMAL,
+    Key? key,
+  }) : super(
+          key: key,
+          duration: const Duration(seconds: 3),
+          snackStyle: SnackStyle.FLOATING,
+          backgroundColor: snackbarStateEnum == SnackbarStateEnum.ERROR
+              ? Resources.color.stateNegative50
+              : snackbarStateEnum == SnackbarStateEnum.WARNING
+                  ? Resources.color.stateWarning50
+                  : snackbarStateEnum == SnackbarStateEnum.POSITIVE
+                      ? Resources.color.statePositive50
+                      : Resources.color.indigo50,
+          borderColor: snackbarStateEnum == SnackbarStateEnum.ERROR
+              ? Resources.color.stateNegative
+              : snackbarStateEnum == SnackbarStateEnum.WARNING
+                  ? Resources.color.stateWarning
+                  : snackbarStateEnum == SnackbarStateEnum.POSITIVE
+                      ? Resources.color.statePositive
+                      : Resources.color.indigo700,
+          borderRadius: 6,
+          margin: const EdgeInsets.all(16),
+          titleText: snackbarTitle != null
+              ? TextNunito(
+                  text: snackbarTitle,
+                  size: 15,
+                  maxLines: 2,
+                  fontWeight: Weightenum.REGULAR,
+                  color: snackbarStateEnum == SnackbarStateEnum.ERROR
+                      ? Resources.color.stateNegative
+                      : snackbarStateEnum == SnackbarStateEnum.WARNING
+                          ? Resources.color.stateWarning
+                          : snackbarStateEnum == SnackbarStateEnum.POSITIVE
+                              ? Resources.color.statePositive
+                              : Resources.color.indigo700,
+                )
+              : null,
+          messageText: snackbarMessage != null
+              ? TextNunito(
+                  text: snackbarMessage,
+                  size: 15,
+                  maxLines: 4,
+                  fontWeight: Weightenum.REGULAR,
+                  color: snackbarStateEnum == SnackbarStateEnum.ERROR
+                      ? Resources.color.stateNegative
+                      : snackbarStateEnum == SnackbarStateEnum.WARNING
+                          ? Resources.color.stateWarning
+                          : snackbarStateEnum == SnackbarStateEnum.POSITIVE
+                              ? Resources.color.statePositive
+                              : Resources.color.indigo700,
+                )
+              : null,
+        );
+}

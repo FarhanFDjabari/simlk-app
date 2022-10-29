@@ -10,7 +10,6 @@ class ApiResponse<T> extends BaseResponse {
   ApiResponse({
     required int status,
     required String message,
-    required String domain,
     this.data,
     this.errors,
   }) : super(status: status, message: message);
@@ -19,9 +18,8 @@ class ApiResponse<T> extends BaseResponse {
     Map<String, dynamic> json,
   ) {
     return ApiResponse<T>(
-        status: json["statusCode"] as int,
+        status: json["status_code"] as int,
         message: json["message"] as String,
-        domain: json["domain"] as String,
         errors: json["errors"],
         data: _Converter<T?>().fromJson(json["results"] ?? json["data"]));
   }
@@ -37,7 +35,7 @@ class ApiResponses<T> extends BaseResponse {
   }) : super(status: status, message: message);
 
   factory ApiResponses.fromJson(Map<String, dynamic> json) => ApiResponses<T>(
-        status: json["statusCode"],
+        status: json["status_code"],
         message: json["message"],
         data: List<T>.from((json["results"] ?? json["data"])
             .map((x) => _Converter<T?>().fromJson(x))),
@@ -67,7 +65,7 @@ class PaginatedList<T> extends BaseResponse {
                 .map((x) => _Converter<T>().fromJson(x as Object))),
         links: _Links.fromJson(json["links"] ?? {}),
         meta: _Meta.fromJson(json["meta"] ?? {}),
-        status: json["statusCode"],
+        status: json["status_code"],
         message: json["message"],
       );
 }

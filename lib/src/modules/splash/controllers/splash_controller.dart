@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:app_settings/app_settings.dart';
 import 'package:get/get.dart';
 import 'package:simlk_app/src/data/storage/secure_storage_manager.dart';
+import 'package:simlk_app/src/data/storage/storage_constants.dart';
+import 'package:simlk_app/src/data/storage/storage_manager.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
 import 'package:simlk_app/src/services/base/base_object_controller.dart';
 import 'package:simlk_app/src/utils/helper/constant.dart';
@@ -36,10 +39,9 @@ class SplashController extends BaseObjectController {
         ),
         textConfirm: 'Aktifkan Koneksi Internet',
         onConfirm: () async {
-          // await AppSettings.openDeviceSettings(
-          //   asAnotherTask: true,
-          // );
-          Get.back(closeOverlays: true);
+          await AppSettings.openDeviceSettings(
+            asAnotherTask: true,
+          );
         },
       );
     }
@@ -49,12 +51,13 @@ class SplashController extends BaseObjectController {
     if (await SecureStorageManager().getToken() == null) {
       Get.offNamed(PageName.auth);
     } else {
-      // final user = UserModel.fromJson(StorageManager().get(StorageName.USERS));
-      // if (user.username?.isNotEmpty == true) {
-      //   Get.offNamed(PageName.navigation);
-      // } else {
-      //   Get.offNamed(PageName.login);
-      // }
+      if (StorageManager().has(StorageName.MAHASISWA)) {
+        Get.offNamed(PageName.root);
+      } else if (StorageManager().has(StorageName.KONSELOR)) {
+        Get.offNamed(PageName.homeKonselor);
+      } else {
+        Get.offNamed(PageName.auth);
+      }
     }
   }
 }

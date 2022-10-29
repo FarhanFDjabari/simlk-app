@@ -48,6 +48,19 @@ class StudentCompleteProfilePage
                   child: Column(
                     children: [
                       OutlinedTextfield(
+                        controller: controller.studentEmailController,
+                        keyboardType: TextInputType.name,
+                        textInputAction: TextInputAction.next,
+                        hintText: 'Masukkan email mahasiswa anda',
+                        label: TextNunito(
+                          text: 'Email Mahasiswa',
+                          size: 14,
+                          fontWeight: Weightenum.REGULAR,
+                        ),
+                        validator: Validator().notEmpty,
+                      ),
+                      SizedBox(height: 5.sp),
+                      OutlinedTextfield(
                         controller: controller.dosenPaController,
                         keyboardType: TextInputType.name,
                         textInputAction: TextInputAction.next,
@@ -90,7 +103,7 @@ class StudentCompleteProfilePage
                         label: 'Simpan',
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            controller.goToHome();
+                            controller.updateProfile();
                           }
                         },
                       ),

@@ -7,6 +7,7 @@ import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:simlk_app/src/modules/common/widgets/button/primary_button.dart';
 import 'package:simlk_app/src/modules/common/widgets/loading_overlay.dart';
+import 'package:simlk_app/src/modules/common/widgets/outlined_dropdown_textfield.dart';
 import 'package:simlk_app/src/modules/common/widgets/outlined_textfield.dart';
 import 'package:simlk_app/src/modules/common/widgets/state_handle_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
@@ -105,33 +106,37 @@ class StudentHome extends GetView<StudentHomeController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            decoration: BoxDecoration(
-                              color: Resources.color.indigo50,
-                              border: Border.all(
-                                color: Resources.color.indigo700,
+                          if (controller.localUserData.dpa?.isEmpty == true ||
+                              controller.localUserData.email?.isEmpty == true ||
+                              controller.localUserData.noHp?.isEmpty == true ||
+                              controller.localUserData.idLine?.isEmpty == true)
+                            Container(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              decoration: BoxDecoration(
+                                color: Resources.color.indigo50,
+                                border: Border.all(
+                                  color: Resources.color.indigo700,
+                                ),
+                                borderRadius: BorderRadius.circular(6),
                               ),
-                              borderRadius: BorderRadius.circular(6),
+                              child: ListTile(
+                                onTap: () {
+                                  controller.goToCompleteProfile();
+                                },
+                                title: TextNunito(
+                                  text: 'Profilmu belum lengkap',
+                                  size: 16,
+                                  fontWeight: Weightenum.BOLD,
+                                ),
+                                subtitle: TextNunito(
+                                  text:
+                                      'Lengkapi profilmu untuk memudahkan kami dalam melakukan pendataan',
+                                  maxLines: 3,
+                                  size: 16,
+                                  fontWeight: Weightenum.REGULAR,
+                                ),
+                              ),
                             ),
-                            child: ListTile(
-                              onTap: () {
-                                controller.goToCompleteProfile();
-                              },
-                              title: TextNunito(
-                                text: 'Profilmu belum lengkap',
-                                size: 16,
-                                fontWeight: Weightenum.BOLD,
-                              ),
-                              subtitle: TextNunito(
-                                text:
-                                    'Lengkapi profilmu untuk memudahkan kami dalam melakukan pendataan',
-                                maxLines: 3,
-                                size: 16,
-                                fontWeight: Weightenum.REGULAR,
-                              ),
-                            ),
-                          ),
                           const SizedBox(height: 10),
                           TextNunito(
                             text: 'Tanggal',
@@ -152,15 +157,17 @@ class StudentHome extends GetView<StudentHomeController> {
                                 calendarBuilders: CalendarBuilders(
                                   markerBuilder: (context, day, day2) {
                                     for (var i = 0;
-                                        i < controller.dummyDateData.length;
+                                        i < controller.dataList.length;
                                         i++) {
-                                      var listDate =
-                                          controller.dummyDateData[i];
+                                      var listDate = controller.dataList[i];
                                       if (DateTime(day.year, day.month, day.day)
                                           .isAtSameMomentAs(DateTime(
-                                              listDate.year,
-                                              listDate.month,
-                                              listDate.day))) {
+                                              listDate.reservationTime?.year ??
+                                                  2022,
+                                              listDate.reservationTime?.month ??
+                                                  1,
+                                              listDate.reservationTime?.day ??
+                                                  1))) {
                                         return Align(
                                           alignment: Alignment.bottomCenter,
                                           child: Container(
@@ -188,6 +195,9 @@ class StudentHome extends GetView<StudentHomeController> {
                                 onDaySelected: (selectedDay, focusedDay) {
                                   controller.selectedDay(selectedDay);
                                   controller.focusedDay(focusedDay);
+                                  controller.getReservationTimeInDate(
+                                    date: selectedDay.toIso8601String(),
+                                  );
                                 },
                                 calendarStyle: CalendarStyle(
                                   isTodayHighlighted: false,
@@ -203,73 +213,115 @@ class StudentHome extends GetView<StudentHomeController> {
                             },
                           ),
                           const SizedBox(height: 10),
-                          TextNunito(
-                            text: 'Waktu',
-                            size: 13.sp,
-                            fontWeight: Weightenum.REGULAR,
-                          ),
-                          const SizedBox(height: 5),
-                          DropdownButtonFormField<Time>(
-                            iconDisabledColor: Resources.color.neutral300,
-                            validator: (value) {
-                              if (value == null) {
-                                return 'txt_valid_notEmpty'.tr;
-                              }
-                              return null;
-                            },
-                            hint: TextNunito(
-                              text: 'Pilih waktu konseling',
-                              size: 12.sp,
+                          OutlinedDropdownTextfield<Time>(
+                            label: TextNunito(
+                              text: 'Waktu',
+                              size: 13.sp,
                               fontWeight: Weightenum.REGULAR,
                             ),
+                            hintText: 'Pilih waktu konseling',
                             items: [
                               DropdownMenuItem(
+                                value: const Time(13),
+                                enabled: !controller.reservationTimeAvailable
+                                    .contains('13.00'),
                                 child: TextNunito(
                                   text: '13.00',
                                   size: 12.sp,
                                   fontWeight: Weightenum.REGULAR,
+                                  textDecoration: controller
+                                          .reservationTimeAvailable
+                                          .contains('13.00')
+                                      ? TextDecoration.lineThrough
+                                      : null,
                                 ),
-                                value: Time(13),
                               ),
                               DropdownMenuItem(
+                                value: const Time(14),
+                                enabled: !controller.reservationTimeAvailable
+                                    .contains('14.00'),
                                 child: TextNunito(
                                   text: '14.00',
                                   size: 12.sp,
                                   fontWeight: Weightenum.REGULAR,
+                                  textDecoration: controller
+                                          .reservationTimeAvailable
+                                          .contains('14.00')
+                                      ? TextDecoration.lineThrough
+                                      : null,
                                 ),
-                                value: Time(14),
                               ),
                               DropdownMenuItem(
+                                value: const Time(15),
+                                enabled: !controller.reservationTimeAvailable
+                                    .contains('15.00'),
                                 child: TextNunito(
                                   text: '15.00',
                                   size: 12.sp,
                                   fontWeight: Weightenum.REGULAR,
+                                  textDecoration: controller
+                                          .reservationTimeAvailable
+                                          .contains('15.00')
+                                      ? TextDecoration.lineThrough
+                                      : null,
                                 ),
-                                value: Time(15),
                               ),
                             ],
                             onChanged: (value) {
-                              print(value?.hour);
+                              controller.timeHour('${value?.hour}.00');
+                              final reservationTime = DateTime(
+                                controller.selectedDay.value.year,
+                                controller.selectedDay.value.month,
+                                controller.selectedDay.value.day,
+                                value?.hour ?? 0,
+                              );
+                              print(reservationTime.toLocal().toString());
+                              controller.selectedDay(reservationTime);
                             },
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              isDense: true,
-                            ),
                           ),
                           const SizedBox(height: 10),
-                          TextNunito(
-                            text: 'Deskripsi Singkat',
-                            size: 13.sp,
-                            fontWeight: Weightenum.REGULAR,
+                          OutlinedDropdownTextfield<String>(
+                            label: TextNunito(
+                              text: 'Tipe Konseling',
+                              size: 13.sp,
+                              fontWeight: Weightenum.REGULAR,
+                            ),
+                            hintText:
+                                'Pilih tipe konseling sesuai preferensimu',
+                            items: [
+                              DropdownMenuItem(
+                                value: 'Luring',
+                                child: TextNunito(
+                                  text: 'Luring',
+                                  size: 12.sp,
+                                  fontWeight: Weightenum.REGULAR,
+                                ),
+                              ),
+                              DropdownMenuItem(
+                                value: 'Daring',
+                                child: TextNunito(
+                                  text: 'Daring',
+                                  size: 12.sp,
+                                  fontWeight: Weightenum.REGULAR,
+                                ),
+                              ),
+                            ],
+                            onChanged: (value) {
+                              print(value);
+                              controller.counselingType(value);
+                            },
                           ),
-                          const SizedBox(height: 5),
+                          const SizedBox(height: 10),
                           OutlinedTextfield(
                             controller: controller.descriptionController,
                             keyboardType: TextInputType.multiline,
                             textInputAction: TextInputAction.newline,
                             validator: Validator().notEmpty,
+                            label: TextNunito(
+                              text: 'Deskripsi Singkat',
+                              size: 13.sp,
+                              fontWeight: Weightenum.REGULAR,
+                            ),
                             maxLines: 8,
                             hintText:
                                 'Tuliskan deskripsi singkat terkait masalahmu...',
@@ -279,7 +331,9 @@ class StudentHome extends GetView<StudentHomeController> {
                             elevation: 0,
                             label: 'Buat Reservasi',
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {}
+                              if (_formKey.currentState!.validate()) {
+                                controller.createNewReservation();
+                              }
                             },
                             height: 45,
                             isLoading: controller.isLoading,

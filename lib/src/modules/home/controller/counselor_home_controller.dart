@@ -1,8 +1,30 @@
 import 'package:get/get.dart';
+import 'package:simlk_app/src/data/model/konselor/konselor.dart';
+import 'package:simlk_app/src/data/storage/storage_constants.dart';
+import 'package:simlk_app/src/data/storage/storage_manager.dart';
+import 'package:simlk_app/src/modules/notification/controllers/counselor_notification_controller.dart';
 import 'package:simlk_app/src/services/base/base_object_controller.dart';
 import 'package:simlk_app/src/utils/routes/page_name.dart';
 
-class CounselorHomeController extends BaseObjectController {
+class CounselorHomeController extends BaseObjectController<Konselor> {
+  final RxInt badgeNumber = 0.obs;
+
+  @override
+  void onInit() {
+    if (StorageManager().has(StorageName.KONSELOR)) {
+      final konselor =
+          Konselor.fromJson(StorageManager().get(StorageName.KONSELOR));
+      setFinishCallbacks(konselor);
+    }
+    super.onInit();
+  }
+
+  @override
+  void onReady() {
+    Get.find<CounselorNotificationController>().getAllNotifications();
+    super.onReady();
+  }
+
   void goToReservasi() {
     Get.toNamed(PageName.reservationKonselor);
   }

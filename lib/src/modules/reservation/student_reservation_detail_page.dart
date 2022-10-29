@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:remixicon/remixicon.dart';
 import 'package:simlk_app/src/modules/common/widgets/description_text_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/loading_overlay.dart';
 import 'package:simlk_app/src/modules/common/widgets/state_handle_widget.dart';
@@ -53,13 +52,25 @@ class StudentReservationDetailPage
                           )),
                       const SizedBox(height: 16),
                       TextNunito(
+                        text: 'Tipe Konsultasi',
+                        size: 14,
+                        fontWeight: Weightenum.REGULAR,
+                      ),
+                      const SizedBox(height: 5),
+                      TextNunito(
+                        text: '${controller.mData?.type}',
+                        size: 18,
+                        fontWeight: Weightenum.BOLD,
+                      ),
+                      const SizedBox(height: 10),
+                      TextNunito(
                         text: 'Tanggal Konsultasi',
                         size: 14,
                         fontWeight: Weightenum.REGULAR,
                       ),
                       const SizedBox(height: 5),
                       TextNunito(
-                        text: '14 Oktober 2022',
+                        text: '${controller.mData?.reservationTime}',
                         size: 18,
                         fontWeight: Weightenum.BOLD,
                       ),
@@ -71,8 +82,21 @@ class StudentReservationDetailPage
                       ),
                       const SizedBox(height: 5),
                       TextNunito(
-                        text: '14.00',
+                        text: '${controller.mData?.timeHours}',
                         size: 18,
+                        fontWeight: Weightenum.BOLD,
+                      ),
+                      const SizedBox(height: 10),
+                      TextNunito(
+                        text: 'Lokasi Konsultasi',
+                        size: 14,
+                        fontWeight: Weightenum.REGULAR,
+                      ),
+                      const SizedBox(height: 5),
+                      TextNunito(
+                        text: '${controller.mData?.location}',
+                        size: 18,
+                        isSelectable: true,
                         fontWeight: Weightenum.BOLD,
                       ),
                       const SizedBox(height: 10),
@@ -83,8 +107,7 @@ class StudentReservationDetailPage
                       ),
                       const SizedBox(height: 5),
                       DescriptionTextWidget(
-                        text:
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius turpis eget ante pharetra sodales. Vestibulum et commodo ex. Ut ut velit purus. Donec id lacus pharetra turpis aliquam cursus. Nulla sed nunc porta, hendrerit ante molestie, pellentesque justo. Nam sit amet dolor tempus dui luctus elementum tempor rutrum felis. Donec volutpat metus lacus, sed congue augue congue non.',
+                        text: '${controller.mData?.description}',
                         size: 18,
                         fontWeight: Weightenum.BOLD,
                         color: Resources.color.neutral900,

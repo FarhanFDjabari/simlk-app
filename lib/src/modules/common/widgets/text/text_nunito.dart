@@ -11,6 +11,7 @@ class TextNunito extends StatelessWidget {
   final TextAlign? align;
   final int? maxLines;
   final TextDecoration? textDecoration;
+  final bool? isSelectable;
 
   weightSwitch() {
     switch (fontWeight) {
@@ -39,22 +40,35 @@ class TextNunito extends StatelessWidget {
     this.align,
     this.maxLines,
     this.textDecoration,
+    this.isSelectable,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text ?? "",
-      textAlign: align ?? TextAlign.start,
-      style: GoogleFonts.nunitoSans(
-        fontWeight: weightSwitch(),
-        fontSize: size,
-        color: color,
-        decoration: textDecoration,
-      ),
-      softWrap: true,
-      overflow: TextOverflow.ellipsis,
-      maxLines: maxLines,
-    );
+    return isSelectable == true
+        ? SelectableText(
+            text ?? "",
+            textAlign: align ?? TextAlign.start,
+            style: GoogleFonts.nunitoSans(
+              fontWeight: weightSwitch(),
+              fontSize: size,
+              color: color,
+              decoration: textDecoration,
+            ),
+            maxLines: maxLines,
+          )
+        : Text(
+            text ?? "",
+            textAlign: align ?? TextAlign.start,
+            style: GoogleFonts.nunitoSans(
+              fontWeight: weightSwitch(),
+              fontSize: size,
+              color: color,
+              decoration: textDecoration,
+            ),
+            softWrap: true,
+            overflow: TextOverflow.ellipsis,
+            maxLines: maxLines,
+          );
   }
 }

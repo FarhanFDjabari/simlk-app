@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:simlk_app/src/data/model/reservation/reservation_schedule.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -54,7 +55,8 @@ class NotificationHelper {
     }
   }
 
-  Future<void> scheduleNotification(dynamic reservationData) async {
+  Future<void> scheduleNotification(
+      int reservationId, DateTime scheduleTime) async {
     tz.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation('Asia/Jakarta'));
 
@@ -86,11 +88,14 @@ class NotificationHelper {
             AndroidFlutterLocalNotificationsPlugin>()
         ?.requestPermission();
 
+    final scheduleTime30Before =
+        scheduleTime.subtract(const Duration(minutes: 30));
+
     flutterLocalNotificationsPlugin.zonedSchedule(
-      reservationData.id,
-      reservationData.title,
-      reservationData.body,
-      tz.TZDateTime.parse(tz.local, '${reservationData.reservationTime}'),
+      reservationId,
+      "Jadwal Bimbingan Konseling Dalam 30 Menit",
+      "Hai! jangan lupa dalam 30 menit lagi ada jadwal bimbingan konseling yang menunggumu. Silahkan cek rincian pada aplikasi",
+      tz.TZDateTime.parse(tz.local, scheduleTime30Before.toIso8601String()),
       NotificationDetails(
         android: AndroidNotificationDetails(
           channel.id,

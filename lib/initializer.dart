@@ -9,6 +9,11 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:simlk_app/firebase_options.dart';
+import 'package:simlk_app/src/data/hive/hive_adapters.dart';
+import 'package:simlk_app/src/data/hive/hive_constants.dart';
+import 'package:simlk_app/src/data/model/konselor/konselor.dart';
+import 'package:simlk_app/src/data/model/mahasiswa/mahasiswa.dart';
 import 'package:simlk_app/src/data/storage/secure_storage_manager.dart';
 import 'package:simlk_app/src/data/storage/storage_constants.dart';
 
@@ -25,12 +30,12 @@ class Initializer {
   }
 
   static Future<void> initFirebaseService() async {
-    // await Firebase.initializeApp(
-    //   options: DefaultFirebaseOptions.currentPlatform,
-    // );
-    // final fcmDeviceId = await FirebaseMessaging.instance.getToken();
-    // debugPrint('FCM token: $fcmDeviceId');
-    // await SecureStorageManager().setDeviceToken(value: fcmDeviceId);
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    final fcmDeviceId = await FirebaseMessaging.instance.getToken();
+    debugPrint('FCM token: $fcmDeviceId');
+    await SecureStorageManager().setDeviceToken(value: fcmDeviceId);
   }
 
   static globalController() {
@@ -56,9 +61,9 @@ class Initializer {
   static Future<void> initHive() async {
     Directory dir = await getApplicationDocumentsDirectory();
     await Hive.initFlutter(dir.path);
-    // HiveAdapters().registerAdapter();
-    // await Hive.openBox<UserModel>(HiveConstants.USERS_BOX);
-    // await Hive.openBox<UserCountModel>(HiveConstants.USERSCOUNT_BOX);
+    HiveAdapters().registerAdapter();
+    await Hive.openBox<Mahasiswa>(HiveConstants.MAHASISWA_BOX);
+    await Hive.openBox<Konselor>(HiveConstants.KONSELOR_BOX);
   }
 
   static void _initScreenPreference() {

@@ -1,6 +1,6 @@
 class Environments {
   static const String PRODUCTION = '';
-  static const String DEV = 'https://alfonsushosting.my.id';
+  static const String DEV = 'http://djabari-dev.my.id';
 }
 
 class ConfigEnvironments {
@@ -8,7 +8,7 @@ class ConfigEnvironments {
   static const List<Map<String, String>> _availableEnvironments = [
     {
       'env': Environments.DEV,
-      'url': 'https://alfonsushosting.my.id',
+      'url': 'http://djabari-dev.my.id',
     },
     {
       'env': Environments.PRODUCTION,

@@ -30,7 +30,7 @@ class CounselorReservationHistoryDetailPage
           ),
         ),
         title: TextNunito(
-          text: 'Mahasiswa Satu',
+          // text: '${controller.mData?.mahasiswa?.name}',
           size: 15.sp,
           fontWeight: Weightenum.BOLD,
         ),
@@ -44,9 +44,9 @@ class CounselorReservationHistoryDetailPage
         },
         // errorEnabled: controller.isError,
         // errorText: 'txt_error_general'.tr,
-        // emptyTitle: 'txt_challenge_empty_title'.tr,
-        // emptySubtitle: 'txt_challenge_empty_description'.tr,
-        // emptyEnabled: controller.isEmptyData,
+        emptyTitle: 'txt_empty_title'.tr,
+        emptySubtitle: 'txt_empty_description'.tr,
+        emptyEnabled: controller.isEmptyData,
         body: SingleChildScrollView(
           child: Card(
             margin: const EdgeInsets.all(16),
@@ -78,14 +78,14 @@ class CounselorReservationHistoryDetailPage
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             TextNunito(
-                              text: 'Mahasiswa Satu',
+                              text: '${controller.mData?.student?.name}',
                               size: 16,
                               fontWeight: Weightenum.REGULAR,
                               maxLines: 2,
                               align: TextAlign.center,
                             ),
                             TextNunito(
-                              text: '195150xxxxxxx',
+                              text: '${controller.mData?.student?.nim}',
                               size: 14,
                               fontWeight: Weightenum.REGULAR,
                               maxLines: 2,
@@ -103,7 +103,7 @@ class CounselorReservationHistoryDetailPage
                     ),
                     const SizedBox(height: 5),
                     TextNunito(
-                      text: 'Dosen PA FILKOM',
+                      text: '${controller.mData?.student?.dpa}',
                       size: 16,
                       fontWeight: Weightenum.REGULAR,
                     ),
@@ -115,8 +115,10 @@ class CounselorReservationHistoryDetailPage
                     ),
                     const SizedBox(height: 5),
                     TextNunito(
-                      text: '08xxxx/lineid',
+                      text:
+                          '${controller.mData?.student?.noHp}/${controller.mData?.student?.idLine}',
                       size: 16,
+                      isSelectable: true,
                       fontWeight: Weightenum.REGULAR,
                     ),
                     const SizedBox(height: 16),
@@ -127,13 +129,25 @@ class CounselorReservationHistoryDetailPage
                     ),
                     const SizedBox(height: 5),
                     TextNunito(
+                      text: 'Tipe Konsultasi',
+                      size: 14,
+                      fontWeight: Weightenum.REGULAR,
+                    ),
+                    const SizedBox(height: 5),
+                    TextNunito(
+                      text: '${controller.mData?.type}',
+                      size: 16,
+                      fontWeight: Weightenum.REGULAR,
+                    ),
+                    const SizedBox(height: 10),
+                    TextNunito(
                       text: 'Tanggal Konsultasi',
                       size: 14,
                       fontWeight: Weightenum.REGULAR,
                     ),
                     const SizedBox(height: 5),
                     TextNunito(
-                      text: '14 Oktober 2022',
+                      text: '${controller.mData?.reservationTime}',
                       size: 16,
                       fontWeight: Weightenum.REGULAR,
                     ),
@@ -145,8 +159,21 @@ class CounselorReservationHistoryDetailPage
                     ),
                     const SizedBox(height: 5),
                     TextNunito(
-                      text: '14.00',
+                      text: '${controller.mData?.timeHours}',
                       size: 16,
+                      fontWeight: Weightenum.REGULAR,
+                    ),
+                    const SizedBox(height: 10),
+                    TextNunito(
+                      text: 'Lokasi Konsultasi',
+                      size: 16,
+                      fontWeight: Weightenum.REGULAR,
+                    ),
+                    const SizedBox(height: 5),
+                    TextNunito(
+                      text: '${controller.mData?.location}',
+                      size: 16,
+                      isSelectable: true,
                       fontWeight: Weightenum.REGULAR,
                     ),
                     const SizedBox(height: 10),
@@ -157,8 +184,7 @@ class CounselorReservationHistoryDetailPage
                     ),
                     const SizedBox(height: 5),
                     DescriptionTextWidget(
-                      text:
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius turpis eget ante pharetra sodales. Vestibulum et commodo ex. Ut ut velit purus. Donec id lacus pharetra turpis aliquam cursus. Nulla sed nunc porta, hendrerit ante molestie, pellentesque justo. Nam sit amet dolor tempus dui luctus elementum tempor rutrum felis. Donec volutpat metus lacus, sed congue augue congue non.',
+                      text: '${controller.mData?.description}',
                       size: 16,
                       fontWeight: Weightenum.REGULAR,
                       color: Resources.color.neutral900,
@@ -185,11 +211,13 @@ class CounselorReservationHistoryDetailPage
                       elevation: 0,
                       label: 'Tambahkan Laporan',
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {}
+                        if (_formKey.currentState!.validate()) {
+                          controller.setReservationReport(
+                              id: controller.mData?.id ?? 0);
+                        }
                       },
                       height: 45,
                       isLoading: controller.isLoading,
-                      isEnabled: controller.isLoading == false,
                     ),
                   ],
                 ),

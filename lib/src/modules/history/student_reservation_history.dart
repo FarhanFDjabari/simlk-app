@@ -42,9 +42,9 @@ class StudentReservationHistoryPage
             },
             // errorEnabled: controller.isError,
             // errorText: 'txt_error_general'.tr,
-            // emptyTitle: 'txt_challenge_empty_title'.tr,
-            // emptySubtitle: 'txt_challenge_empty_description'.tr,
-            // emptyEnabled: controller.isEmptyData,
+            emptyTitle: 'txt_empty_title'.tr,
+            emptySubtitle: 'txt_empty_description'.tr,
+            emptyEnabled: controller.isEmptyData,
             body: SmartRefresher(
               enablePullDown: true,
               enablePullUp: false,
@@ -64,8 +64,10 @@ class StudentReservationHistoryPage
                   ),
                   itemBuilder: (_, index) {
                     return ReservationScheduleTile(
+                      data: controller.dataList[index],
                       onTap: () {
-                        controller.goToDetail(id: index);
+                        controller.goToDetail(
+                            id: controller.dataList[index].id ?? 0);
                       },
                       isStudentHistoryLayout: true,
                     );
@@ -73,7 +75,7 @@ class StudentReservationHistoryPage
                   separatorBuilder: (_, index) {
                     return const SizedBox(height: 8);
                   },
-                  itemCount: 2,
+                  itemCount: controller.dataList.length,
                 ),
               ),
             ),

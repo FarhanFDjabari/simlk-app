@@ -8,12 +8,12 @@ class BaseResponse {
   });
 
   factory BaseResponse.fromJson(Map<String, dynamic> json) => BaseResponse(
-        status: json["statusCode"],
+        status: json["status_code"],
         message: json["message"],
       );
 
   Map<dynamic, dynamic> toJson() => <String, dynamic>{
-        'statusCode': status,
+        'status_code': status,
         'message': message,
       };
 }

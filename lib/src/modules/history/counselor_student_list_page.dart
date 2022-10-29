@@ -41,9 +41,9 @@ class CounselorStudentListPage extends GetView<CounselorStudentListController> {
             },
             // errorEnabled: controller.isError,
             // errorText: 'txt_error_general'.tr,
-            // emptyTitle: 'txt_challenge_empty_title'.tr,
-            // emptySubtitle: 'txt_challenge_empty_description'.tr,
-            // emptyEnabled: controller.isEmptyData,
+            emptyTitle: 'txt_empty_title'.tr,
+            emptySubtitle: 'txt_empty_description'.tr,
+            emptyEnabled: controller.isEmptyData,
             body: SmartRefresher(
               enablePullDown: true,
               enablePullUp: false,
@@ -65,7 +65,8 @@ class CounselorStudentListPage extends GetView<CounselorStudentListController> {
                 itemBuilder: (_, index) {
                   return InkWell(
                     onTap: () {
-                      controller.goToReservationHistory(nim: '$index');
+                      controller.goToReservationHistory(
+                          nim: '${controller.dataList[index].nim}');
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -82,10 +83,14 @@ class CounselorStudentListPage extends GetView<CounselorStudentListController> {
                           CircleAvatar(
                             radius: 25,
                             backgroundColor: Resources.color.indigo500,
+                            backgroundImage: NetworkImage(
+                              controller.dataList[index].profileImageUrl ??
+                                  "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png",
+                            ),
                           ),
                           const SizedBox(height: 5),
                           TextNunito(
-                            text: 'Mahasiswa Satu',
+                            text: '${controller.dataList[index].name}',
                             size: 16,
                             fontWeight: Weightenum.REGULAR,
                           ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
+import 'package:simlk_app/src/modules/common/widgets/simlk_snackbar.dart';
+import 'package:simlk_app/src/utils/helper/snackbar_state_enum.dart';
 
 import 'base_refresher_status.dart';
 
@@ -63,7 +65,10 @@ abstract class BaseObjectController<T> extends GetxController {
   void _setErrorStatus(String message) {
     status = RefresherStatus.failed;
     message = (message.isNotEmpty) ? message : "Something when wrong..";
-    // Get.showSnackbar(NotesgramSnackbar(snackbarMessage: message));
+    Get.showSnackbar(SIMLKSnackbar(
+      snackbarMessage: message,
+      snackbarStateEnum: SnackbarStateEnum.ERROR,
+    ));
   }
 
   void finishLoadData({String? errorMessage}) {

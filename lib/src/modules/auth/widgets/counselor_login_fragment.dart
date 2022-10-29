@@ -31,7 +31,7 @@ class CounselorLoginFragment extends GetView<CounselorLoginController> {
                 size: 14,
                 fontWeight: Weightenum.REGULAR,
               ),
-              validator: Validator().notEmpty,
+              validator: Validator().email,
             ),
             SizedBox(height: 5.sp),
             Obx(
@@ -68,7 +68,7 @@ class CounselorLoginFragment extends GetView<CounselorLoginController> {
                   label: 'Masuk Sebagai Konselor',
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      controller.goToHome();
+                      controller.loginKonselor();
                     }
                   },
                 );

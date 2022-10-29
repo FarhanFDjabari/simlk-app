@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simlk_app/src/data/model/reservation/reservation_schedule.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
 import 'package:simlk_app/src/res/resources.dart';
 import 'package:simlk_app/src/utils/helper/constant.dart';
@@ -7,11 +8,13 @@ class ReservationScheduleTile extends StatelessWidget {
   const ReservationScheduleTile({
     this.onTap,
     this.isStudentHistoryLayout,
+    this.data,
     Key? key,
   }) : super(key: key);
 
   final Function()? onTap;
   final bool? isStudentHistoryLayout;
+  final ReservationSchedule? data;
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +38,14 @@ class ReservationScheduleTile extends StatelessWidget {
                     CircleAvatar(
                       radius: 18,
                       backgroundColor: Resources.color.indigo500,
+                      backgroundImage: NetworkImage(
+                        data?.student?.profileImageUrl ??
+                            "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png",
+                      ),
                     ),
                     const SizedBox(width: 10),
                     TextNunito(
-                      text: 'Mahasiswa Satu',
+                      text: '${data?.student?.name}',
                       size: 15,
                       fontWeight: Weightenum.BOLD,
                     ),
@@ -46,12 +53,12 @@ class ReservationScheduleTile extends StatelessWidget {
                 ),
               if (isStudentHistoryLayout == false) const SizedBox(height: 5),
               TextNunito(
-                text: 'Senin, 14 Oktober 2022',
+                text: '${data?.reservationTime}',
                 size: 18,
                 fontWeight: Weightenum.REGULAR,
               ),
               TextNunito(
-                text: '14.00',
+                text: '${data?.timeHours}',
                 size: 16,
                 fontWeight: Weightenum.REGULAR,
               ),
@@ -61,7 +68,13 @@ class ReservationScheduleTile extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
-                    color: Resources.color.indigo200,
+                    color: data?.status == 1
+                        ? Resources.color.indigo200
+                        : data?.status == 2
+                            ? Resources.color.stateWarning200
+                            : data?.status == 3
+                                ? Resources.color.indigo300
+                                : Resources.color.statePositive200,
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -72,12 +85,24 @@ class ReservationScheduleTile extends StatelessWidget {
                         height: 10,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Resources.color.indigo800,
+                          color: data?.status == 1
+                              ? Resources.color.indigo800
+                              : data?.status == 2
+                                  ? Resources.color.stateWarning
+                                  : data?.status == 3
+                                      ? Resources.color.indigo800
+                                      : Resources.color.statePositive,
                         ),
                       ),
                       const SizedBox(width: 5),
                       TextNunito(
-                        text: 'Diajukan',
+                        text: data?.status == 1
+                            ? 'Diajukan'
+                            : data?.status == 2
+                                ? 'Dalam Proses'
+                                : data?.status == 3
+                                    ? 'Penanganan'
+                                    : 'Selesai',
                         size: 14,
                         fontWeight: Weightenum.REGULAR,
                         align: TextAlign.center,

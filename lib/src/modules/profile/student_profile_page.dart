@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simlk_app/src/modules/common/widgets/button/primary_button.dart';
 import 'package:simlk_app/src/modules/common/widgets/loading_overlay.dart';
+import 'package:simlk_app/src/modules/common/widgets/simlk_dialog.dart';
 import 'package:simlk_app/src/modules/common/widgets/state_handle_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
 import 'package:simlk_app/src/modules/profile/controllers/student_profile_controller.dart';
@@ -57,6 +59,10 @@ class StudentProfilePage extends GetView<StudentProfileController> {
                         CircleAvatar(
                           radius: 35,
                           backgroundColor: Resources.color.indigo300,
+                          backgroundImage: NetworkImage(
+                            controller.mData?.profileImageUrl ??
+                                "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png",
+                          ),
                         ),
                         const SizedBox(width: 8),
                         Column(
@@ -64,17 +70,17 @@ class StudentProfilePage extends GetView<StudentProfileController> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             TextNunito(
-                              text: 'Mahasiswa Satu',
+                              text: '${controller.mData?.name}',
                               size: 14.sp,
                               fontWeight: Weightenum.BOLD,
                             ),
                             TextNunito(
-                              text: '195150xxxxxxxxx',
+                              text: '${controller.mData?.nim}',
                               size: 12.sp,
                               fontWeight: Weightenum.REGULAR,
                             ),
                             TextNunito(
-                              text: 'user@student.ub.ac.id',
+                              text: '${controller.mData?.email}',
                               size: 12.sp,
                               fontWeight: Weightenum.REGULAR,
                             ),
@@ -103,7 +109,25 @@ class StudentProfilePage extends GetView<StudentProfileController> {
                       height: 45,
                       elevation: 0,
                       label: 'Keluar',
-                      onPressed: () {},
+                      isLoading: controller.isLoading,
+                      onPressed: () {
+                        Get.dialog(
+                          SIMLKDialog(
+                            title: 'Keluar Akun',
+                            description:
+                                'Apakah Anda yakin ingin keluar dari akun?',
+                            successButtonLabel: 'IYA',
+                            cancelButtonLabel: 'BATAL',
+                            onCancelPressed: () {
+                              Get.back();
+                            },
+                            onSuccessPressed: () {
+                              Get.back();
+                              controller.logout();
+                            },
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),

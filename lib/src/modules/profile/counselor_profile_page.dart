@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simlk_app/src/modules/common/widgets/button/primary_button.dart';
 import 'package:simlk_app/src/modules/common/widgets/loading_overlay.dart';
+import 'package:simlk_app/src/modules/common/widgets/simlk_dialog.dart';
 import 'package:simlk_app/src/modules/common/widgets/state_handle_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
 import 'package:simlk_app/src/modules/profile/controllers/counselor_profile_controller.dart';
@@ -51,10 +52,14 @@ class CounselorProfilePage extends GetView<CounselorProfileController> {
                 CircleAvatar(
                   radius: 45,
                   backgroundColor: Resources.color.indigo300,
+                  backgroundImage: NetworkImage(
+                    controller.mData?.profileImageUrl ??
+                        "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png",
+                  ),
                 ),
                 const SizedBox(height: 5),
                 TextNunito(
-                  text: 'Konselor Satu',
+                  text: '${controller.mData?.name}',
                   size: 16.sp,
                   fontWeight: Weightenum.BOLD,
                   align: TextAlign.center,
@@ -62,7 +67,7 @@ class CounselorProfilePage extends GetView<CounselorProfileController> {
                 ),
                 const SizedBox(height: 2),
                 TextNunito(
-                  text: 'konselor@email.com',
+                  text: '${controller.mData?.email}',
                   size: 14.sp,
                   fontWeight: Weightenum.REGULAR,
                   align: TextAlign.center,
@@ -74,7 +79,6 @@ class CounselorProfilePage extends GetView<CounselorProfileController> {
                   isLoading: controller.isLoading,
                   label: 'Ubah Foto Profil',
                   onPressed: () {},
-                  isEnabled: controller.isLoading == false,
                 ),
                 const SizedBox(height: 10),
                 PrimaryButton(
@@ -82,8 +86,24 @@ class CounselorProfilePage extends GetView<CounselorProfileController> {
                   height: 45,
                   isLoading: controller.isLoading,
                   label: 'Keluar',
-                  onPressed: () {},
-                  isEnabled: controller.isLoading == false,
+                  onPressed: () {
+                    Get.dialog(
+                      SIMLKDialog(
+                        title: 'Keluar Akun',
+                        description:
+                            'Apakah Anda yakin ingin keluar dari akun?',
+                        successButtonLabel: 'IYA',
+                        cancelButtonLabel: 'BATAL',
+                        onCancelPressed: () {
+                          Get.back();
+                        },
+                        onSuccessPressed: () {
+                          Get.back();
+                          controller.logout();
+                        },
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

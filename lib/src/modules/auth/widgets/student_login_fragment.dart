@@ -68,8 +68,7 @@ class StudentLoginFragment extends GetView<StudentLoginController> {
                   label: 'Masuk Sebagai Mahasiswa',
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // controller.goToHome();
-                      controller.goToCompleteProfile();
+                      controller.loginMahasiswa();
                     }
                   },
                 );

@@ -44,6 +44,18 @@ class StudentReservationHistoryDetailPage
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextNunito(
+                    text: 'Tipe Konsultasi',
+                    size: 14,
+                    fontWeight: Weightenum.REGULAR,
+                  ),
+                  const SizedBox(height: 5),
+                  TextNunito(
+                    text: 'Luring',
+                    size: 18,
+                    fontWeight: Weightenum.BOLD,
+                  ),
+                  const SizedBox(height: 10),
+                  TextNunito(
                     text: 'Tanggal Konsultasi',
                     size: 14,
                     fontWeight: Weightenum.REGULAR,
@@ -64,6 +76,19 @@ class StudentReservationHistoryDetailPage
                   TextNunito(
                     text: '14.00',
                     size: 18,
+                    fontWeight: Weightenum.BOLD,
+                  ),
+                  const SizedBox(height: 10),
+                  TextNunito(
+                    text: 'Lokasi Konsultasi',
+                    size: 14,
+                    fontWeight: Weightenum.REGULAR,
+                  ),
+                  const SizedBox(height: 5),
+                  TextNunito(
+                    text: 'FILKOM UB',
+                    size: 18,
+                    isSelectable: true,
                     fontWeight: Weightenum.BOLD,
                   ),
                   const SizedBox(height: 10),

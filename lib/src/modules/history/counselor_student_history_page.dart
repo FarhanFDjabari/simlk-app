@@ -26,7 +26,7 @@ class CounselorStudentHistoryPage
           ),
         ),
         title: TextNunito(
-          text: 'Mahasiswa Satu',
+          text: controller.nimMahasiswa.value,
           size: 15.sp,
           fontWeight: Weightenum.BOLD,
         ),
@@ -44,9 +44,9 @@ class CounselorStudentHistoryPage
             },
             // errorEnabled: controller.isError,
             // errorText: 'txt_error_general'.tr,
-            // emptyTitle: 'txt_challenge_empty_title'.tr,
-            // emptySubtitle: 'txt_challenge_empty_description'.tr,
-            // emptyEnabled: controller.isEmptyData,
+            emptyTitle: 'txt_empty_title'.tr,
+            emptySubtitle: 'txt_empty_description'.tr,
+            emptyEnabled: controller.isEmptyData,
             body: SmartRefresher(
               enablePullDown: true,
               enablePullUp: false,
@@ -66,6 +66,7 @@ class CounselorStudentHistoryPage
                 itemBuilder: (_, index) {
                   return ReservationScheduleTile(
                     isStudentHistoryLayout: true,
+                    data: controller.dataList[index],
                     onTap: () {
                       controller.goToDetail(id: index);
                     },
@@ -74,7 +75,7 @@ class CounselorStudentHistoryPage
                 separatorBuilder: (_, index) {
                   return const SizedBox(height: 8);
                 },
-                itemCount: 2,
+                itemCount: controller.dataList.length,
               ),
             ),
           );

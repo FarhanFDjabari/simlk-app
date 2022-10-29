@@ -8,6 +8,7 @@ import 'package:simlk_app/src/modules/notification/controllers/counselor_notific
 import 'package:simlk_app/src/modules/notification/widgets/notification_tile.dart';
 import 'package:simlk_app/src/res/resources.dart';
 import 'package:simlk_app/src/utils/helper/constant.dart';
+import 'package:simlk_app/src/utils/helper/extensions/date_time_extension.dart';
 import 'package:sizer/sizer.dart';
 
 class CounselorNotificationPage
@@ -40,11 +41,11 @@ class CounselorNotificationPage
             onRetryPressed: () {
               // controller.getDashboard("", "");
             },
-            // errorEnabled: controller.isError,
-            // errorText: 'txt_error_general'.tr,
-            // emptyTitle: 'txt_challenge_empty_title'.tr,
-            // emptySubtitle: 'txt_challenge_empty_description'.tr,
-            // emptyEnabled: controller.isEmptyData,
+            errorEnabled: controller.isError,
+            errorText: 'txt_error_general'.tr,
+            emptyTitle: 'txt_empty_title'.tr,
+            emptySubtitle: 'txt_empty_description'.tr,
+            emptyEnabled: controller.isEmptyData,
             body: SmartRefresher(
               enablePullDown: true,
               enablePullUp: false,
@@ -63,17 +64,20 @@ class CounselorNotificationPage
                   ),
                   itemBuilder: (_, index) {
                     return NotificationTile(
-                      title: 'Title',
-                      content: 'Content',
-                      isRead: index % 2 == 0 ? true : false,
-                      date: DateTime.now().toLocal().toString(),
+                      title: '${controller.dataList[index].title}',
+                      content: '${controller.dataList[index].body}',
+                      isRead: controller.dataList[index].isRead == 1,
+                      date: DateTimeExtension(
+                              controller.dataList[index].createdAt ??
+                                  DateTime.now())
+                          .dayMonthYear,
                       onTap: () {},
                     );
                   },
                   separatorBuilder: (_, index) {
                     return const SizedBox(height: 4);
                   },
-                  itemCount: 2,
+                  itemCount: controller.dataList.length,
                 ),
               ),
             ),
