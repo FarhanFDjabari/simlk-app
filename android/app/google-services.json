@@ -29,6 +29,13 @@
             {
               "client_id": "817662386729-ak1fn3a2qeo9goip31i320256o02hdpa.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "817662386729-fujk411bh20hdhf9vhh31ddjv1huus2j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.simlkApp"
+              }
             }
           ]
         }

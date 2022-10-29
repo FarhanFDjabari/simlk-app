@@ -33,9 +33,6 @@ class Initializer {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    final fcmDeviceId = await FirebaseMessaging.instance.getToken();
-    debugPrint('FCM token: $fcmDeviceId');
-    await SecureStorageManager().setDeviceToken(value: fcmDeviceId);
   }
 
   static globalController() {

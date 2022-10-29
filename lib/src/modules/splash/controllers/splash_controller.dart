@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:app_settings/app_settings.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:simlk_app/src/data/storage/secure_storage_manager.dart';
 import 'package:simlk_app/src/data/storage/storage_constants.dart';
@@ -29,6 +31,9 @@ class SplashController extends BaseObjectController {
         'google.com',
         type: InternetAddressType.IPv4,
       );
+      final fcmDeviceId = await FirebaseMessaging.instance.getToken();
+      debugPrint('FCM token: $fcmDeviceId');
+      await SecureStorageManager().setDeviceToken(value: fcmDeviceId);
     } on SocketException catch (_) {
       Get.defaultDialog(
         title: 'Connection Error',
@@ -44,6 +49,8 @@ class SplashController extends BaseObjectController {
           );
         },
       );
+    } on Exception catch (e) {
+      debugPrint(e.toString());
     }
   }
 
