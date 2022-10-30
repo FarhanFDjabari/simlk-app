@@ -34,7 +34,9 @@ class ReservationSchedule implements ModelFactory {
       ReservationSchedule(
         id: json["id"],
         nim: json["nim"],
-        reservationTime: DateTime.parse(json["reservation_time"]),
+        reservationTime: json["reservation_time"] == null
+            ? null
+            : DateTime.parse(json["reservation_time"]),
         timeHours: json["time_hours"],
         status: json["status"],
         type: json["type"],

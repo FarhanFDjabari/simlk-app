@@ -38,7 +38,7 @@ class CounselorStudentHistoryController
           .validateStatus()
           .then((data) {
         dataList.clear();
-        setFinishCallbacks(data.data ?? []);
+        setFinishCallbacks(data.data?.reversed.toList() ?? []);
       }).handleError((onError) {
         debugPrint(onError.toString());
         finishLoadData(errorMessage: onError.toString());

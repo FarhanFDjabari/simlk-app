@@ -46,7 +46,6 @@ class CounselorReservationHistoryDetailPage
           },
           // errorEnabled: controller.isError,
           // errorText: 'txt_error_general'.tr,
-
           emptyTitle: 'txt_empty_title'.tr,
           emptySubtitle: 'txt_empty_description'.tr,
           emptyEnabled: controller.isEmptyData,
@@ -74,6 +73,10 @@ class CounselorReservationHistoryDetailPage
                           CircleAvatar(
                             radius: 30,
                             backgroundColor: Resources.color.indigo300,
+                            backgroundImage: NetworkImage(
+                              controller.mData?.student?.profileImageUrl ??
+                                  "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png",
+                            ),
                           ),
                           const SizedBox(width: 10),
                           Column(
@@ -215,7 +218,9 @@ class CounselorReservationHistoryDetailPage
                       const SizedBox(height: 16),
                       PrimaryButton(
                         elevation: 0,
-                        label: 'Tambahkan Laporan',
+                        label: controller.mData?.report?.isNotEmpty == true
+                            ? 'Ubah Laporan'
+                            : 'Tambahkan Laporan',
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             controller.setReservationReport(

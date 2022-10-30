@@ -11,12 +11,11 @@ class CounselorHomeController extends BaseObjectController<Konselor> {
 
   @override
   void onInit() {
-    if (StorageManager().has(StorageName.KONSELOR)) {
-      final konselor =
-          Konselor.fromJson(StorageManager().get(StorageName.KONSELOR));
-      setFinishCallbacks(konselor);
-    }
     super.onInit();
+  }
+
+  Konselor get localUserData {
+    return Konselor.fromJson(StorageManager().get(StorageName.KONSELOR));
   }
 
   @override

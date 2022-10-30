@@ -137,7 +137,11 @@ class StudentHome extends GetView<StudentHomeController> {
                                 ),
                               ),
                             ),
-                          const SizedBox(height: 10),
+                          if (controller.localUserData.dpa?.isEmpty == true ||
+                              controller.localUserData.email?.isEmpty == true ||
+                              controller.localUserData.noHp?.isEmpty == true ||
+                              controller.localUserData.idLine?.isEmpty == true)
+                            const SizedBox(height: 10),
                           TextNunito(
                             text: 'Tanggal',
                             size: 13.sp,
@@ -196,7 +200,7 @@ class StudentHome extends GetView<StudentHomeController> {
                                   controller.selectedDay(selectedDay);
                                   controller.focusedDay(focusedDay);
                                   controller.getReservationTimeInDate(
-                                    date: selectedDay.toIso8601String(),
+                                    date: selectedDay.toLocal().toString(),
                                   );
                                 },
                                 calendarStyle: CalendarStyle(
@@ -229,6 +233,10 @@ class StudentHome extends GetView<StudentHomeController> {
                                   text: '13:00',
                                   size: 12.sp,
                                   fontWeight: Weightenum.REGULAR,
+                                  color: controller.reservationTimeAvailable
+                                          .contains('13:00')
+                                      ? Resources.color.neutral500
+                                      : null,
                                   textDecoration: controller
                                           .reservationTimeAvailable
                                           .contains('13:00')
@@ -244,6 +252,10 @@ class StudentHome extends GetView<StudentHomeController> {
                                   text: '14:00',
                                   size: 12.sp,
                                   fontWeight: Weightenum.REGULAR,
+                                  color: controller.reservationTimeAvailable
+                                          .contains('14:00')
+                                      ? Resources.color.neutral500
+                                      : null,
                                   textDecoration: controller
                                           .reservationTimeAvailable
                                           .contains('14:00')
@@ -259,6 +271,10 @@ class StudentHome extends GetView<StudentHomeController> {
                                   text: '15:00',
                                   size: 12.sp,
                                   fontWeight: Weightenum.REGULAR,
+                                  color: controller.reservationTimeAvailable
+                                          .contains('15:00')
+                                      ? Resources.color.neutral500
+                                      : null,
                                   textDecoration: controller
                                           .reservationTimeAvailable
                                           .contains('15:00')
@@ -275,7 +291,6 @@ class StudentHome extends GetView<StudentHomeController> {
                                 controller.selectedDay.value.day,
                                 value?.hour ?? 0,
                               );
-                              print(controller.reservationTimeAvailable);
                               print(reservationTime.toLocal().toString());
                               controller.selectedDay(reservationTime);
                             },

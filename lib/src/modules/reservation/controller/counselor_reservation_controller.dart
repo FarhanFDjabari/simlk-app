@@ -21,7 +21,7 @@ class CounselorReservationController
 
   @override
   void refreshPage() {
-    // TODO: implement refreshPage
+    getOngoingReservations();
   }
 
   void goToDetail({required int id}) {

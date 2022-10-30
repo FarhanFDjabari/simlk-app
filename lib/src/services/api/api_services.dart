@@ -111,7 +111,7 @@ abstract class RestClient {
   Future<ApiResponses<ReservationSchedule>> fetchKonselorOngoingReservation();
 
   @GET('/mahasiswa/history-uncompleted')
-  Future<ApiResponse<Mahasiswa>> fetchMahasiswaOngoingReservation();
+  Future<ApiResponses<ReservationSchedule>> fetchMahasiswaOngoingReservation();
 
   @MultiPart()
   @PUT('/konselor/profile')

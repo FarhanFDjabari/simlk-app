@@ -55,6 +55,7 @@ class NotificationTile extends StatelessWidget {
                     TextNunito(
                       text: title,
                       size: 12.sp,
+                      maxLines: 2,
                       fontWeight: Weightenum.BOLD,
                     ),
                     TextNunito(

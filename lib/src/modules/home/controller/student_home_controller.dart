@@ -17,7 +17,7 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
   final Rx<DateTime> focusedDay = DateTime.now().obs;
   final Rx<DateTime> selectedDay = DateTime.now().obs;
   final RxString counselingType = "Luring".obs;
-  final RxString timeHour = "13.00".obs;
+  final RxString timeHour = "00:00".obs;
   final descriptionController = TextEditingController();
   final RxList<String> reservationTimeAvailable = <String>[].obs;
 
@@ -35,7 +35,7 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
 
   @override
   void refreshPage() {
-    // TODO: implement refreshPage
+    getOngoingSchedule();
   }
 
   void goToNotification() {
@@ -46,6 +46,10 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
     Get.toNamed(PageName.profileCompleteStudent);
   }
 
+  void resetForm() {
+    descriptionController.clear();
+  }
+
   Mahasiswa get localUserData =>
       Mahasiswa.fromJson(StorageManager().get(StorageName.MAHASISWA));
 
@@ -54,7 +58,7 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
     await client().then((value) {
       value.fetchMahasiswaOngoingReservation().validateStatus().then((data) {
         dataList.clear();
-        setFinishCallbacks(data.data?.reservations ?? []);
+        setFinishCallbacks(data.data ?? []);
       }).handleError((onError) {
         debugPrint(onError.toString());
         finishLoadData(errorMessage: onError.toString());
@@ -72,6 +76,7 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
         final availableTimeFromApi =
             data.data?.map((e) => e.timeHours ?? "").toList();
         reservationTimeAvailable(availableTimeFromApi);
+        timeHour("00:00");
         finishLoadData();
       }).handleError((onError) {
         debugPrint(onError.toString());
@@ -99,6 +104,8 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
         ));
         finishLoadData();
         getOngoingSchedule();
+        resetForm();
+        getReservationTimeInDate(date: selectedDay.value.toLocal().toString());
       }).handleError((onError) {
         debugPrint(onError.toString());
         finishLoadData(errorMessage: onError.toString());

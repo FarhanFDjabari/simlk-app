@@ -27,7 +27,7 @@ class CounselorHome extends GetView<CounselorHomeController> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextNunito(
-                      text: 'Selamat Datang, ${controller.mData?.name}!',
+                      text: 'Selamat Datang, ${controller.localUserData.name}!',
                       size: 14.sp,
                       fontWeight: Weightenum.BOLD,
                     ),
@@ -38,7 +38,7 @@ class CounselorHome extends GetView<CounselorHomeController> {
                         radius: 40,
                         backgroundColor: Resources.color.indigo300,
                         backgroundImage: NetworkImage(
-                          controller.mData?.profileImageUrl ??
+                          controller.localUserData.profileImageUrl ??
                               "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png",
                         ),
                       ),
@@ -114,14 +114,15 @@ class CounselorHome extends GetView<CounselorHomeController> {
                               borderRadius: BorderRadius.circular(6),
                             ),
                             child: Center(
-                              child: TextNunito(
-                                text: 'Notifikasi (${controller.badgeNumber})',
-                                maxLines: 2,
-                                align: TextAlign.center,
-                                size: 16.sp,
-                                fontWeight: Weightenum.BOLD,
-                                color: Resources.color.neutral50,
-                              ),
+                              child: Obx(() => TextNunito(
+                                    text:
+                                        'Notifikasi (${controller.badgeNumber})',
+                                    maxLines: 2,
+                                    align: TextAlign.center,
+                                    size: 16.sp,
+                                    fontWeight: Weightenum.BOLD,
+                                    color: Resources.color.neutral50,
+                                  )),
                             ),
                           ),
                         ),

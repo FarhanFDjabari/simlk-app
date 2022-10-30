@@ -79,6 +79,7 @@ class CounselorStudentListPage extends GetView<CounselorStudentListController> {
                         ),
                         borderRadius: BorderRadius.circular(6),
                       ),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -96,6 +97,8 @@ class CounselorStudentListPage extends GetView<CounselorStudentListController> {
                           TextNunito(
                             text: '${controller.dataList[index].name}',
                             size: 16,
+                            maxLines: 2,
+                            align: TextAlign.center,
                             fontWeight: Weightenum.REGULAR,
                           ),
                         ],

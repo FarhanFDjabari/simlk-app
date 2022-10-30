@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simlk_app/src/data/model/mahasiswa/mahasiswa.dart';
 import 'package:simlk_app/src/data/storage/secure_storage_manager.dart';
 import 'package:simlk_app/src/data/storage/storage_constants.dart';
 import 'package:simlk_app/src/data/storage/storage_manager.dart';
+import 'package:simlk_app/src/modules/common/widgets/bottom_sheet/image_pick_bottomsheet.dart';
 import 'package:simlk_app/src/services/api/api_services.dart';
 import 'package:simlk_app/src/services/base/base_object_controller.dart';
 import 'package:simlk_app/src/services/errorhandler/error_handler.dart';
@@ -24,23 +28,43 @@ class StudentProfileController extends BaseObjectController<Mahasiswa> {
     Get.toNamed(PageName.profileCompleteStudent);
   }
 
-  Future<void> updateProfile() async {
+  Future<void> updateProfile({required File image}) async {
     loadingState();
 
-    // await client().then((value) {
-    //   value
-    //       .updateMahasiswaProfile(
-    //         imageProfile: ,
-    //       )
-    //       .validateStatus()
-    //       .then((data) async {
-    //     finishLoadData();
-    //     await saveAuthData();
-    //   }).handleError((onError) {
-    //     debugPrint(onError.toString());
-    //     finishLoadData(errorMessage: onError.toString());
-    //   });
-    // });
+    await client().then((value) {
+      value
+          .updateKonselorProfile(
+            imageProfile: image,
+          )
+          .validateStatus()
+          .then((data) async {
+        finishLoadData();
+        await saveAuthData();
+      }).handleError((onError) {
+        debugPrint(onError.toString());
+        finishLoadData(errorMessage: onError.toString());
+      });
+    });
+  }
+
+  void showPhotoProfileBottomSheet() {
+    Get.bottomSheet(
+      ImagePickBottomSheet(
+        multiFile: false,
+        pickCallback: (image) {
+          if (image != null) {
+            updateProfile(image: image);
+          }
+          Get.back();
+        },
+        pickCallbackMultiple: (_) {},
+      ),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(10),
+        ),
+      ),
+    );
   }
 
   Future<void> saveAuthData() async {

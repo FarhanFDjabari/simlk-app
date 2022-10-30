@@ -98,10 +98,13 @@ class StudentReservationDetailPage
                       ),
                       const SizedBox(height: 5),
                       TextNunito(
-                        text: '${controller.mData?.location}',
+                        text: controller.mData?.location ?? 'Belum tersedia',
                         size: 18,
                         isSelectable: true,
                         fontWeight: Weightenum.BOLD,
+                        color: controller.mData?.location?.isNotEmpty == true
+                            ? null
+                            : Resources.color.neutral400,
                       ),
                       const SizedBox(height: 10),
                       TextNunito(

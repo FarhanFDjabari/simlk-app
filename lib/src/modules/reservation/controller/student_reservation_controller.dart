@@ -27,7 +27,7 @@ class StudentReservationController
     await client().then((value) {
       value.fetchMahasiswaOngoingReservation().validateStatus().then((data) {
         dataList.clear();
-        setFinishCallbacks(data.data?.reservations?.reversed.toList() ?? []);
+        setFinishCallbacks(data.data?.reversed.toList() ?? []);
       }).handleError((onError) {
         debugPrint(onError.toString());
         finishLoadData(errorMessage: onError.toString());

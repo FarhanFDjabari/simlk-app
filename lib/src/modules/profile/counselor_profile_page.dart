@@ -31,81 +31,85 @@ class CounselorProfilePage extends GetView<CounselorProfileController> {
         ),
         foregroundColor: Resources.color.neutral50,
       ),
-      body: StateHandleWidget(
-        shimmerView: const LoadingOverlay(),
-        loadingEnabled: controller.isLoading,
-        onRetryPressed: () {
-          // controller.getDashboard("", "");
-        },
-        // errorEnabled: controller.isError,
-        // errorText: 'txt_error_general'.tr,
-        // emptyTitle: 'txt_challenge_empty_title'.tr,
-        // emptySubtitle: 'txt_challenge_empty_description'.tr,
-        // emptyEnabled: controller.isEmptyData,
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  radius: 45,
-                  backgroundColor: Resources.color.indigo300,
-                  backgroundImage: NetworkImage(
-                    controller.mData?.profileImageUrl ??
-                        "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png",
+      body: GetBuilder<CounselorProfileController>(
+        builder: (_) => StateHandleWidget(
+          shimmerView: const LoadingOverlay(),
+          loadingEnabled: controller.isLoading,
+          onRetryPressed: () {
+            // controller.getDashboard("", "");
+          },
+          // errorEnabled: controller.isError,
+          // errorText: 'txt_error_general'.tr,
+          // emptyTitle: 'txt_challenge_empty_title'.tr,
+          // emptySubtitle: 'txt_challenge_empty_description'.tr,
+          // emptyEnabled: controller.isEmptyData,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 45,
+                    backgroundColor: Resources.color.indigo300,
+                    backgroundImage: NetworkImage(
+                      controller.mData?.profileImageUrl ??
+                          "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png",
+                    ),
                   ),
-                ),
-                const SizedBox(height: 5),
-                TextNunito(
-                  text: '${controller.mData?.name}',
-                  size: 16.sp,
-                  fontWeight: Weightenum.BOLD,
-                  align: TextAlign.center,
-                  maxLines: 2,
-                ),
-                const SizedBox(height: 2),
-                TextNunito(
-                  text: '${controller.mData?.email}',
-                  size: 14.sp,
-                  fontWeight: Weightenum.REGULAR,
-                  align: TextAlign.center,
-                ),
-                const SizedBox(height: 24),
-                PrimaryButton(
-                  elevation: 0,
-                  height: 45,
-                  isLoading: controller.isLoading,
-                  label: 'Ubah Foto Profil',
-                  onPressed: () {},
-                ),
-                const SizedBox(height: 10),
-                PrimaryButton(
-                  elevation: 0,
-                  height: 45,
-                  isLoading: controller.isLoading,
-                  label: 'Keluar',
-                  onPressed: () {
-                    Get.dialog(
-                      SIMLKDialog(
-                        title: 'Keluar Akun',
-                        description:
-                            'Apakah Anda yakin ingin keluar dari akun?',
-                        successButtonLabel: 'IYA',
-                        cancelButtonLabel: 'BATAL',
-                        onCancelPressed: () {
-                          Get.back();
-                        },
-                        onSuccessPressed: () {
-                          Get.back();
-                          controller.logout();
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ],
+                  const SizedBox(height: 5),
+                  TextNunito(
+                    text: '${controller.mData?.name}',
+                    size: 16.sp,
+                    fontWeight: Weightenum.BOLD,
+                    align: TextAlign.center,
+                    maxLines: 2,
+                  ),
+                  const SizedBox(height: 2),
+                  TextNunito(
+                    text: '${controller.mData?.email}',
+                    size: 14.sp,
+                    fontWeight: Weightenum.REGULAR,
+                    align: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24),
+                  PrimaryButton(
+                    elevation: 0,
+                    height: 45,
+                    isLoading: controller.isLoading,
+                    label: 'Ubah Foto Profil',
+                    onPressed: () {
+                      controller.showPhotoProfileBottomSheet();
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  PrimaryButton(
+                    elevation: 0,
+                    height: 45,
+                    isLoading: controller.isLoading,
+                    label: 'Keluar',
+                    onPressed: () {
+                      Get.dialog(
+                        SIMLKDialog(
+                          title: 'Keluar Akun',
+                          description:
+                              'Apakah Anda yakin ingin keluar dari akun?',
+                          successButtonLabel: 'IYA',
+                          cancelButtonLabel: 'BATAL',
+                          onCancelPressed: () {
+                            Get.back();
+                          },
+                          onSuccessPressed: () {
+                            Get.back();
+                            controller.logout();
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

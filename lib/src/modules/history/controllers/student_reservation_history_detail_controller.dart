@@ -9,9 +9,9 @@ class StudentReservationHistoryDetailController
     extends BaseObjectController<ReservationSchedule> {
   @override
   void onInit() {
-    id = Get.parameters['id'].toString();
     getReservationDetail(
         id: int.tryParse(Get.parameters['id'].toString()) ?? 0);
+    id = Get.parameters['id'].toString();
     super.onInit();
   }
 

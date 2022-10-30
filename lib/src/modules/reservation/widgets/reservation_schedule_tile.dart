@@ -71,11 +71,11 @@ class ReservationScheduleTile extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
                     color: data?.status == 1
-                        ? Resources.color.indigo200
+                        ? Resources.color.indigo10
                         : data?.status == 2
                             ? Resources.color.stateWarning50
                             : data?.status == 3
-                                ? Resources.color.indigo300
+                                ? Resources.color.indigo50
                                 : Resources.color.statePositive50,
                   ),
                   child: Row(

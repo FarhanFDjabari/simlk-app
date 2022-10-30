@@ -66,11 +66,10 @@ class ErrorHandler {
                       : NetworkExceptions.badRequest();
                   break;
                 case 500:
-                  networkExceptions = networkExceptions =
-                      error.response?.data['message'] != null
-                          ? NetworkExceptions.defaultError(
-                              error.response?.data['message'])
-                          : NetworkExceptions.internalServerError();
+                  networkExceptions = error.response?.data['message'] != null
+                      ? NetworkExceptions.defaultError(
+                          error.response?.data['message'])
+                      : NetworkExceptions.internalServerError();
                   break;
                 case 503:
                   networkExceptions = NetworkExceptions.serviceUnavailable();
@@ -106,7 +105,9 @@ class ErrorHandler {
       }
     } else {
       if (error.toString().contains("is not a subtype of")) {
-        return NetworkExceptions.unableToProcess();
+        return error.response?.data['message'] != null
+            ? NetworkExceptions.defaultError(error.response?.data['message'])
+            : NetworkExceptions.unableToProcess();
       } else {
         return NetworkExceptions.defaultError(error.toString());
       }

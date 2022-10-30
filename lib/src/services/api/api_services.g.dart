@@ -423,13 +423,14 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<ApiResponse<Mahasiswa>> fetchMahasiswaOngoingReservation() async {
+  Future<ApiResponses<ReservationSchedule>>
+      fetchMahasiswaOngoingReservation() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<Mahasiswa>>(Options(
+        _setStreamType<ApiResponses<ReservationSchedule>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -441,7 +442,7 @@ class _RestClient implements RestClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponse<Mahasiswa>.fromJson(_result.data!);
+    final value = ApiResponses<ReservationSchedule>.fromJson(_result.data!);
     return value;
   }
 

@@ -102,7 +102,9 @@ class StudentProfilePage extends GetView<StudentProfileController> {
                       height: 45,
                       elevation: 0,
                       label: 'Ubah Foto Profil',
-                      onPressed: () {},
+                      onPressed: () {
+                        controller.showPhotoProfileBottomSheet();
+                      },
                     ),
                     const SizedBox(height: 5),
                     PrimaryButton(

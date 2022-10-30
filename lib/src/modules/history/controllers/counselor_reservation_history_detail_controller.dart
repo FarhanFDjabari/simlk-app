@@ -49,8 +49,8 @@ class CounselorReservationHistoryDetailController
           )
           .validateStatus()
           .then((data) {
+        mData?.report = reportController.text;
         finishLoadData();
-        getReservationDetail(id: id);
       }).handleError((onError) {
         debugPrint(onError.toString());
         finishLoadData(errorMessage: onError.toString());
