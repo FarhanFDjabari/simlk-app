@@ -79,9 +79,6 @@ abstract class RestClient {
     @Field("type") String? counselingType,
   });
 
-  @GET('/reservation-schedules')
-  Future<ApiResponses<ReservationSchedule>> fetchCalendarReservations();
-
   @GET('/reservation-schedules/reservation-date/{date}')
   Future<ApiResponses<ReservationSchedule>> fetchReservationTimeByDate({
     @Path("date") String? date,
@@ -125,9 +122,6 @@ abstract class RestClient {
     @Query("id") int? reservationId,
     @Query("location") String? location,
   });
-
-  // @GET('/reservation-history')
-  // Future<ApiResponses<Mahasiswa>> fetchMahasiswaReservationList();
 
   @GET('/reservation-history/{nim}')
   Future<ApiResponses<ReservationSchedule>> fetchReservationScheduleByNim({

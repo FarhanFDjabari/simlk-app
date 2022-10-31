@@ -33,7 +33,7 @@ class StudentProfileController extends BaseObjectController<Mahasiswa> {
 
     await client().then((value) {
       value
-          .updateKonselorProfile(
+          .updateMahasiswaProfile(
             imageProfile: image,
           )
           .validateStatus()

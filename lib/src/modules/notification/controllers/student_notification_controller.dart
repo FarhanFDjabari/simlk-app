@@ -10,7 +10,6 @@ import 'package:simlk_app/src/services/errorhandler/error_handler.dart';
 class StudentNotificationController extends BaseListController<Notification> {
   @override
   void onInit() {
-    getAllNotifications();
     super.onInit();
   }
 
