@@ -9,13 +9,21 @@ import 'package:simlk_app/src/utils/routes/page_name.dart';
 class CounselorHomeController extends BaseObjectController<Konselor> {
   final RxInt badgeNumber = 0.obs;
 
+  final dummyData = Konselor(
+    id: 1,
+    name: 'Konselor Prototype',
+    profileImageUrl:
+        "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png",
+    email: 'konselor@test.com',
+  );
+
   @override
   void onInit() {
     super.onInit();
   }
 
   Konselor get localUserData {
-    return Konselor.fromJson(StorageManager().get(StorageName.KONSELOR));
+    return dummyData;
   }
 
   @override

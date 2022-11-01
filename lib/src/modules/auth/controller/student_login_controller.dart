@@ -32,43 +32,43 @@ class StudentLoginController extends BaseObjectController<Mahasiswa> {
 
   Future<void> loginMahasiswa() async {
     loadingState();
-    final fcmToken = await SecureStorageManager().getDeviceToken();
+    // final fcmToken = await SecureStorageManager().getDeviceToken();
 
-    await client().then((value) {
-      value
-          .loginMahasiswa(
-            nimController.text,
-            passwordController.text,
-            fcmToken,
-          )
-          .validateStatus()
-          .then((data) async {
-        await SecureStorageManager().setToken(value: data.data?.token);
-        await saveAuthData();
-      }).handleError((onError) {
-        SecureStorageManager().setToken(value: null);
-        debugPrint(onError.toString());
-        finishLoadData(errorMessage: onError.toString());
-      });
-    });
+    // await client().then((value) {
+    //   value
+    //       .loginMahasiswa(
+    //         nimController.text,
+    //         passwordController.text,
+    //         fcmToken,
+    //       )
+    //       .validateStatus()
+    //       .then((data) async {
+    //     await SecureStorageManager().setToken(value: data.data?.token);
+    await saveAuthData();
+    //   }).handleError((onError) {
+    //     SecureStorageManager().setToken(value: null);
+    //     debugPrint(onError.toString());
+    //     finishLoadData(errorMessage: onError.toString());
+    //   });
+    // });
   }
 
   Future<void> saveAuthData() async {
     loadingState();
-    await client().then((value) {
-      value.fetchMahasiswaProfile().validateStatus().then((data) async {
-        StorageManager().write(StorageName.MAHASISWA, data.data?.toJson());
-        setFinishCallbacks(data.data);
-        if (data.data?.dpa != null) {
-          goToHome();
-        } else {
-          goToCompleteProfile();
-        }
-      }).handleError((onError) {
-        SecureStorageManager().setToken(value: null);
-        debugPrint(onError.toString());
-        finishLoadData(errorMessage: onError.toString());
-      });
-    });
+    // await client().then((value) {
+    //   value.fetchMahasiswaProfile().validateStatus().then((data) async {
+    //     StorageManager().write(StorageName.MAHASISWA, data.data?.toJson());
+    //     setFinishCallbacks(data.data);
+    //     if (data.data?.dpa != null) {
+    //       goToHome();
+    //     } else {
+    Future.delayed(const Duration(seconds: 3), goToCompleteProfile);
+    // }
+    //   }).handleError((onError) {
+    //     SecureStorageManager().setToken(value: null);
+    //     debugPrint(onError.toString());
+    //     finishLoadData(errorMessage: onError.toString());
+    //   });
+    // });
   }
 }

@@ -47,40 +47,43 @@ class StudentCompleteProfileController extends BaseObjectController {
   Future<void> updateProfile() async {
     loadingState();
 
-    await client().then((value) {
-      value
-          .updateMahasiswaProfile(
-            dosenPa: dosenPaController.text,
-            idLine: lineIdController.text,
-            noHp: phoneNumberController.text,
-            email: studentEmailController.text,
-          )
-          .validateStatus()
-          .then((data) async {
-        finishLoadData();
-        await saveAuthData();
-      }).handleError((onError) {
-        debugPrint(onError.toString());
-        finishLoadData(errorMessage: onError.toString());
-      });
-    });
+    // await client().then((value) {
+    //   value
+    //       .updateMahasiswaProfile(
+    //         dosenPa: dosenPaController.text,
+    //         idLine: lineIdController.text,
+    //         noHp: phoneNumberController.text,
+    //         email: studentEmailController.text,
+    //       )
+    //       .validateStatus()
+    //       .then((data) async {
+    //     finishLoadData();
+    await saveAuthData();
+    //   }).handleError((onError) {
+    //     debugPrint(onError.toString());
+    //     finishLoadData(errorMessage: onError.toString());
+    //   });
+    // });
   }
 
   Future<void> saveAuthData() async {
     loadingState();
-    await client().then((value) {
-      value.fetchMahasiswaProfile().validateStatus().then((data) async {
-        StorageManager().write(StorageName.MAHASISWA, data.data?.toJson());
-        finishLoadData();
-        if (isFromLogin) {
-          goToHome();
-        } else {
-          Get.showSnackbar(SIMLKSnackbar(snackbarMessage: data.message));
-        }
-      }).handleError((onError) {
-        debugPrint(onError.toString());
-        finishLoadData(errorMessage: onError.toString());
-      });
+    // await client().then((value) {
+    //   value.fetchMahasiswaProfile().validateStatus().then((data) async {
+    //     StorageManager().write(StorageName.MAHASISWA, data.data?.toJson());
+    //     finishLoadData();
+    Future.delayed(const Duration(seconds: 2), () {
+      if (isFromLogin) {
+        goToHome();
+      } else {
+        Get.showSnackbar(
+            SIMLKSnackbar(snackbarMessage: 'Data berhasil disimpan'));
+      }
     });
+    //   }).handleError((onError) {
+    //     debugPrint(onError.toString());
+    //     finishLoadData(errorMessage: onError.toString());
+    //   });
+    // });
   }
 }

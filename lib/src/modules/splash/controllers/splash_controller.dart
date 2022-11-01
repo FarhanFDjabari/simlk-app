@@ -21,37 +21,36 @@ class SplashController extends BaseObjectController {
 
   Future<void> initSplash() async {
     loadingState();
-    await checkInternetCon();
-    await checkUserData();
+    Future.delayed(const Duration(seconds: 3), checkUserData);
   }
 
   Future<void> checkInternetCon() async {
-    try {
-      await InternetAddress.lookup(
-        'google.com',
-        type: InternetAddressType.IPv4,
-      );
-      final fcmDeviceId = await FirebaseMessaging.instance.getToken();
-      debugPrint('FCM token: $fcmDeviceId');
-      await SecureStorageManager().setDeviceToken(value: fcmDeviceId);
-    } on SocketException catch (_) {
-      Get.defaultDialog(
-        title: 'Connection Error',
-        content: TextNunito(
-          text: 'Perangkat kamu tidak terkoneksi dengan internet',
-          size: 12.sp,
-          fontWeight: Weightenum.REGULAR,
-        ),
-        textConfirm: 'Aktifkan Koneksi Internet',
-        onConfirm: () async {
-          await AppSettings.openDeviceSettings(
-            asAnotherTask: true,
-          );
-        },
-      );
-    } on Exception catch (e) {
-      debugPrint(e.toString());
-    }
+    // try {
+    //   await InternetAddress.lookup(
+    //     'google.com',
+    //     type: InternetAddressType.IPv4,
+    //   );
+    //   final fcmDeviceId = await FirebaseMessaging.instance.getToken();
+    //   debugPrint('FCM token: $fcmDeviceId');
+    //   await SecureStorageManager().setDeviceToken(value: fcmDeviceId);
+    // } on SocketException catch (_) {
+    //   Get.defaultDialog(
+    //     title: 'Connection Error',
+    //     content: TextNunito(
+    //       text: 'Perangkat kamu tidak terkoneksi dengan internet',
+    //       size: 12.sp,
+    //       fontWeight: Weightenum.REGULAR,
+    //     ),
+    //     textConfirm: 'Aktifkan Koneksi Internet',
+    //     onConfirm: () async {
+    //       await AppSettings.openDeviceSettings(
+    //         asAnotherTask: true,
+    //       );
+    //     },
+    //   );
+    // } on Exception catch (e) {
+    //   debugPrint(e.toString());
+    // }
   }
 
   Future<void> checkUserData() async {

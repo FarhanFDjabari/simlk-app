@@ -22,6 +22,32 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
   final descriptionController = TextEditingController();
   final RxList<String> reservationTimeAvailable = <String>[].obs;
 
+  final dummyData = [
+    ReservationSchedule(
+      id: 0,
+      nim: '195150700111015',
+      reservationTime: DateTime.parse('2022-11-25T08:00:00.000Z'),
+      timeHours: '15:00',
+      status: 4,
+      description: 'Saya memiliki masalah dalam menjalankan perkuliahan',
+      report: 'Kamu harus lebih fokus',
+      location: 'Ruang Konseling A.16',
+      type: 'Luring',
+    ),
+  ];
+
+  final dummyMahasiswa = Mahasiswa(
+    nim: '195150700111015',
+    dpa: 'Issa Arwani',
+    email: 'ffadhilah8@student.ub.ac.id',
+    name: 'Farhan Fadhilah Djabari',
+    role: 1,
+    noHp: '085156012902',
+    idLine: 'ffadhilahdjabari',
+    profileImageUrl:
+        "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png",
+  );
+
   @override
   void onInit() async {
     await getReservationTimeInDate(date: DateTime.now().toLocal().toString());
@@ -50,69 +76,72 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
     descriptionController.clear();
   }
 
-  Mahasiswa get localUserData =>
-      Mahasiswa.fromJson(StorageManager().get(StorageName.MAHASISWA));
+  Mahasiswa get localUserData => dummyMahasiswa;
 
   Future<void> getOngoingSchedule() async {
     loadingState();
-    await client().then((value) {
-      value.fetchMahasiswaOngoingReservation().validateStatus().then((data) {
-        dataList.clear();
-        Get.find<StudentReservationController>().dataList.clear();
-        Get.find<StudentReservationController>()
-            .setFinishCallbacks(data.data?.reversed.toList() ?? []);
-        setFinishCallbacks(data.data ?? []);
-      }).handleError((onError) {
-        debugPrint(onError.toString());
-        finishLoadData(errorMessage: onError.toString());
-      });
+    // await client().then((value) {
+    //   value.fetchMahasiswaOngoingReservation().validateStatus().then((data) {
+    Future.delayed(const Duration(seconds: 3), () {
+      dataList.clear();
+      Get.find<StudentReservationController>().dataList.clear();
+      Get.find<StudentReservationController>()
+          .setFinishCallbacks(dummyData.reversed.toList());
+      setFinishCallbacks(dummyData);
     });
+    //   }).handleError((onError) {
+    //     debugPrint(onError.toString());
+    //     finishLoadData(errorMessage: onError.toString());
+    //   });
+    // });
   }
 
   Future<void> getReservationTimeInDate({required String date}) async {
-    loadingState();
-    await client().then((value) {
-      value
-          .fetchReservationTimeByDate(date: date)
-          .validateStatus()
-          .then((data) {
-        final availableTimeFromApi =
-            data.data?.map((e) => e.timeHours ?? "").toList();
-        reservationTimeAvailable(availableTimeFromApi);
-        timeHour("00:00");
-        finishLoadData();
-      }).handleError((onError) {
-        debugPrint(onError.toString());
-        finishLoadData(errorMessage: onError.toString());
-      });
-    });
+    // loadingState();
+    // await client().then((value) {
+    //   value
+    //       .fetchReservationTimeByDate(date: date)
+    //       .validateStatus()
+    //       .then((data) {
+    //     final availableTimeFromApi =
+    //         data.data?.map((e) => e.timeHours ?? "").toList();
+    //     reservationTimeAvailable(availableTimeFromApi);
+    //     timeHour("00:00");
+    //     finishLoadData();
+    //   }).handleError((onError) {
+    //     debugPrint(onError.toString());
+    //     finishLoadData(errorMessage: onError.toString());
+    //   });
+    // });
   }
 
   Future<void> createNewReservation() async {
     loadingState();
-    await client().then((value) {
-      value
-          .createMahasiswaReservation(
-            counselingType: counselingType.value,
-            description: descriptionController.text,
-            reservationTime: selectedDay.value.toLocal().toString(),
-            timeHours: timeHour.value,
-          )
-          .validateStatus()
-          .then((data) {
-        NotificationHelper().scheduleNotification(0, selectedDay.value);
-        Get.showSnackbar(SIMLKSnackbar(
-          snackbarMessage: 'Berhasil membuat reservasi',
-          snackbarStateEnum: SnackbarStateEnum.POSITIVE,
-        ));
-        finishLoadData();
-        getOngoingSchedule();
-        resetForm();
-        getReservationTimeInDate(date: selectedDay.value.toLocal().toString());
-      }).handleError((onError) {
-        debugPrint(onError.toString());
-        finishLoadData(errorMessage: onError.toString());
-      });
+    // await client().then((value) {
+    //   value
+    //       .createMahasiswaReservation(
+    //         counselingType: counselingType.value,
+    //         description: descriptionController.text,
+    //         reservationTime: selectedDay.value.toLocal().toString(),
+    //         timeHours: timeHour.value,
+    //       )
+    //       .validateStatus()
+    //       .then((data) {
+    //     NotificationHelper().scheduleNotification(0, selectedDay.value);
+    Future.delayed(const Duration(seconds: 3), () {
+      Get.showSnackbar(SIMLKSnackbar(
+        snackbarMessage: 'Berhasil membuat reservasi',
+        snackbarStateEnum: SnackbarStateEnum.POSITIVE,
+      ));
+      finishLoadData();
+      // getOngoingSchedule();
+      resetForm();
+      // getReservationTimeInDate(date: selectedDay.value.toLocal().toString());
     });
+    //   }).handleError((onError) {
+    //     debugPrint(onError.toString());
+    //     finishLoadData(errorMessage: onError.toString());
+    //   });
+    // });
   }
 }

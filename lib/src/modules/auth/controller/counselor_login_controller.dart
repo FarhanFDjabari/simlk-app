@@ -27,39 +27,39 @@ class CounselorLoginController extends BaseObjectController<Konselor> {
 
   Future<void> loginKonselor() async {
     loadingState();
-    final fcmToken = await SecureStorageManager().getDeviceToken();
+    // final fcmToken = await SecureStorageManager().getDeviceToken();
 
-    await client().then((value) {
-      value
-          .loginKonselor(
-            emailController.text,
-            passwordController.text,
-            fcmToken,
-          )
-          .validateStatus()
-          .then((data) async {
-        await SecureStorageManager().setToken(value: data.data?.token);
-        await saveAuthData();
-      }).handleError((onError) {
-        SecureStorageManager().setToken(value: null);
-        debugPrint(onError.toString());
-        finishLoadData(errorMessage: onError.toString());
-      });
-    });
+    // await client().then((value) {
+    //   value
+    //       .loginKonselor(
+    //         emailController.text,
+    //         passwordController.text,
+    //         fcmToken,
+    //       )
+    //       .validateStatus()
+    //       .then((data) async {
+    // await SecureStorageManager().setToken(value: data.data?.token);
+    await saveAuthData();
+    //   }).handleError((onError) {
+    //     SecureStorageManager().setToken(value: null);
+    //     debugPrint(onError.toString());
+    //     finishLoadData(errorMessage: onError.toString());
+    //   });
+    // });
   }
 
   Future<void> saveAuthData() async {
     loadingState();
-    await client().then((value) {
-      value.fetchKonselorProfile().validateStatus().then((data) async {
-        StorageManager().write(StorageName.KONSELOR, data.data?.toJson());
-        setFinishCallbacks(data.data);
-        goToHome();
-      }).handleError((onError) {
-        SecureStorageManager().setToken(value: null);
-        debugPrint(onError.toString());
-        finishLoadData(errorMessage: onError.toString());
-      });
-    });
+    // await client().then((value) {
+    //   value.fetchKonselorProfile().validateStatus().then((data) async {
+    //     StorageManager().write(StorageName.KONSELOR, data.data?.toJson());
+    //     setFinishCallbacks(data.data);
+    Future.delayed(const Duration(seconds: 3), goToHome);
+    //     }).handleError((onError) {
+    //       SecureStorageManager().setToken(value: null);
+    //       debugPrint(onError.toString());
+    //       finishLoadData(errorMessage: onError.toString());
+    //     });
+    //   });
   }
 }

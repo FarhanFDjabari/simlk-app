@@ -30,9 +30,9 @@ class Initializer {
   }
 
   static Future<void> initFirebaseService() async {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    // await Firebase.initializeApp(
+    //   options: DefaultFirebaseOptions.currentPlatform,
+    // );
   }
 
   static globalController() {

@@ -14,13 +14,25 @@ import 'package:simlk_app/src/services/errorhandler/error_handler.dart';
 import 'package:simlk_app/src/utils/routes/page_name.dart';
 
 class StudentProfileController extends BaseObjectController<Mahasiswa> {
+  final dummyData = Mahasiswa(
+    nim: '195150700111015',
+    dpa: 'Issa Arwani',
+    email: 'ffadhilah8@student.ub.ac.id',
+    name: 'Farhan Fadhilah Djabari',
+    role: 1,
+    noHp: '085156012902',
+    idLine: 'ffadhilahdjabari',
+    profileImageUrl:
+        "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png",
+  );
+
   @override
   void onInit() {
-    if (StorageManager().has(StorageName.MAHASISWA)) {
-      final mahasiswa =
-          Mahasiswa.fromJson(StorageManager().get(StorageName.MAHASISWA));
-      setFinishCallbacks(mahasiswa);
-    }
+    // if (StorageManager().has(StorageName.MAHASISWA)) {
+    //   final mahasiswa =
+    //       Mahasiswa.fromJson(StorageManager().get(StorageName.MAHASISWA));
+    setFinishCallbacks(dummyData);
+    // }
     super.onInit();
   }
 
@@ -29,22 +41,22 @@ class StudentProfileController extends BaseObjectController<Mahasiswa> {
   }
 
   Future<void> updateProfile({required File image}) async {
-    loadingState();
+    // loadingState();
 
-    await client().then((value) {
-      value
-          .updateMahasiswaProfile(
-            imageProfile: image,
-          )
-          .validateStatus()
-          .then((data) async {
-        finishLoadData();
-        await saveAuthData();
-      }).handleError((onError) {
-        debugPrint(onError.toString());
-        finishLoadData(errorMessage: onError.toString());
-      });
-    });
+    // await client().then((value) {
+    //   value
+    //       .updateMahasiswaProfile(
+    //         imageProfile: image,
+    //       )
+    //       .validateStatus()
+    //       .then((data) async {
+    //     finishLoadData();
+    //     await saveAuthData();
+    //   }).handleError((onError) {
+    //     debugPrint(onError.toString());
+    //     finishLoadData(errorMessage: onError.toString());
+    //   });
+    // });
   }
 
   void showPhotoProfileBottomSheet() {
@@ -68,30 +80,32 @@ class StudentProfileController extends BaseObjectController<Mahasiswa> {
   }
 
   Future<void> saveAuthData() async {
-    loadingState();
-    await client().then((value) {
-      value.fetchMahasiswaProfile().validateStatus().then((data) async {
-        StorageManager().write(StorageName.MAHASISWA, data.data?.toJson());
-        setFinishCallbacks(data.data);
-      }).handleError((onError) {
-        debugPrint(onError.toString());
-        finishLoadData(errorMessage: onError.toString());
-      });
-    });
+    // loadingState();
+    // await client().then((value) {
+    //   value.fetchMahasiswaProfile().validateStatus().then((data) async {
+    //     StorageManager().write(StorageName.MAHASISWA, data.data?.toJson());
+    //     setFinishCallbacks(data.data);
+    //   }).handleError((onError) {
+    //     debugPrint(onError.toString());
+    //     finishLoadData(errorMessage: onError.toString());
+    //   });
+    // });
   }
 
   Future<void> logout() async {
     loadingState();
-    await client().then((value) {
-      value.logout().validateStatus().then((data) async {
-        await SecureStorageManager().setToken(value: null);
-        StorageManager().write(StorageName.MAHASISWA, null);
-        finishLoadData();
-        Get.offAllNamed(PageName.auth);
-      }).handleError((onError) {
-        debugPrint(onError.toString());
-        finishLoadData(errorMessage: onError.toString());
-      });
+    // await client().then((value) {
+    //   value.logout().validateStatus().then((data) async {
+    //     await SecureStorageManager().setToken(value: null);
+    //     StorageManager().write(StorageName.MAHASISWA, null);
+    Future.delayed(const Duration(seconds: 3), () {
+      finishLoadData();
+      Get.offAllNamed(PageName.auth);
     });
+    //   }).handleError((onError) {
+    //     debugPrint(onError.toString());
+    //     finishLoadData(errorMessage: onError.toString());
+    //   });
+    // });
   }
 }

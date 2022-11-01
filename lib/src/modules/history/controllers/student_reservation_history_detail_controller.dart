@@ -7,26 +7,40 @@ import 'package:simlk_app/src/services/errorhandler/error_handler.dart';
 
 class StudentReservationHistoryDetailController
     extends BaseObjectController<ReservationSchedule> {
+  final dummyData = ReservationSchedule(
+    id: 0,
+    nim: '195150700111015',
+    reservationTime: DateTime.parse('2022-11-25T08:00:00.000Z'),
+    timeHours: '15:00',
+    status: 4,
+    description: 'Saya memiliki masalah dalam menjalankan perkuliahan',
+    report: 'Kamu harus lebih fokus',
+    location: 'Ruang Konseling A.16',
+    type: 'Luring',
+  );
+
   @override
   void onInit() {
     getReservationDetail(
         id: int.tryParse(Get.parameters['id'].toString()) ?? 0);
-    id = Get.parameters['id'].toString();
+    // id = Get.parameters['id'].toString();
     super.onInit();
   }
 
   Future<void> getReservationDetail({required int id}) async {
     loadingState();
-    await client().then((value) {
-      value
-          .fetchMahasiswaReservationDetail(id: id)
-          .validateStatus()
-          .then((data) {
-        setFinishCallbacks(data.data);
-      }).handleError((onError) {
-        debugPrint(onError.toString());
-        finishLoadData(errorMessage: onError.toString());
-      });
+    // await client().then((value) {
+    //   value
+    //       .fetchMahasiswaReservationDetail(id: id)
+    //       .validateStatus()
+    //       .then((data) {
+    Future.delayed(const Duration(seconds: 3), () {
+      setFinishCallbacks(dummyData);
     });
+    //   }).handleError((onError) {
+    //     debugPrint(onError.toString());
+    //     finishLoadData(errorMessage: onError.toString());
+    //   });
+    // });
   }
 }

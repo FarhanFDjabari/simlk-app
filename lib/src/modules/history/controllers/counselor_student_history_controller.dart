@@ -9,6 +9,20 @@ class CounselorStudentHistoryController
     extends BaseListController<ReservationSchedule> {
   final RxString nimMahasiswa = "".obs;
 
+  final dummyData = [
+    ReservationSchedule(
+      id: 0,
+      nim: '195150700111015',
+      reservationTime: DateTime.parse('2022-11-25T08:00:00.000Z'),
+      timeHours: '15:00',
+      status: 4,
+      description: 'Saya memiliki masalah dalam menjalankan perkuliahan',
+      report: 'Kamu harus lebih fokus',
+      location: 'Ruang Konseling A.16',
+      type: 'Luring',
+    ),
+  ];
+
   @override
   void onInit() {
     nimMahasiswa(Get.parameters["nim"] as String);
@@ -32,17 +46,19 @@ class CounselorStudentHistoryController
 
   Future<void> getReservationHistoryByNim({required String nim}) async {
     loadingState();
-    await client().then((value) {
-      value
-          .fetchReservationScheduleByNim(nim: nim)
-          .validateStatus()
-          .then((data) {
-        dataList.clear();
-        setFinishCallbacks(data.data?.reversed.toList() ?? []);
-      }).handleError((onError) {
-        debugPrint(onError.toString());
-        finishLoadData(errorMessage: onError.toString());
-      });
+    // await client().then((value) {
+    //   value
+    //       .fetchReservationScheduleByNim(nim: nim)
+    //       .validateStatus()
+    //       .then((data) {
+    Future.delayed(const Duration(seconds: 3), () {
+      dataList.clear();
+      setFinishCallbacks(dummyData.reversed.toList());
     });
+    //   }).handleError((onError) {
+    //     debugPrint(onError.toString());
+    //     finishLoadData(errorMessage: onError.toString());
+    //   });
+    // });
   }
 }

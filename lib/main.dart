@@ -13,11 +13,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Initializer.init();
   await Initializer.initHive();
-  FirebaseMessaging.onBackgroundMessage(handleIncomingMessageOnBackground);
-  FirebaseMessaging.onMessage.listen((message) {
-    debugPrint('Foreground notification ${message.notification.toString()}');
-    handleIncomingMessageOnBackground(message);
-  });
+  // FirebaseMessaging.onBackgroundMessage(handleIncomingMessageOnBackground);
+  // FirebaseMessaging.onMessage.listen((message) {
+  //   debugPrint('Foreground notification ${message.notification.toString()}');
+  //   handleIncomingMessageOnBackground(message);
+  // });
   runApp(const MyApp());
 }
 
