@@ -2,6 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:simlk_app/src/data/model/mahasiswa/mahasiswa.dart';
 import 'package:simlk_app/src/data/model/reservation/reservation_schedule.dart';
+import 'package:simlk_app/src/modules/common/widgets/bottom_sheet/textfield_bottomsheet.dart';
+import 'package:simlk_app/src/modules/common/widgets/bottom_sheet/upload_file_bottomsheet.dart';
+import 'package:simlk_app/src/modules/common/widgets/simlk_report_dialog.dart';
 import 'package:simlk_app/src/modules/common/widgets/simlk_snackbar.dart';
 import 'package:simlk_app/src/services/api/api_services.dart';
 import 'package:simlk_app/src/services/base/base_object_controller.dart';
@@ -11,13 +14,14 @@ import 'package:simlk_app/src/utils/helper/snackbar_state_enum.dart';
 class CounselorReservationDetailController
     extends BaseObjectController<ReservationSchedule> {
   final counselingLocationController = TextEditingController();
+  final counselingFinalReportController = TextEditingController();
 
   final dummyData = ReservationSchedule(
     id: 0,
     nim: '195150700111015',
     reservationTime: DateTime.parse('2022-11-25T08:00:00.000Z'),
     timeHours: '15:00',
-    status: 2,
+    status: 3,
     description: 'Saya memiliki masalah dalam menjalankan perkuliahan',
     report: 'Kamu harus lebih fokus',
     location: 'Ruang Konseling A.16',
@@ -59,6 +63,41 @@ class CounselorReservationDetailController
     //     finishLoadData(errorMessage: onError.toString());
     //   });
     // });
+  }
+
+  void showFinalReportDialog({required int id}) {
+    Get.dialog(
+      SIMLKReportDialog(
+        title: 'Penulisan Laporan Akhir',
+        description:
+            'Pilih metode yang anda gunakan untuk menulis laporan akhir konseling',
+        onTextPressed: () {
+          Get.back();
+          Get.bottomSheet(
+            TextfieldBottomsheet(
+              textInputController: counselingFinalReportController,
+              label: 'Laporan Akhir Konseling',
+              onSave: (report) {
+                // setReservationStatus(id: id, status: 4);
+                counselingFinalReportController.clear();
+              },
+            ),
+          );
+        },
+        onFilePressed: () {
+          Get.back();
+          Get.bottomSheet(
+            UploadFileBottomsheet(
+              label: 'Laporan Akhir Konseling',
+              onSave: (report) {
+                // setReservationStatus(id: id, status: 4);
+                print(report.path);
+              },
+            ),
+          );
+        },
+      ),
+    );
   }
 
   Future<void> setReservationStatus(

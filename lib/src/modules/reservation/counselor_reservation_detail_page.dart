@@ -123,7 +123,7 @@ class CounselorReservationDetailPage
                       const SizedBox(height: 5),
                       TextNunito(
                         text:
-                            '${controller.mData?.student?.noHp}/${controller.mData?.student?.idLine}',
+                            '${controller.mData?.student?.noHp ?? "Tidak tersedia"}/${controller.mData?.student?.idLine ?? "Tidak tersedia"}',
                         size: 16,
                         isSelectable: true,
                         fontWeight: Weightenum.REGULAR,
@@ -207,7 +207,7 @@ class CounselorReservationDetailPage
                       PrimaryButton(
                         elevation: 0,
                         height: 45,
-                        label: 'Dalam Proses',
+                        label: 'Terjadwal',
                         isLoading: controller.isLoading,
                         isEnabled: controller.mData?.status == 1,
                         onPressed: () {
@@ -240,8 +240,8 @@ class CounselorReservationDetailPage
                         isEnabled: controller.mData?.status == 3,
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            controller.setReservationStatus(
-                                id: controller.mData?.id ?? 0, status: 4);
+                            controller.showFinalReportDialog(
+                                id: controller.mData?.id ?? 0);
                           }
                         },
                       ),

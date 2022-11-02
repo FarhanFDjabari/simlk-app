@@ -34,11 +34,11 @@ class ReservationTimeline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 55.sp,
       child: Timeline.tileBuilder(
+        primary: false,
         shrinkWrap: true,
         theme: TimelineThemeData(
-          direction: Axis.horizontal,
+          direction: Axis.vertical,
           connectorTheme: const ConnectorThemeData(
             space: 30.0,
             thickness: 5.0,
@@ -46,13 +46,14 @@ class ReservationTimeline extends StatelessWidget {
         ),
         builder: TimelineTileBuilder.connected(
           connectionDirection: ConnectionDirection.before,
+          contentsAlign: ContentsAlign.alternating,
           itemExtent: SizerUtil.width / processes.length,
           contentsBuilder: (_, index) {
             return Padding(
-              padding: const EdgeInsets.only(top: 5.0),
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
               child: TextNunito(
                 text: processes[index],
-                size: 10.sp,
+                size: 12.sp,
                 fontWeight: Weightenum.REGULAR,
                 color: getColor(index),
                 align: TextAlign.center,

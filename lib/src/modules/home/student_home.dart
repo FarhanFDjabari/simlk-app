@@ -31,7 +31,8 @@ class StudentHome extends GetView<StudentHomeController> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: TextNunito(
-          text: 'Selamat Datang, ${controller.localUserData.name}!',
+          text:
+              'Selamat Datang, ${controller.localUserData.name?.split(' ').first}!',
           maxLines: 1,
           size: 14.sp,
           fontWeight: Weightenum.BOLD,
@@ -82,11 +83,6 @@ class StudentHome extends GetView<StudentHomeController> {
             onRetryPressed: () {
               // controller.getDashboard("", "");
             },
-            // errorEnabled: controller.isError,
-            // errorText: 'txt_error_general'.tr,
-            // emptyTitle: 'txt_challenge_empty_title'.tr,
-            // emptySubtitle: 'txt_challenge_empty_description'.tr,
-            // emptyEnabled: controller.isEmptyData,
             body: SmartRefresher(
               controller: controller.refreshController,
               enablePullDown: true,
@@ -150,9 +146,29 @@ class StudentHome extends GetView<StudentHomeController> {
                           GetX<StudentHomeController>(
                             builder: (_) {
                               return TableCalendar(
-                                headerStyle: const HeaderStyle(
+                                headerStyle: HeaderStyle(
                                   formatButtonVisible: false,
                                   titleCentered: true,
+                                  headerMargin: const EdgeInsets.symmetric(
+                                    vertical: 10,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    gradient: Resources.color.gradient500to700,
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  titleTextStyle: GoogleFonts.nunitoSans(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Resources.color.neutral50,
+                                  ),
+                                  leftChevronIcon: Icon(
+                                    Remix.arrow_left_s_line,
+                                    color: Resources.color.neutral50,
+                                  ),
+                                  rightChevronIcon: Icon(
+                                    Remix.arrow_right_s_line,
+                                    color: Resources.color.neutral50,
+                                  ),
                                 ),
                                 focusedDay: controller.focusedDay.value,
                                 firstDay: DateTime.now(),
@@ -208,6 +224,11 @@ class StudentHome extends GetView<StudentHomeController> {
                                   defaultTextStyle: GoogleFonts.nunitoSans(
                                     fontWeight: FontWeight.normal,
                                   ),
+                                  selectedDecoration: BoxDecoration(
+                                    gradient: Resources.color.gradient500to700,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  outsideDaysVisible: false,
                                   selectedTextStyle: GoogleFonts.nunitoSans(
                                     fontWeight: FontWeight.normal,
                                     color: Resources.color.neutral50,
