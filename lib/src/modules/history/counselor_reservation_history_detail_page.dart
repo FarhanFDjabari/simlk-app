@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:remixicon/remixicon.dart';
+import 'package:simlk_app/src/modules/common/widgets/button/dashed_button_icon.dart';
 import 'package:simlk_app/src/modules/common/widgets/button/primary_button.dart';
 import 'package:simlk_app/src/modules/common/widgets/description_text_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/loading_overlay.dart';
@@ -215,6 +217,15 @@ class CounselorReservationHistoryDetailPage
                         maxLines: 8,
                         hintText: 'Tulis laporan akhir...',
                       ),
+                      const SizedBox(height: 8),
+                      Obx(() => DashedButtonIcon(
+                            text: controller.pickedFileName.value,
+                            icon: Remix.file_2_fill,
+                            borderRadius: 16,
+                            callback: controller.pickFile,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 16),
+                          )),
                       const SizedBox(height: 16),
                       PrimaryButton(
                         elevation: 0,

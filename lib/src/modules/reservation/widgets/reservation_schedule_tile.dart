@@ -101,7 +101,7 @@ class ReservationScheduleTile extends StatelessWidget {
                         text: data?.status == 1
                             ? 'Diajukan'
                             : data?.status == 2
-                                ? 'Dalam Proses'
+                                ? 'Terjadwal'
                                 : data?.status == 3
                                     ? 'Penanganan'
                                     : 'Selesai',

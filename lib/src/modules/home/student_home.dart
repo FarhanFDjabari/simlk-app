@@ -2,7 +2,6 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:simlk_app/src/modules/common/widgets/button/primary_button.dart';
@@ -12,11 +11,11 @@ import 'package:simlk_app/src/modules/common/widgets/outlined_textfield.dart';
 import 'package:simlk_app/src/modules/common/widgets/state_handle_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
 import 'package:simlk_app/src/modules/home/controller/student_home_controller.dart';
+import 'package:simlk_app/src/modules/home/widgets/simlk_calendar.dart';
 import 'package:simlk_app/src/res/resources.dart';
 import 'package:simlk_app/src/utils/helper/constant.dart';
 import 'package:simlk_app/src/utils/helper/validator.dart';
 import 'package:sizer/sizer.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 class StudentHome extends GetView<StudentHomeController> {
   StudentHome({Key? key}) : super(key: key);
@@ -31,7 +30,8 @@ class StudentHome extends GetView<StudentHomeController> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: TextNunito(
-          text: 'Selamat Datang, ${controller.localUserData.name}!',
+          text:
+              'Selamat Datang, ${controller.localUserData.name?.split(' ').first}!',
           maxLines: 1,
           size: 14.sp,
           fontWeight: Weightenum.BOLD,
@@ -82,11 +82,6 @@ class StudentHome extends GetView<StudentHomeController> {
             onRetryPressed: () {
               // controller.getDashboard("", "");
             },
-            // errorEnabled: controller.isError,
-            // errorText: 'txt_error_general'.tr,
-            // emptyTitle: 'txt_challenge_empty_title'.tr,
-            // emptySubtitle: 'txt_challenge_empty_description'.tr,
-            // emptyEnabled: controller.isEmptyData,
             body: SmartRefresher(
               controller: controller.refreshController,
               enablePullDown: true,
@@ -149,53 +144,10 @@ class StudentHome extends GetView<StudentHomeController> {
                           ),
                           GetX<StudentHomeController>(
                             builder: (_) {
-                              return TableCalendar(
-                                headerStyle: const HeaderStyle(
-                                  formatButtonVisible: false,
-                                  titleCentered: true,
-                                ),
+                              return SIMLKCalendar(
                                 focusedDay: controller.focusedDay.value,
-                                firstDay: DateTime.now(),
-                                lastDay: DateTime.utc(2050),
-                                calendarFormat: CalendarFormat.month,
-                                calendarBuilders: CalendarBuilders(
-                                  markerBuilder: (context, day, day2) {
-                                    for (var i = 0;
-                                        i < controller.dataList.length;
-                                        i++) {
-                                      var listDate = controller.dataList[i];
-                                      if (DateTime(day.year, day.month, day.day)
-                                          .isAtSameMomentAs(DateTime(
-                                              listDate.reservationTime?.year ??
-                                                  2022,
-                                              listDate.reservationTime?.month ??
-                                                  1,
-                                              listDate.reservationTime?.day ??
-                                                  1))) {
-                                        return Align(
-                                          alignment: Alignment.bottomCenter,
-                                          child: Container(
-                                            width: 10,
-                                            height: 10,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Resources
-                                                    .color.stateWarning),
-                                          ),
-                                        );
-                                      }
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                enabledDayPredicate: (date) {
-                                  return date.weekday != DateTime.saturday &&
-                                      date.weekday != DateTime.sunday;
-                                },
-                                selectedDayPredicate: (day) {
-                                  return isSameDay(
-                                      controller.selectedDay.value, day);
-                                },
+                                selectedDay: controller.selectedDay.value,
+                                reservations: controller.dataList,
                                 onDaySelected: (selectedDay, focusedDay) {
                                   controller.selectedDay(selectedDay);
                                   controller.focusedDay(focusedDay);
@@ -203,16 +155,6 @@ class StudentHome extends GetView<StudentHomeController> {
                                     date: selectedDay.toLocal().toString(),
                                   );
                                 },
-                                calendarStyle: CalendarStyle(
-                                  isTodayHighlighted: false,
-                                  defaultTextStyle: GoogleFonts.nunitoSans(
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                  selectedTextStyle: GoogleFonts.nunitoSans(
-                                    fontWeight: FontWeight.normal,
-                                    color: Resources.color.neutral50,
-                                  ),
-                                ),
                               );
                             },
                           ),
