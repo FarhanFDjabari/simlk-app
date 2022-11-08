@@ -75,8 +75,17 @@ class StudentNotificationPage extends GetView<StudentNotificationController> {
                                   DateTime.now())
                           .dayMonthYear,
                       onTap: () {
-                        controller.markReadNotificationById(
-                            id: controller.dataList[index].id ?? 0);
+                        if (controller.dataList[index].isRead == 1) {
+                          controller.goToDetail(
+                            id: controller.dataList[index].id ?? 0,
+                            status: controller.dataList[index].data['status'],
+                          );
+                        } else {
+                          controller.markReadNotificationById(
+                            id: controller.dataList[index].id ?? 0,
+                            status: controller.dataList[index].data['status'],
+                          );
+                        }
                       },
                     );
                   },

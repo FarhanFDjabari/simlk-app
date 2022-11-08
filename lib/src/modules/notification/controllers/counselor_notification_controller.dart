@@ -5,6 +5,7 @@ import 'package:simlk_app/src/modules/home/controller/counselor_home_controller.
 import 'package:simlk_app/src/services/api/api_services.dart';
 import 'package:simlk_app/src/services/base/base_list_controller.dart';
 import 'package:simlk_app/src/services/errorhandler/error_handler.dart';
+import 'package:simlk_app/src/utils/routes/page_name.dart';
 
 class CounselorNotificationController extends BaseListController<Notification> {
   final RxInt badgeNumber = 0.obs;
@@ -16,6 +17,10 @@ class CounselorNotificationController extends BaseListController<Notification> {
       title: 'Permintaan Bimbingan Konseling Baru',
       body:
           '195150700111015 membuat permintaan reservasi baru. Mohon untuk segera di proses',
+      data: {
+        'id_reservasi': 22,
+        'status': 1,
+      },
     ),
     Notification(
       id: 0,
@@ -23,6 +28,10 @@ class CounselorNotificationController extends BaseListController<Notification> {
       title: 'Permintaan Bimbingan Konseling Baru',
       body:
           '215150400111002 membuat permintaan reservasi baru. Mohon untuk segera di proses',
+      data: {
+        'id_reservasi': 20,
+        'status': 1,
+      },
     ),
   ];
 
@@ -34,6 +43,17 @@ class CounselorNotificationController extends BaseListController<Notification> {
   @override
   void refreshPage() {
     getAllNotifications();
+  }
+
+  Future<void> goToDetail({
+    required int id,
+    required int status,
+  }) async {
+    if (status < 4) {
+      Get.toNamed('${PageName.reservationKonselor}/$id');
+    } else {
+      Get.toNamed('/konselor/history/$id');
+    }
   }
 
   Future<void> getAllNotifications() async {
@@ -54,14 +74,17 @@ class CounselorNotificationController extends BaseListController<Notification> {
     // });
   }
 
-  Future<void> markReadNotificationById({required int id}) async {
+  Future<void> markReadNotificationById({required int id, int? status}) async {
     loadingState();
     // await client().then((value) {
     //   value
     //       .markNotificationById(notificationId: id)
     //       .validateStatus()
     //       .then((data) {
-    Future.delayed(const Duration(seconds: 1), finishLoadData);
+    Future.delayed(const Duration(seconds: 1), () {
+      finishLoadData();
+      goToDetail(id: id, status: status ?? 0);
+    });
 
     //     getAllNotifications();
     //   }).handleError((onError) {

@@ -6,6 +6,7 @@ import 'package:simlk_app/src/modules/home/controller/student_home_controller.da
 import 'package:simlk_app/src/services/api/api_services.dart';
 import 'package:simlk_app/src/services/base/base_list_controller.dart';
 import 'package:simlk_app/src/services/errorhandler/error_handler.dart';
+import 'package:simlk_app/src/utils/routes/page_name.dart';
 
 class StudentNotificationController extends BaseListController<Notification> {
   final dummyNotif = [
@@ -14,13 +15,21 @@ class StudentNotificationController extends BaseListController<Notification> {
       isRead: 0,
       title: 'Permintaan Bimbingan Konseling Dalam Proses',
       body: 'Konselor sedang memproses permintaan bimbingan konselingmu',
+      data: {
+        'id_reservasi': 22,
+        'status': 2,
+      },
     ),
     Notification(
       id: 1,
       isRead: 1,
-      title: 'Bimbingan Konseling Telah Selesa',
+      title: 'Bimbingan Konseling Telah Selesai',
       body:
           'Bimbingan konseling pada 1 November 2022 13:00 telah selesai. Konselor sedang dalam proses menulis laporan akhir',
+      data: {
+        'id_reservasi': 20,
+        'status': 4,
+      },
     ),
   ];
 
@@ -37,6 +46,17 @@ class StudentNotificationController extends BaseListController<Notification> {
   @override
   void refreshPage() {
     getAllNotifications();
+  }
+
+  Future<void> goToDetail({
+    required int id,
+    required int status,
+  }) async {
+    if (status < 4) {
+      Get.toNamed('${PageName.reservationStudent}/$id');
+    } else {
+      Get.toNamed('${PageName.reservationHistoryStudent}/$id');
+    }
   }
 
   Future<void> getAllNotifications() async {
@@ -57,14 +77,17 @@ class StudentNotificationController extends BaseListController<Notification> {
     // });
   }
 
-  Future<void> markReadNotificationById({required int id}) async {
+  Future<void> markReadNotificationById({required int id, int? status}) async {
     loadingState();
     // await client().then((value) {
     //   value
     //       .markNotificationById(notificationId: id)
     //       .validateStatus()
     //       .then((data) {
-    Future.delayed(const Duration(seconds: 1), finishLoadData);
+    Future.delayed(const Duration(seconds: 1), () {
+      finishLoadData();
+      goToDetail(id: id, status: status ?? 0);
+    });
     // getAllNotifications();
     //   }).handleError((onError) {
     //     debugPrint(onError.toString());

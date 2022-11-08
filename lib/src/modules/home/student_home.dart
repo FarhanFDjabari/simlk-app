@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -218,6 +220,7 @@ class StudentHome extends GetView<StudentHomeController> {
                                   controller.getReservationTimeInDate(
                                     date: selectedDay.toLocal().toString(),
                                   );
+                                  log(selectedDay.toLocal().toString());
                                 },
                                 calendarStyle: CalendarStyle(
                                   isTodayHighlighted: false,
@@ -238,82 +241,91 @@ class StudentHome extends GetView<StudentHomeController> {
                             },
                           ),
                           const SizedBox(height: 10),
-                          OutlinedDropdownTextfield<Time>(
-                            label: TextNunito(
-                              text: 'Waktu',
-                              size: 13.sp,
-                              fontWeight: Weightenum.REGULAR,
-                            ),
-                            hintText: 'Pilih waktu konseling',
-                            items: [
-                              DropdownMenuItem(
-                                value: const Time(13),
-                                enabled: !controller.reservationTimeAvailable
-                                    .contains('13:00'),
-                                child: TextNunito(
-                                  text: '13:00',
-                                  size: 12.sp,
+                          GetBuilder<StudentHomeController>(
+                            builder: (_) {
+                              return OutlinedDropdownTextfield<Time>(
+                                label: TextNunito(
+                                  text: 'Waktu',
+                                  size: 13.sp,
                                   fontWeight: Weightenum.REGULAR,
-                                  color: controller.reservationTimeAvailable
-                                          .contains('13:00')
-                                      ? Resources.color.neutral500
-                                      : null,
-                                  textDecoration: controller
-                                          .reservationTimeAvailable
-                                          .contains('13:00')
-                                      ? TextDecoration.lineThrough
-                                      : null,
                                 ),
-                              ),
-                              DropdownMenuItem(
-                                value: const Time(14),
-                                enabled: !controller.reservationTimeAvailable
-                                    .contains('14:00'),
-                                child: TextNunito(
-                                  text: '14:00',
-                                  size: 12.sp,
-                                  fontWeight: Weightenum.REGULAR,
-                                  color: controller.reservationTimeAvailable
-                                          .contains('14:00')
-                                      ? Resources.color.neutral500
-                                      : null,
-                                  textDecoration: controller
-                                          .reservationTimeAvailable
-                                          .contains('14:00')
-                                      ? TextDecoration.lineThrough
-                                      : null,
-                                ),
-                              ),
-                              DropdownMenuItem(
-                                value: const Time(15),
-                                enabled: !controller.reservationTimeAvailable
-                                    .contains('15:00'),
-                                child: TextNunito(
-                                  text: '15:00',
-                                  size: 12.sp,
-                                  fontWeight: Weightenum.REGULAR,
-                                  color: controller.reservationTimeAvailable
-                                          .contains('15:00')
-                                      ? Resources.color.neutral500
-                                      : null,
-                                  textDecoration: controller
-                                          .reservationTimeAvailable
-                                          .contains('15:00')
-                                      ? TextDecoration.lineThrough
-                                      : null,
-                                ),
-                              ),
-                            ],
-                            onChanged: (value) {
-                              controller.timeHour('${value?.hour}:00');
-                              final reservationTime = DateTime(
-                                controller.selectedDay.value.year,
-                                controller.selectedDay.value.month,
-                                controller.selectedDay.value.day,
-                                value?.hour ?? 0,
+                                hintText: 'Pilih waktu konseling',
+                                items: [
+                                  DropdownMenuItem(
+                                    value: const Time(13),
+                                    enabled: !controller
+                                        .reservationTimeAvailable
+                                        .contains('13:00'),
+                                    child: TextNunito(
+                                      text: '13:00',
+                                      size: 12.sp,
+                                      fontWeight: Weightenum.REGULAR,
+                                      color: controller.reservationTimeAvailable
+                                              .contains('13:00')
+                                          ? Resources.color.neutral500
+                                          : null,
+                                      textDecoration: controller
+                                              .reservationTimeAvailable
+                                              .contains('13:00')
+                                          ? TextDecoration.lineThrough
+                                          : null,
+                                    ),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: const Time(14),
+                                    enabled: !controller
+                                        .reservationTimeAvailable
+                                        .contains('14:00'),
+                                    child: TextNunito(
+                                      text: '14:00',
+                                      size: 12.sp,
+                                      fontWeight: Weightenum.REGULAR,
+                                      color: controller.reservationTimeAvailable
+                                              .contains('14:00')
+                                          ? Resources.color.neutral500
+                                          : null,
+                                      textDecoration: controller
+                                              .reservationTimeAvailable
+                                              .contains('14:00')
+                                          ? TextDecoration.lineThrough
+                                          : null,
+                                    ),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: const Time(15),
+                                    enabled: !controller
+                                        .reservationTimeAvailable
+                                        .contains('15:00'),
+                                    child: TextNunito(
+                                      text: '15:00',
+                                      size: 12.sp,
+                                      fontWeight: Weightenum.REGULAR,
+                                      color: controller.reservationTimeAvailable
+                                              .contains('15:00')
+                                          ? Resources.color.neutral500
+                                          : null,
+                                      textDecoration: controller
+                                              .reservationTimeAvailable
+                                              .contains('15:00')
+                                          ? TextDecoration.lineThrough
+                                          : null,
+                                    ),
+                                  ),
+                                ],
+                                onChanged: (value) {
+                                  controller.timeHour('${value?.hour}:00');
+                                  final reservationTime = DateTime(
+                                    controller.selectedDay.value.year,
+                                    controller.selectedDay.value.month,
+                                    controller.selectedDay.value.day,
+                                    value?.hour ?? 0,
+                                  );
+                                  controller.selectedDay(reservationTime);
+                                  log(controller.selectedDay.value
+                                      .toLocal()
+                                      .toString());
+                                },
                               );
-                              print(reservationTime.toLocal().toString());
-                              controller.selectedDay(reservationTime);
                             },
                           ),
                           const SizedBox(height: 10),

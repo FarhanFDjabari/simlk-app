@@ -82,7 +82,7 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
     loadingState();
     // await client().then((value) {
     //   value.fetchMahasiswaOngoingReservation().validateStatus().then((data) {
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 1), () {
       dataList.clear();
       Get.find<StudentReservationController>().dataList.clear();
       Get.find<StudentReservationController>()
@@ -113,6 +113,13 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
     //     finishLoadData(errorMessage: onError.toString());
     //   });
     // });
+    if (DateTime.parse(date)
+        .isAtSameMomentAs(DateTime.parse('2022-11-25T00:00:00.000Z'))) {
+      reservationTimeAvailable(['15:00']);
+    } else {
+      reservationTimeAvailable.clear();
+    }
+    update();
   }
 
   Future<void> createNewReservation() async {
@@ -128,7 +135,7 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
     //       .validateStatus()
     //       .then((data) {
     //     NotificationHelper().scheduleNotification(0, selectedDay.value);
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 1), () {
       Get.showSnackbar(SIMLKSnackbar(
         snackbarMessage: 'Berhasil membuat reservasi',
         snackbarStateEnum: SnackbarStateEnum.POSITIVE,
