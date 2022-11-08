@@ -229,29 +229,6 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<ApiResponses<ReservationSchedule>> fetchCalendarReservations() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponses<ReservationSchedule>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/reservation-schedules',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponses<ReservationSchedule>.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<ApiResponses<ReservationSchedule>> fetchReservationTimeByDate(
       {date}) async {
     const _extra = <String, dynamic>{};
@@ -305,18 +282,35 @@ class _RestClient implements RestClient {
   Future<ApiResponse<dynamic>> updateMahasiswaReservationReport({
     id,
     report,
+    fileReport,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = {'report': report};
-    _data.removeWhere((k, v) => v == null);
+    final _data = FormData();
+    if (report != null) {
+      _data.fields.add(MapEntry(
+        'report',
+        report,
+      ));
+    }
+    if (fileReport != null) {
+      _data.files.add(MapEntry(
+        'file_report',
+        MultipartFile.fromFileSync(
+          fileReport.path,
+          filename: fileReport.path.split(Platform.pathSeparator).last,
+          contentType: MediaType.parse('multipart/form-data'),
+        ),
+      ));
+    }
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ApiResponse<dynamic>>(Options(
       method: 'PUT',
       headers: _headers,
       extra: _extra,
+      contentType: 'multipart/form-data',
     )
             .compose(
               _dio.options,

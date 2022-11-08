@@ -62,6 +62,7 @@ class CounselorReservationHistoryDetailController
           .updateMahasiswaReservationReport(
             id: id,
             report: reportController.text,
+            fileReport: pickedFile,
           )
           .validateStatus()
           .then((data) {

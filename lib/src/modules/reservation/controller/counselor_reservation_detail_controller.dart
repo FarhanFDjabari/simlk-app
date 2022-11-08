@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:simlk_app/src/data/model/reservation/reservation_schedule.dart';
@@ -14,6 +16,7 @@ class CounselorReservationDetailController
     extends BaseObjectController<ReservationSchedule> {
   final counselingLocationController = TextEditingController();
   final counselingFinalReportController = TextEditingController();
+  final RxString uploadedFilename = "".obs;
 
   @override
   void onInit() {
@@ -35,8 +38,12 @@ class CounselorReservationDetailController
             TextfieldBottomsheet(
               textInputController: counselingFinalReportController,
               label: 'Laporan Akhir Konseling',
-              onSave: (report) {
-                // setReservationStatus(id: id, status: 4);
+              onSave: (report) async {
+                await setReservationReport(
+                  id: id,
+                  report: counselingFinalReportController.text,
+                );
+                await setReservationStatus(id: id, status: 4);
                 counselingFinalReportController.clear();
               },
             ),
@@ -47,9 +54,13 @@ class CounselorReservationDetailController
           Get.bottomSheet(
             UploadFileBottomsheet(
               label: 'Laporan Akhir Konseling',
-              onSave: (report) {
-                // setReservationStatus(id: id, status: 4);
+              onSave: (report) async {
                 print(report.path);
+                await setReservationReport(
+                  id: id,
+                  file: report,
+                );
+                await setReservationStatus(id: id, status: 4);
               },
             ),
           );
@@ -93,6 +104,25 @@ class CounselorReservationDetailController
           snackbarStateEnum: SnackbarStateEnum.POSITIVE,
         ));
         getReservationDetail(id: id);
+      }).handleError((onError) {
+        debugPrint(onError.toString());
+        finishLoadData(errorMessage: onError.toString());
+      });
+    });
+  }
+
+  Future<void> setReservationReport(
+      {required int id, String? report, File? file}) async {
+    loadingState();
+    await client().then((value) {
+      value
+          .updateMahasiswaReservationReport(
+              id: id, report: report, fileReport: file)
+          .validateStatus()
+          .then((data) {
+        mData?.report = counselingFinalReportController.text;
+        mData?.reportFileUrl = uploadedFilename.value;
+        finishLoadData();
       }).handleError((onError) {
         debugPrint(onError.toString());
         finishLoadData(errorMessage: onError.toString());

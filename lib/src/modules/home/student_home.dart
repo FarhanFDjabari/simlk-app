@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -125,7 +127,7 @@ class StudentHome extends GetView<StudentHomeController> {
                                 ),
                                 subtitle: TextNunito(
                                   text:
-                                      'Lengkapi profilmu untuk memudahkan kami dalam melakukan pendataan',
+                                      'Lengkapi profilmu untuk memudahkan konselor dalam melakukan pendataan',
                                   maxLines: 3,
                                   size: 16,
                                   fontWeight: Weightenum.REGULAR,

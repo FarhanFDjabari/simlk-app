@@ -67,8 +67,8 @@ class StudentReservationDetailPage
                                   radius: 30,
                                   backgroundColor: Resources.color.indigo300,
                                   backgroundImage: NetworkImage(
-                                    controller
-                                            .mData?.student?.profileImageUrl ??
+                                    controller.mData?.counselor
+                                            ?.profileImageUrl ??
                                         "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png",
                                   ),
                                 ),
@@ -78,18 +78,31 @@ class StudentReservationDetailPage
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     TextNunito(
-                                      text: 'Konselor Filkom',
+                                      text: controller.mData?.counselor?.name ??
+                                          "Belum tersedia",
                                       size: 16,
                                       fontWeight: Weightenum.REGULAR,
                                       maxLines: 2,
                                       align: TextAlign.center,
+                                      color: controller.mData?.counselor?.name
+                                                  ?.isNotEmpty ==
+                                              true
+                                          ? null
+                                          : Resources.color.neutral400,
                                     ),
                                     TextNunito(
-                                      text: 'konselor@ub.ac.id',
+                                      text:
+                                          controller.mData?.counselor?.email ??
+                                              "Belum tersedia",
                                       size: 14,
                                       fontWeight: Weightenum.REGULAR,
                                       maxLines: 2,
                                       align: TextAlign.center,
+                                      color: controller.mData?.counselor?.email
+                                                  ?.isNotEmpty ==
+                                              true
+                                          ? null
+                                          : Resources.color.neutral400,
                                     ),
                                   ],
                                 ),

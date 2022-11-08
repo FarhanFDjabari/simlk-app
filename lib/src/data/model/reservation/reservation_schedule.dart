@@ -1,3 +1,4 @@
+import 'package:simlk_app/src/data/model/konselor/konselor.dart';
 import 'package:simlk_app/src/data/model/mahasiswa/mahasiswa.dart';
 import 'package:simlk_app/src/services/wrapper/model_factory.dart';
 
@@ -12,9 +13,11 @@ class ReservationSchedule implements ModelFactory {
     this.location,
     this.description,
     this.report,
+    this.reportFileUrl,
     this.createdAt,
     this.updatedAt,
     this.student,
+    this.counselor,
   });
 
   int? id;
@@ -24,11 +27,13 @@ class ReservationSchedule implements ModelFactory {
   int? status;
   String? description;
   String? report;
+  String? reportFileUrl;
   String? type;
   String? location;
   DateTime? createdAt;
   DateTime? updatedAt;
   Mahasiswa? student;
+  Konselor? counselor;
 
   factory ReservationSchedule.fromJson(Map<String, dynamic> json) =>
       ReservationSchedule(
@@ -43,6 +48,7 @@ class ReservationSchedule implements ModelFactory {
         location: json["location"],
         description: json["description"],
         report: json["report"],
+        reportFileUrl: json["file_report"],
         createdAt: json["createdAt"] == null
             ? null
             : DateTime.parse(json["createdAt"]),
@@ -52,6 +58,9 @@ class ReservationSchedule implements ModelFactory {
         student: json["student"] == null
             ? null
             : Mahasiswa.fromJson(json['student']),
+        counselor: json["conselour"] == null
+            ? null
+            : Konselor.fromJson(json['conselour']),
       );
 
   Map<String, dynamic> toJson() => {
@@ -64,6 +73,7 @@ class ReservationSchedule implements ModelFactory {
         "location": location,
         "description": description,
         "report": report,
+        "file_report": reportFileUrl,
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
         "student": student?.toJson(),

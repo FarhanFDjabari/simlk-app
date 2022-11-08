@@ -11,6 +11,8 @@ class DashedButtonIcon extends StatelessWidget {
   final double borderRadius;
   final Function callback;
   final EdgeInsetsGeometry? padding;
+  final bool? isLoading;
+  final double? progressValue;
 
   const DashedButtonIcon({
     required this.text,
@@ -18,15 +20,19 @@ class DashedButtonIcon extends StatelessWidget {
     required this.borderRadius,
     required this.callback,
     this.padding,
+    this.isLoading,
+    this.progressValue,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        callback();
-      },
+      onTap: isLoading == true
+          ? null
+          : () {
+              callback();
+            },
       child: DottedBorder(
         borderType: BorderType.RRect,
         radius: Radius.circular(borderRadius),
@@ -40,11 +46,21 @@ class DashedButtonIcon extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  icon,
-                  size: 35,
-                  color: Resources.color.neutral500,
-                ),
+                if (isLoading == true)
+                  SizedBox(
+                    width: 15,
+                    height: 15,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      value: progressValue,
+                    ),
+                  ),
+                if (isLoading != true)
+                  Icon(
+                    icon,
+                    size: 35,
+                    color: Resources.color.neutral500,
+                  ),
                 TextNunito(
                   size: 14,
                   color: Resources.color.neutral500,

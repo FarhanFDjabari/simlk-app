@@ -5,6 +5,10 @@ extension DateTimeExtension on DateTime {
     return DateFormat('dd-MM-yyyy').format(toLocal());
   }
 
+  String get dayMonthYearApi {
+    return DateFormat('yyyy-MM-dd').format(toLocal());
+  }
+
   String get dayFullMonthYear {
     return DateFormat('dd MMMM yyyy').format(toLocal());
   }

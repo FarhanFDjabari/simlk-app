@@ -1,7 +1,5 @@
-import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:simlk_app/src/modules/common/widgets/button/dashed_button_icon.dart';
 import 'package:simlk_app/src/modules/common/widgets/description_text_widget.dart';
@@ -74,8 +72,8 @@ class StudentReservationHistoryDetailPage
                                   radius: 30,
                                   backgroundColor: Resources.color.indigo300,
                                   backgroundImage: NetworkImage(
-                                    controller
-                                            .mData?.student?.profileImageUrl ??
+                                    controller.mData?.counselor
+                                            ?.profileImageUrl ??
                                         "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png",
                                   ),
                                 ),
@@ -85,18 +83,31 @@ class StudentReservationHistoryDetailPage
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     TextNunito(
-                                      text: 'Konselor Filkom',
+                                      text: controller.mData?.counselor?.name ??
+                                          "Belum tersedia",
                                       size: 16,
                                       fontWeight: Weightenum.REGULAR,
                                       maxLines: 2,
                                       align: TextAlign.center,
+                                      color: controller.mData?.counselor?.name
+                                                  ?.isNotEmpty ==
+                                              true
+                                          ? null
+                                          : Resources.color.neutral400,
                                     ),
                                     TextNunito(
-                                      text: 'konselor@ub.ac.id',
-                                      size: 14,
+                                      text:
+                                          controller.mData?.counselor?.email ??
+                                              "Belum tersedia",
+                                      size: 16,
                                       fontWeight: Weightenum.REGULAR,
                                       maxLines: 2,
                                       align: TextAlign.center,
+                                      color: controller.mData?.counselor?.email
+                                                  ?.isNotEmpty ==
+                                              true
+                                          ? null
+                                          : Resources.color.neutral400,
                                     ),
                                   ],
                                 ),
@@ -218,16 +229,28 @@ class StudentReservationHistoryDetailPage
                               textAlign: TextAlign.justify,
                             ),
                             const SizedBox(height: 5),
-                            DashedButtonIcon(
-                              text: 'filename.pdf',
-                              icon: Remix.download_2_line,
-                              borderRadius: 16,
-                              callback: () {
-                                // download file api
-                              },
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 16),
-                            )
+                            if (controller.mData?.reportFileUrl?.isNotEmpty ==
+                                true)
+                              GetX<StudentReservationHistoryDetailController>(
+                                builder: (_) {
+                                  return DashedButtonIcon(
+                                    text: controller.isDownloading.isTrue
+                                        ? 'Downloading...'
+                                        : '${controller.mData?.reportFileUrl?.split('/').last}',
+                                    icon: Remix.download_2_line,
+                                    borderRadius: 16,
+                                    isLoading: controller.isDownloading.value,
+                                    progressValue: controller
+                                            .fileReportDownloadProgress.value /
+                                        100,
+                                    callback: () {
+                                      controller.downloadReportFile();
+                                    },
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 16),
+                                  );
+                                },
+                              )
                           ],
                         ),
                       ),

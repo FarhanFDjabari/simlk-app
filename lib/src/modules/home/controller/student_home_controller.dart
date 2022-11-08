@@ -9,6 +9,7 @@ import 'package:simlk_app/src/modules/reservation/controller/student_reservation
 import 'package:simlk_app/src/services/api/api_services.dart';
 import 'package:simlk_app/src/services/base/base_list_controller.dart';
 import 'package:simlk_app/src/services/errorhandler/error_handler.dart';
+import 'package:simlk_app/src/utils/helper/extensions/date_time_extension.dart';
 import 'package:simlk_app/src/utils/helper/notifications/notification_helper.dart';
 import 'package:simlk_app/src/utils/helper/snackbar_state_enum.dart';
 import 'package:simlk_app/src/utils/routes/page_name.dart';
@@ -95,7 +96,8 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
           .createMahasiswaReservation(
             counselingType: counselingType.value,
             description: descriptionController.text,
-            reservationTime: selectedDay.value.toLocal().toString(),
+            reservationTime:
+                DateTimeExtension(selectedDay.value).dayMonthYearApi,
             timeHours: timeHour.value,
           )
           .validateStatus()

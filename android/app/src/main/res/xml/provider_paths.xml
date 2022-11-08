@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    // store in Android app package name directory. Associate with getExternalFilesDir
+    <external-files-path name="downloads" path="Download/"/>
+    <files-path name="files" path="/"/>
+    <external-path name="external_files" path="."/>
+</paths>
