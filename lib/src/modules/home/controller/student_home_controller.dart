@@ -96,8 +96,7 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
           .createMahasiswaReservation(
             counselingType: counselingType.value,
             description: descriptionController.text,
-            reservationTime:
-                DateTimeExtension(selectedDay.value).dayMonthYearApi,
+            reservationTime: selectedDay.value.toLocal().toString(),
             timeHours: timeHour.value,
           )
           .validateStatus()

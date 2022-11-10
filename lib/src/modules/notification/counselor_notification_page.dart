@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
@@ -76,8 +78,23 @@ class CounselorNotificationPage
                                   DateTime.now())
                           .dayMonthYear,
                       onTap: () {
-                        controller.markReadNotificationById(
-                            id: controller.dataList[index].id ?? 0);
+                        if (controller.dataList[index].isRead == 1) {
+                          controller.goToDetail(
+                            id: controller
+                                    .dataList[index].data['id_reservasi'] ??
+                                0,
+                            status:
+                                controller.dataList[index].data['status'] ?? 0,
+                          );
+                        } else {
+                          controller.markReadNotificationById(
+                            id: controller.dataList[index].id ?? 0,
+                            reservationId:
+                                controller.dataList[index].data['id_reservasi'],
+                            status:
+                                controller.dataList[index].data['status'] ?? 1,
+                          );
+                        }
                       },
                     );
                   },

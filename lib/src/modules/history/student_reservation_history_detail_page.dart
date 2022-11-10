@@ -95,20 +95,23 @@ class StudentReservationHistoryDetailPage
                                           ? null
                                           : Resources.color.neutral400,
                                     ),
-                                    TextNunito(
-                                      text:
-                                          controller.mData?.counselor?.email ??
-                                              "Belum tersedia",
-                                      size: 16,
-                                      fontWeight: Weightenum.REGULAR,
-                                      maxLines: 2,
-                                      align: TextAlign.center,
-                                      color: controller.mData?.counselor?.email
-                                                  ?.isNotEmpty ==
-                                              true
-                                          ? null
-                                          : Resources.color.neutral400,
-                                    ),
+                                    if (controller.mData?.counselor?.email
+                                            ?.isNotEmpty ==
+                                        true)
+                                      TextNunito(
+                                        text: controller
+                                                .mData?.counselor?.email ??
+                                            "",
+                                        size: 16,
+                                        fontWeight: Weightenum.REGULAR,
+                                        maxLines: 2,
+                                        align: TextAlign.center,
+                                        color: controller.mData?.counselor
+                                                    ?.email?.isNotEmpty ==
+                                                true
+                                            ? null
+                                            : Resources.color.neutral400,
+                                      ),
                                   ],
                                 ),
                               ],

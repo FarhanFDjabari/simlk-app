@@ -89,13 +89,12 @@ abstract class RestClient {
     @Path("id") int? id,
   });
 
-  @MultiPart()
   @PUT('/reservation-schedules/{id}')
+  @MultiPart()
   Future<ApiResponse<dynamic>> updateMahasiswaReservationReport({
     @Path("id") int? id,
     @Part(name: "report") String? report,
-    @Part(name: "file_report", contentType: 'multipart/form-data')
-        File? fileReport,
+    @Part(name: "file_report") File? fileReport,
   });
 
   @GET('/konselor/profile')

@@ -301,7 +301,6 @@ class _RestClient implements RestClient {
         MultipartFile.fromFileSync(
           fileReport.path,
           filename: fileReport.path.split(Platform.pathSeparator).last,
-          contentType: MediaType.parse('multipart/form-data'),
         ),
       ));
     }

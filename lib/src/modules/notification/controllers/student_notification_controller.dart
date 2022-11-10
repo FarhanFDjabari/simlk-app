@@ -6,6 +6,7 @@ import 'package:simlk_app/src/modules/home/controller/student_home_controller.da
 import 'package:simlk_app/src/services/api/api_services.dart';
 import 'package:simlk_app/src/services/base/base_list_controller.dart';
 import 'package:simlk_app/src/services/errorhandler/error_handler.dart';
+import 'package:simlk_app/src/utils/routes/page_name.dart';
 
 class StudentNotificationController extends BaseListController<Notification> {
   @override
@@ -21,6 +22,17 @@ class StudentNotificationController extends BaseListController<Notification> {
   @override
   void refreshPage() {
     getAllNotifications();
+  }
+
+  Future<void> goToDetail({
+    required int id,
+    required int status,
+  }) async {
+    if (status < 4) {
+      Get.toNamed('${PageName.reservationStudent}/$id');
+    } else {
+      Get.toNamed('${PageName.reservationHistoryStudent}/$id');
+    }
   }
 
   Future<void> getAllNotifications() async {
@@ -41,7 +53,8 @@ class StudentNotificationController extends BaseListController<Notification> {
     });
   }
 
-  Future<void> markReadNotificationById({required int id}) async {
+  Future<void> markReadNotificationById(
+      {required int id, int? status, int? reservationId}) async {
     loadingState();
     await client().then((value) {
       value
@@ -50,6 +63,7 @@ class StudentNotificationController extends BaseListController<Notification> {
           .then((data) {
         finishLoadData();
         getAllNotifications();
+        goToDetail(id: reservationId ?? 0, status: status ?? 1);
       }).handleError((onError) {
         debugPrint(onError.toString());
         finishLoadData(errorMessage: onError.toString());

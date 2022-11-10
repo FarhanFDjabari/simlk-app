@@ -1,9 +1,11 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:simlk_app/src/modules/common/controllers/view_controller.dart';
 import 'package:simlk_app/src/res/resources.dart';
+import 'package:simlk_app/src/utils/helper/notifications/notification_helper.dart';
 import 'package:simlk_app/src/utils/routes/routes.dart';
 
 class ViewPage extends GetView<ViewController> {
@@ -13,7 +15,19 @@ class ViewPage extends GetView<ViewController> {
   Widget build(BuildContext context) {
     return GetX<ViewController>(
       init: ViewController(),
-      initState: (_) {},
+      initState: (_) {
+        FirebaseMessaging.onMessage.listen((message) {
+          debugPrint(
+              'Foreground Student Notification ${message.notification?.toMap().toString()}');
+          handleIncomingMessageOnBackground(message);
+          controller.updateNotifications();
+          if (message.notification?.title?.contains("Selesai") == true) {
+            controller.updateReservationHistories();
+          } else {
+            controller.updateOngoingReservations();
+          }
+        });
+      },
       builder: (_) {
         return Scaffold(
           body: Builder(

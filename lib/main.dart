@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simlk_app/initializer.dart';
+import 'package:simlk_app/src/res/resources.dart';
 import 'package:simlk_app/src/res/theme.dart';
 import 'package:simlk_app/src/utils/helper/notifications/notification_helper.dart';
 import 'package:simlk_app/src/utils/localization/app_translation.dart';
@@ -14,10 +15,6 @@ void main() async {
   await Initializer.init();
   await Initializer.initHive();
   FirebaseMessaging.onBackgroundMessage(handleIncomingMessageOnBackground);
-  FirebaseMessaging.onMessage.listen((message) {
-    debugPrint('Foreground notification ${message.notification.toString()}');
-    handleIncomingMessageOnBackground(message);
-  });
   runApp(const MyApp());
 }
 
@@ -41,9 +38,15 @@ class MyApp extends StatelessWidget {
           getPages: Routes.pages,
           initialRoute: PageName.splash,
           builder: (BuildContext context, child) {
-            return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-              child: child ?? Container(),
+            return GlowingOverscrollIndicator(
+              axisDirection: AxisDirection.up,
+              color: Resources.color.neutral50.withOpacity(0),
+              showLeading: false,
+              showTrailing: false,
+              child: MediaQuery(
+                data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                child: child ?? Container(),
+              ),
             );
           },
         ),

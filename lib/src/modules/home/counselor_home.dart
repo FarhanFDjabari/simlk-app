@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simlk_app/src/modules/common/widgets/loading_overlay.dart';
@@ -6,6 +7,7 @@ import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
 import 'package:simlk_app/src/modules/home/controller/counselor_home_controller.dart';
 import 'package:simlk_app/src/res/resources.dart';
 import 'package:simlk_app/src/utils/helper/constant.dart';
+import 'package:simlk_app/src/utils/helper/notifications/notification_helper.dart';
 import 'package:sizer/sizer.dart';
 
 class CounselorHome extends GetView<CounselorHomeController> {
@@ -15,6 +17,14 @@ class CounselorHome extends GetView<CounselorHomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetBuilder<CounselorHomeController>(
+        initState: (_) {
+          FirebaseMessaging.onMessage.listen((message) {
+            debugPrint(
+                'Foreground Counselor Notification ${message.notification?.body}');
+            handleIncomingMessageOnBackground(message);
+            controller.updateNotifications();
+          });
+        },
         builder: (_) => StateHandleWidget(
           shimmerView: const LoadingOverlay(),
           loadingEnabled: controller.isLoading,

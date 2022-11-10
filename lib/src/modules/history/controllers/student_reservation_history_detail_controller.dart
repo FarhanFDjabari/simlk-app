@@ -68,9 +68,12 @@ class StudentReservationHistoryDetailController
 
   Future<void> downloadReportFile() async {
     final externalStorageDirectory = await getExternalStorageDirectory();
-    final fileName =
-        '${localUserData.nim}_${mData?.reservationTime?.toIso8601String()}_report';
-    if (mData?.reportFileUrl?.isNotEmpty == true) {
+    final fileName = '${mData?.reportFileUrl?.split("/").last}';
+    if (await File("${externalStorageDirectory?.absolute.path}/$fileName")
+        .exists()) {
+      await OpenFile.open(
+          '${externalStorageDirectory?.absolute.path}/$fileName');
+    } else if (mData?.reportFileUrl?.isNotEmpty == true) {
       isDownloading(true);
       final taskId = await FlutterDownloader.enqueue(
         url: mData?.reportFileUrl ?? '',

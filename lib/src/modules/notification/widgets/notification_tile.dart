@@ -24,7 +24,7 @@ class NotificationTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: isRead == true ? null : onTap,
+      onTap: onTap,
       child: Container(
         color: isRead == true
             ? Resources.color.neutral50

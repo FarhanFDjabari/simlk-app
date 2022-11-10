@@ -7,6 +7,7 @@ import 'package:simlk_app/src/modules/common/widgets/bottom_sheet/textfield_bott
 import 'package:simlk_app/src/modules/common/widgets/bottom_sheet/upload_file_bottomsheet.dart';
 import 'package:simlk_app/src/modules/common/widgets/simlk_report_dialog.dart';
 import 'package:simlk_app/src/modules/common/widgets/simlk_snackbar.dart';
+import 'package:simlk_app/src/modules/reservation/controller/counselor_reservation_controller.dart';
 import 'package:simlk_app/src/services/api/api_services.dart';
 import 'package:simlk_app/src/services/base/base_object_controller.dart';
 import 'package:simlk_app/src/services/errorhandler/error_handler.dart';
@@ -103,7 +104,12 @@ class CounselorReservationDetailController
               'Berhasil mengubah status reservasi: ${status == 2 ? 'TERJADWAL' : status == 3 ? 'PENANGANAN' : 'SELESAI'}',
           snackbarStateEnum: SnackbarStateEnum.POSITIVE,
         ));
-        getReservationDetail(id: id);
+        if (status < 4) {
+          getReservationDetail(id: id);
+        } else {
+          Get.find<CounselorReservationController>().getOngoingReservations();
+          goToHistoryDetail(id: id);
+        }
       }).handleError((onError) {
         debugPrint(onError.toString());
         finishLoadData(errorMessage: onError.toString());
@@ -128,5 +134,9 @@ class CounselorReservationDetailController
         finishLoadData(errorMessage: onError.toString());
       });
     });
+  }
+
+  void goToHistoryDetail({required int id}) {
+    Get.offNamed('/konselor/history/$id');
   }
 }

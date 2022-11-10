@@ -20,8 +20,12 @@ class CounselorHomeController extends BaseObjectController<Konselor> {
 
   @override
   void onReady() {
-    Get.find<CounselorNotificationController>().getAllNotifications();
+    updateNotifications();
     super.onReady();
+  }
+
+  void updateNotifications() {
+    Get.find<CounselorNotificationController>().getAllNotifications();
   }
 
   void goToReservasi() {

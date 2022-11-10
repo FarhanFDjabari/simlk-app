@@ -47,6 +47,7 @@ class CounselorReservationHistoryDetailController
           .validateStatus()
           .then((data) {
         reportController.text = data.data?.report ?? "";
+        pickedFileName(data.data?.reportFileUrl?.split("/").last);
         setFinishCallbacks(data.data);
       }).handleError((onError) {
         debugPrint(onError.toString());
