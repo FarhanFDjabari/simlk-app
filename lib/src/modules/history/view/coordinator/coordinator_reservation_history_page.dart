@@ -4,40 +4,40 @@ import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:simlk_app/src/modules/common/widgets/loading_overlay.dart';
 import 'package:simlk_app/src/modules/common/widgets/state_handle_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
-import 'package:simlk_app/src/modules/history/controllers/counselor_student_history_controller.dart';
-import 'package:simlk_app/src/modules/reservation/widgets/reservation_schedule_tile.dart';
+import 'package:simlk_app/src/modules/history/controllers/coordinator/coordinator_reservation_history_controller.dart';
+import 'package:simlk_app/src/modules/history/widgets/counselor_history_tile.dart';
 import 'package:simlk_app/src/res/gen/assets.gen.dart';
 import 'package:simlk_app/src/res/resources.dart';
 import 'package:simlk_app/src/utils/helper/constant.dart';
 import 'package:sizer/sizer.dart';
 
-class CounselorStudentHistoryPage
-    extends GetView<CounselorStudentHistoryController> {
-  const CounselorStudentHistoryPage({Key? key}) : super(key: key);
+class CoordinatorReservationHistoryPage
+    extends GetView<CoordinatorReservationHistoryController> {
+  const CoordinatorReservationHistoryPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Resources.color.neutral100,
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: Resources.color.gradient600to800,
+    return GetBuilder<CoordinatorReservationHistoryController>(
+      init: CoordinatorReservationHistoryController(),
+      initState: (_) {},
+      builder: (_) {
+        return Scaffold(
+          backgroundColor: Resources.color.neutral100,
+          appBar: AppBar(
+            automaticallyImplyLeading: true,
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                gradient: Resources.color.gradient600to800,
+              ),
+            ),
+            title: TextNunito(
+              text: 'Riwayat Konseling',
+              size: 15.sp,
+              fontWeight: Weightenum.BOLD,
+            ),
+            foregroundColor: Resources.color.neutral50,
           ),
-        ),
-        title: TextNunito(
-          text: controller.nimMahasiswa.value,
-          size: 15.sp,
-          fontWeight: Weightenum.BOLD,
-        ),
-        foregroundColor: Resources.color.neutral50,
-      ),
-      body: GetBuilder<CounselorStudentHistoryController>(
-        init: CounselorStudentHistoryController(),
-        initState: (_) {},
-        builder: (_) {
-          return StateHandleWidget(
+          body: StateHandleWidget(
             shimmerView: const LoadingOverlay(),
             loadingEnabled: controller.isLoading,
             onRetryPressed: () {
@@ -61,15 +61,10 @@ class CounselorStudentHistoryPage
                 color: Resources.color.indigo700,
               ),
               child: ListView.separated(
-                shrinkWrap: true,
-                primary: false,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 10,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 itemBuilder: (_, index) {
-                  return ReservationScheduleTile(
-                    isStudentHistoryLayout: true,
+                  return CounselorHistoryTile(
                     data: controller.dataList[index],
                     onTap: () {
                       controller.goToDetail(
@@ -83,9 +78,9 @@ class CounselorStudentHistoryPage
                 itemCount: controller.dataList.length,
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

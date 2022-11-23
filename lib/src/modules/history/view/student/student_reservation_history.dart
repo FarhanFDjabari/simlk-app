@@ -4,7 +4,7 @@ import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:simlk_app/src/modules/common/widgets/loading_overlay.dart';
 import 'package:simlk_app/src/modules/common/widgets/state_handle_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
-import 'package:simlk_app/src/modules/history/controllers/student_reservation_history_controller.dart';
+import 'package:simlk_app/src/modules/history/controllers/student/student_reservation_history_controller.dart';
 import 'package:simlk_app/src/modules/reservation/widgets/reservation_schedule_tile.dart';
 import 'package:simlk_app/src/res/gen/assets.gen.dart';
 import 'package:simlk_app/src/res/resources.dart';

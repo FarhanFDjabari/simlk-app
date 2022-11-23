@@ -61,6 +61,10 @@ class SplashController extends BaseObjectController {
         Get.offNamed(PageName.root);
       } else if (StorageManager().has(StorageName.KONSELOR)) {
         Get.offNamed(PageName.homeKonselor);
+      } else if (StorageManager().has(StorageName.KOORDINATOR)) {
+        Get.offNamed(PageName.homeKonselor);
+      } else if (StorageManager().has(StorageName.SUPERVISOR)) {
+        Get.offNamed(PageName.homeSupervisor);
       } else {
         Get.offNamed(PageName.auth);
       }

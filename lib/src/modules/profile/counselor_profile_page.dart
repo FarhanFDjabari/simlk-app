@@ -68,12 +68,30 @@ class CounselorProfilePage extends GetView<CounselorProfileController> {
                   ),
                   const SizedBox(height: 2),
                   TextNunito(
+                    // text: '${controller.mData?.nim}',
+                    text: '195150xxxxxxxxx',
+                    size: 14.sp,
+                    fontWeight: Weightenum.REGULAR,
+                    align: TextAlign.center,
+                  ),
+                  const SizedBox(height: 2),
+                  TextNunito(
                     text: '${controller.mData?.email}',
                     size: 14.sp,
                     fontWeight: Weightenum.REGULAR,
                     align: TextAlign.center,
                   ),
                   const SizedBox(height: 24),
+                  PrimaryButton(
+                    elevation: 0,
+                    height: 45,
+                    isLoading: controller.isLoading,
+                    label: 'Ubah Informasi Detail',
+                    onPressed: () {
+                      controller.goToCompleteProfile();
+                    },
+                  ),
+                  const SizedBox(height: 10),
                   PrimaryButton(
                     elevation: 0,
                     height: 45,

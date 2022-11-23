@@ -8,7 +8,7 @@ import 'package:simlk_app/src/modules/common/widgets/description_text_widget.dar
 import 'package:simlk_app/src/modules/common/widgets/loading_overlay.dart';
 import 'package:simlk_app/src/modules/common/widgets/state_handle_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
-import 'package:simlk_app/src/modules/history/controllers/student_reservation_history_detail_controller.dart';
+import 'package:simlk_app/src/modules/history/controllers/student/student_reservation_history_detail_controller.dart';
 import 'package:simlk_app/src/res/resources.dart';
 import 'package:simlk_app/src/utils/helper/constant.dart';
 import 'package:simlk_app/src/utils/helper/extensions/date_time_extension.dart';

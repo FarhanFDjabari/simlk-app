@@ -22,8 +22,10 @@ class StudentReservationDetailController
   );
 
   final processes = [
-    'Diajukan',
-    'Terjadwal',
+    'Pengajuan Dibuat',
+    'Pengajuan Diterima',
+    'Konselor Ditugaskan',
+    'Dijadwalkan',
     'Penanganan',
     'Selesai',
   ].obs;

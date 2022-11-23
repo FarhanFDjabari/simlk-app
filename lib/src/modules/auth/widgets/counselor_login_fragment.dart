@@ -17,64 +17,102 @@ class CounselorLoginFragment extends GetView<CounselorLoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            OutlinedTextfield(
-              controller: controller.emailController,
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.next,
-              hintText: 'Masukkan email anda',
-              label: TextNunito(
-                text: 'Email',
-                size: 14,
-                fontWeight: Weightenum.REGULAR,
-              ),
-              validator: Validator().email,
-            ),
-            SizedBox(height: 5.sp),
-            Obx(
-              () => OutlinedTextfield(
-                controller: controller.passwordController,
-                keyboardType: TextInputType.visiblePassword,
-                textInputAction: TextInputAction.done,
-                hintText: 'Masukkan password anda',
-                isObscured: controller.isObscured.isTrue,
-                maxLines: 1,
-                label: TextNunito(
-                  text: 'Password',
-                  size: 14,
-                  fontWeight: Weightenum.REGULAR,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                OutlinedTextfield(
+                  controller: controller.emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                  hintText: 'Masukkan email anda',
+                  label: TextNunito(
+                    text: 'Email',
+                    size: 14,
+                    fontWeight: Weightenum.REGULAR,
+                  ),
+                  validator: Validator().email,
                 ),
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    controller.isObscured(!controller.isObscured.value);
-                  },
-                  icon: controller.isObscured.isTrue
-                      ? const Icon(Remix.eye_close_line)
-                      : const Icon(Remix.eye_line),
+                SizedBox(height: 5.sp),
+                Obx(
+                  () => OutlinedTextfield(
+                    controller: controller.passwordController,
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    hintText: 'Masukkan password anda',
+                    isObscured: controller.isObscured.isTrue,
+                    maxLines: 1,
+                    label: TextNunito(
+                      text: 'Password',
+                      size: 14,
+                      fontWeight: Weightenum.REGULAR,
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        controller.isObscured(!controller.isObscured.value);
+                      },
+                      icon: controller.isObscured.isTrue
+                          ? const Icon(Remix.eye_close_line)
+                          : const Icon(Remix.eye_line),
+                    ),
+                    validator: Validator().notEmpty,
+                  ),
                 ),
-                validator: Validator().notEmpty,
-              ),
-            ),
-            SizedBox(height: 16.sp),
-            GetBuilder<CounselorLoginController>(
-              init: CounselorLoginController(),
-              builder: (_) {
-                return PrimaryButton(
-                  isLoading: controller.isLoading,
-                  elevation: 0,
-                  label: 'Masuk Sebagai Konselor',
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      controller.loginKonselor();
-                    }
+                SizedBox(height: 16.sp),
+                GetBuilder<CounselorLoginController>(
+                  init: CounselorLoginController(),
+                  builder: (_) {
+                    return PrimaryButton(
+                      isLoading: controller.isLoading,
+                      elevation: 0,
+                      label: 'Masuk Sebagai Konselor',
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          controller.loginKonselor();
+                        }
+                      },
+                    );
                   },
-                );
-              },
+                ),
+                SizedBox(height: 5.sp),
+                GetBuilder<CounselorLoginController>(
+                  init: CounselorLoginController(),
+                  builder: (_) {
+                    return PrimaryButton(
+                      isLoading: controller.isLoading,
+                      elevation: 0,
+                      label: 'Masuk Sebagai Koordinator',
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          controller.loginKoordinator();
+                        }
+                      },
+                    );
+                  },
+                ),
+                SizedBox(height: 5.sp),
+                GetBuilder<CounselorLoginController>(
+                  init: CounselorLoginController(),
+                  builder: (_) {
+                    return PrimaryButton(
+                      isLoading: controller.isLoading,
+                      elevation: 0,
+                      label: 'Masuk Sebagai Pengawas',
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          controller.loginSupervisor();
+                        }
+                      },
+                    );
+                  },
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

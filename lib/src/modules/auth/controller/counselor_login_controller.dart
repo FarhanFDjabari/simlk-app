@@ -14,8 +14,16 @@ class CounselorLoginController extends BaseObjectController<Konselor> {
   final passwordController = TextEditingController();
   final RxBool isObscured = true.obs;
 
-  void goToHome() {
-    Get.offNamed(PageName.homeKonselor);
+  void goToHomeKonselor() {
+    Get.offNamed(PageName.rootCounselor);
+  }
+
+  void goToHomeKoordinator() {
+    Get.offNamed(PageName.rootCoordinator);
+  }
+
+  void goToHomeSupervisor() {
+    Get.offNamed(PageName.homeSupervisor);
   }
 
   @override
@@ -39,7 +47,56 @@ class CounselorLoginController extends BaseObjectController<Konselor> {
     //       .validateStatus()
     //       .then((data) async {
     // await SecureStorageManager().setToken(value: data.data?.token);
-    await saveAuthData();
+    // await saveAuthData();
+    Future.delayed(const Duration(milliseconds: 750), goToHomeKonselor);
+    //   }).handleError((onError) {
+    //     SecureStorageManager().setToken(value: null);
+    //     debugPrint(onError.toString());
+    //     finishLoadData(errorMessage: onError.toString());
+    //   });
+    // });
+  }
+
+  Future<void> loginKoordinator() async {
+    loadingState();
+    // final fcmToken = await SecureStorageManager().getDeviceToken();
+
+    // await client().then((value) {
+    //   value
+    //       .loginKonselor(
+    //         emailController.text,
+    //         passwordController.text,
+    //         fcmToken,
+    //       )
+    //       .validateStatus()
+    //       .then((data) async {
+    // await SecureStorageManager().setToken(value: data.data?.token);
+    // await saveAuthData();
+    Future.delayed(const Duration(milliseconds: 750), goToHomeKoordinator);
+    //   }).handleError((onError) {
+    //     SecureStorageManager().setToken(value: null);
+    //     debugPrint(onError.toString());
+    //     finishLoadData(errorMessage: onError.toString());
+    //   });
+    // });
+  }
+
+  Future<void> loginSupervisor() async {
+    loadingState();
+    // final fcmToken = await SecureStorageManager().getDeviceToken();
+
+    // await client().then((value) {
+    //   value
+    //       .loginKonselor(
+    //         emailController.text,
+    //         passwordController.text,
+    //         fcmToken,
+    //       )
+    //       .validateStatus()
+    //       .then((data) async {
+    // await SecureStorageManager().setToken(value: data.data?.token);
+    // await saveAuthData();
+    Future.delayed(const Duration(milliseconds: 750), goToHomeSupervisor);
     //   }).handleError((onError) {
     //     SecureStorageManager().setToken(value: null);
     //     debugPrint(onError.toString());
@@ -54,7 +111,7 @@ class CounselorLoginController extends BaseObjectController<Konselor> {
     //   value.fetchKonselorProfile().validateStatus().then((data) async {
     //     StorageManager().write(StorageName.KONSELOR, data.data?.toJson());
     //     setFinishCallbacks(data.data);
-    Future.delayed(const Duration(seconds: 3), goToHome);
+    // Future.delayed(const Duration(seconds: 3), goToHome);
     //     }).handleError((onError) {
     //       SecureStorageManager().setToken(value: null);
     //       debugPrint(onError.toString());

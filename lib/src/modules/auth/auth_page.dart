@@ -26,58 +26,54 @@ class _AuthPageState extends State<AuthPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 10.sp),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                SizedBox(height: SizerUtil.height * 0.15),
-                const AppLogoWidget(),
-                SizedBox(height: 16.sp),
-                TabBar(
-                  controller: _tabController,
-                  tabs: const [
-                    Tab(
-                      key: ValueKey('student_login'),
-                      text: 'Mahasiswa',
-                    ),
-                    Tab(
-                      key: ValueKey('counselor_login'),
-                      text: 'Konselor',
-                    ),
-                  ],
-                  labelStyle: GoogleFonts.nunitoSans(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16,
-                  ),
-                  labelColor: Resources.color.indigo900,
-                  unselectedLabelColor: Resources.color.neutral400,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  indicatorColor: Resources.color.indigo700,
-                  indicatorWeight: 2,
-                  onTap: (index) {
-                    // controller.tabIndex(index);
-                  },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            SizedBox(height: SizerUtil.height * 0.15),
+            const AppLogoWidget(),
+            SizedBox(height: 16.sp),
+            TabBar(
+              controller: _tabController,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              tabs: const [
+                Tab(
+                  key: ValueKey('student_login'),
+                  text: 'Mahasiswa',
                 ),
-                SizedBox(height: 16.sp),
-                SizedBox(
-                  height: 250.sp,
-                  child: TabBarView(
-                    controller: _tabController,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      StudentLoginFragment(),
-                      CounselorLoginFragment(),
-                    ],
-                  ),
+                Tab(
+                  key: ValueKey('counselor_login'),
+                  text: 'Konselor',
                 ),
               ],
+              labelStyle: GoogleFonts.nunitoSans(
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+              labelColor: Resources.color.indigo900,
+              unselectedLabelColor: Resources.color.neutral400,
+              indicatorSize: TabBarIndicatorSize.tab,
+              indicatorColor: Resources.color.indigo700,
+              indicatorWeight: 2,
+              onTap: (index) {
+                // controller.tabIndex(index);
+              },
             ),
-          ),
+            SizedBox(height: 16.sp),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  StudentLoginFragment(),
+                  CounselorLoginFragment(),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:simlk_app/src/data/model/konselor/konselor.dart';
 import 'package:simlk_app/src/data/model/mahasiswa/mahasiswa.dart';
 import 'package:simlk_app/src/services/wrapper/model_factory.dart';
 
@@ -15,6 +16,7 @@ class ReservationSchedule implements ModelFactory {
     this.createdAt,
     this.updatedAt,
     this.student,
+    this.counselor,
   });
 
   int? id;
@@ -29,6 +31,7 @@ class ReservationSchedule implements ModelFactory {
   DateTime? createdAt;
   DateTime? updatedAt;
   Mahasiswa? student;
+  Konselor? counselor;
 
   factory ReservationSchedule.fromJson(Map<String, dynamic> json) =>
       ReservationSchedule(

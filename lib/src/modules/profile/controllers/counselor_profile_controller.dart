@@ -50,6 +50,10 @@ class CounselorProfileController extends BaseObjectController<Konselor> {
     // });
   }
 
+  void goToCompleteProfile() {
+    Get.toNamed(PageName.profileCompleteCounselor);
+  }
+
   void showPhotoProfileBottomSheet() {
     Get.bottomSheet(
       ImagePickBottomSheet(
