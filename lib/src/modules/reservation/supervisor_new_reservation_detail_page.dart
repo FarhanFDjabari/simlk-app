@@ -3,21 +3,17 @@ import 'package:get/get.dart';
 import 'package:simlk_app/src/modules/common/widgets/button/primary_button.dart';
 import 'package:simlk_app/src/modules/common/widgets/description_text_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/loading_overlay.dart';
-import 'package:simlk_app/src/modules/common/widgets/outlined_textfield.dart';
 import 'package:simlk_app/src/modules/common/widgets/state_handle_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
 import 'package:simlk_app/src/modules/reservation/controller/supervisor_new_reservation_detail_controller.dart';
 import 'package:simlk_app/src/res/resources.dart';
 import 'package:simlk_app/src/utils/helper/constant.dart';
 import 'package:simlk_app/src/utils/helper/extensions/date_time_extension.dart';
-import 'package:simlk_app/src/utils/helper/validator.dart';
 import 'package:sizer/sizer.dart';
 
 class SupervisorNewReservationDetailPage
     extends GetView<SupervisorNewReservationDetailController> {
-  SupervisorNewReservationDetailPage({Key? key}) : super(key: key);
-
-  final _formKey = GlobalKey<FormState>();
+  const SupervisorNewReservationDetailPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -188,29 +184,27 @@ class SupervisorNewReservationDetailPage
                         textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 32),
-                      PrimaryButton(
-                        elevation: 0,
-                        height: 45,
-                        label: 'Atur Jadwal',
-                        isLoading: controller.isLoading,
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            controller.setReservationStatus(
-                                id: controller.mData?.id ?? 0, status: 2);
-                          }
-                        },
-                      ),
+                      Obx(() => PrimaryButton(
+                            elevation: 0,
+                            height: 45,
+                            label: 'Atur Jadwal',
+                            isLoading: controller.isLoading,
+                            isEnabled: controller.isActionTaken.isFalse,
+                            onPressed: () {
+                              controller.handleAsCounselor(
+                                  id: controller.mData?.id ?? 0);
+                            },
+                          )),
                       const SizedBox(height: 8),
                       PrimaryButton(
                         elevation: 0,
                         height: 45,
                         label: 'Teruskan ke Konselor',
                         isLoading: controller.isLoading,
+                        isEnabled: controller.isActionTaken.isFalse,
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            controller.setReservationStatus(
-                                id: controller.mData?.id ?? 0, status: 3);
-                          }
+                          controller.assignToPeerCounselor(
+                              id: controller.mData?.id ?? 0);
                         },
                       ),
                     ],

@@ -12,10 +12,12 @@ class SIMLKCalendar extends StatelessWidget {
     this.selectedDay,
     this.reservations = const [],
     this.onDaySelected,
+    this.firstDay,
   }) : super(key: key);
 
   final DateTime focusedDay;
   final DateTime? selectedDay;
+  final DateTime? firstDay;
   final List<ReservationSchedule> reservations;
   final Function(DateTime, DateTime)? onDaySelected;
 
@@ -47,7 +49,12 @@ class SIMLKCalendar extends StatelessWidget {
         ),
       ),
       focusedDay: focusedDay,
-      firstDay: DateTime.now(),
+      firstDay: firstDay ??
+          DateTime.now().subtract(
+            const Duration(
+              milliseconds: 250,
+            ),
+          ),
       lastDay: DateTime.utc(2050),
       calendarFormat: CalendarFormat.month,
       calendarBuilders: CalendarBuilders(

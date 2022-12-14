@@ -18,6 +18,7 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
   final RxInt notificationCount = 0.obs;
   final Rx<DateTime> focusedDay = DateTime.now().obs;
   final Rx<DateTime> selectedDay = DateTime.now().obs;
+  final Rx<DateTime> firstDay = DateTime.now().obs;
   final RxString counselingType = "Luring".obs;
   final RxString timeHour = "00:00".obs;
   final descriptionController = TextEditingController();
