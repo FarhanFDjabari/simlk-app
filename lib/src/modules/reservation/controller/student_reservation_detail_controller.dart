@@ -10,8 +10,10 @@ class StudentReservationDetailController
   final RxInt processIndex = 1.obs;
 
   final processes = [
-    'Diajukan',
-    'Terjadwal',
+    'Pengajuan Dibuat',
+    'Pengajuan Diterima',
+    'Konselor Ditugaskan',
+    'Dijadwalkan',
     'Penanganan',
     'Selesai',
   ].obs;

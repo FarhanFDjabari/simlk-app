@@ -9,13 +9,20 @@ import 'package:simlk_app/src/services/base/base_object_controller.dart';
 import 'package:simlk_app/src/services/errorhandler/error_handler.dart';
 import 'package:simlk_app/src/utils/routes/page_name.dart';
 
-class CounselorLoginController extends BaseObjectController<Konselor> {
+class CounselorLoginController extends BaseObjectController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final RxBool isObscured = true.obs;
+  final RxInt role = 5.obs;
 
   void goToHome() {
-    Get.offNamed(PageName.homeKonselor);
+    if (role.value == 0) {
+      Get.offNamed(PageName.homeSupervisor);
+    } else if (role.value == 1) {
+      Get.offNamed(PageName.rootCoordinator);
+    } else {
+      Get.offNamed(PageName.rootCounselor);
+    }
   }
 
   @override
@@ -28,6 +35,7 @@ class CounselorLoginController extends BaseObjectController<Konselor> {
   Future<void> loginKonselor() async {
     loadingState();
     final fcmToken = await SecureStorageManager().getDeviceToken();
+    print(role);
 
     await client().then((value) {
       value
@@ -35,6 +43,7 @@ class CounselorLoginController extends BaseObjectController<Konselor> {
             emailController.text,
             passwordController.text,
             fcmToken,
+            role.value,
           )
           .validateStatus()
           .then((data) async {
@@ -51,15 +60,37 @@ class CounselorLoginController extends BaseObjectController<Konselor> {
   Future<void> saveAuthData() async {
     loadingState();
     await client().then((value) {
-      value.fetchKonselorProfile().validateStatus().then((data) async {
-        StorageManager().write(StorageName.KONSELOR, data.data?.toJson());
-        setFinishCallbacks(data.data);
-        goToHome();
-      }).handleError((onError) {
-        SecureStorageManager().setToken(value: null);
-        debugPrint(onError.toString());
-        finishLoadData(errorMessage: onError.toString());
-      });
+      if (role.value == 0) {
+        value.fetchPengawasProfile().validateStatus().then((data) async {
+          StorageManager().write(StorageName.SUPERVISOR, data.data?.toJson());
+          setFinishCallbacks(data.data?.toJson());
+          goToHome();
+        }).handleError((onError) {
+          SecureStorageManager().setToken(value: null);
+          debugPrint(onError.toString());
+          finishLoadData(errorMessage: onError.toString());
+        });
+      } else if (role.value == 1) {
+        value.fetchKoordinatorProfile().validateStatus().then((data) async {
+          StorageManager().write(StorageName.KOORDINATOR, data.data?.toJson());
+          setFinishCallbacks(data.data?.toJson());
+          goToHome();
+        }).handleError((onError) {
+          SecureStorageManager().setToken(value: null);
+          debugPrint(onError.toString());
+          finishLoadData(errorMessage: onError.toString());
+        });
+      } else {
+        value.fetchKonselorProfile().validateStatus().then((data) async {
+          StorageManager().write(StorageName.KONSELOR, data.data?.toJson());
+          setFinishCallbacks(data.data?.toJson());
+          goToHome();
+        }).handleError((onError) {
+          SecureStorageManager().setToken(value: null);
+          debugPrint(onError.toString());
+          finishLoadData(errorMessage: onError.toString());
+        });
+      }
     });
   }
 }

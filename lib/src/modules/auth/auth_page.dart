@@ -29,7 +29,7 @@ class _AuthPageState extends State<AuthPage>
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 10.sp),
+            padding: const EdgeInsets.symmetric(vertical: 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +47,7 @@ class _AuthPageState extends State<AuthPage>
                     ),
                     Tab(
                       key: ValueKey('counselor_login'),
-                      text: 'Konselor',
+                      text: 'Lainnya',
                     ),
                   ],
                   labelStyle: GoogleFonts.nunitoSans(
@@ -64,8 +64,8 @@ class _AuthPageState extends State<AuthPage>
                   },
                 ),
                 SizedBox(height: 16.sp),
-                SizedBox(
-                  height: 250.sp,
+                Container(
+                  constraints: BoxConstraints(minHeight: 45.h, maxHeight: 55.h),
                   child: TabBarView(
                     controller: _tabController,
                     physics: const NeverScrollableScrollPhysics(),

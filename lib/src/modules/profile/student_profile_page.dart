@@ -60,7 +60,7 @@ class StudentProfilePage extends GetView<StudentProfileController> {
                           radius: 35,
                           backgroundColor: Resources.color.indigo300,
                           backgroundImage: NetworkImage(
-                            controller.mData?.profileImageUrl ??
+                            controller.localUserData.profileImageUrl ??
                                 "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png",
                           ),
                         ),
@@ -70,17 +70,17 @@ class StudentProfilePage extends GetView<StudentProfileController> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             TextNunito(
-                              text: '${controller.mData?.name}',
+                              text: '${controller.localUserData.name}',
                               size: 14.sp,
                               fontWeight: Weightenum.BOLD,
                             ),
                             TextNunito(
-                              text: '${controller.mData?.nim}',
+                              text: '${controller.localUserData.nim}',
                               size: 12.sp,
                               fontWeight: Weightenum.REGULAR,
                             ),
                             TextNunito(
-                              text: '${controller.mData?.email}',
+                              text: '${controller.localUserData.email}',
                               size: 12.sp,
                               fontWeight: Weightenum.REGULAR,
                             ),

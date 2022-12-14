@@ -27,7 +27,7 @@ class StudentNotificationController extends BaseListController<Notification> {
     required int id,
     required int status,
   }) async {
-    if (status < 4) {
+    if (status < 6) {
       Get.toNamed('${PageName.reservationStudent}/$id');
     } else {
       Get.toNamed('${PageName.reservationHistoryStudent}/$id');

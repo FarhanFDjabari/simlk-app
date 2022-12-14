@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:simlk_app/src/modules/common/controllers/view_controller.dart';
-import 'package:simlk_app/src/modules/history/controllers/student_reservation_history_controller.dart';
+import 'package:simlk_app/src/modules/history/controllers/student/student_reservation_history_controller.dart';
 import 'package:simlk_app/src/modules/home/controller/student_home_controller.dart';
 import 'package:simlk_app/src/modules/notification/controllers/student_notification_controller.dart';
 import 'package:simlk_app/src/modules/profile/controllers/student_profile_controller.dart';

@@ -1,0 +1,67 @@
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:simlk_app/src/data/hive/hive_types.dart';
+import 'package:simlk_app/src/services/wrapper/model_factory.dart';
+
+part 'pengawas.g.dart';
+
+@HiveType(typeId: HiveTypes.PENGAWAS)
+class Pengawas implements ModelFactory {
+  Pengawas({
+    this.id,
+    this.email,
+    this.password,
+    this.name,
+    this.role,
+    this.profileImageUrl,
+    this.fcmToken,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  @HiveField(0)
+  int? id;
+  @HiveField(1)
+  String? email;
+  @HiveField(2)
+  String? password;
+  @HiveField(3)
+  String? name;
+  @HiveField(4)
+  int? role;
+  @HiveField(5)
+  String? profileImageUrl;
+  @HiveField(6)
+  String? fcmToken;
+  @HiveField(7)
+  DateTime? createdAt;
+  @HiveField(8)
+  DateTime? updatedAt;
+
+  factory Pengawas.fromJson(Map<String, dynamic> json) => Pengawas(
+        id: json["id"],
+        email: json["email"],
+        password: json["password"],
+        name: json["name"],
+        role: json["role"],
+        profileImageUrl: json["profile_image_url"],
+        fcmToken: json["fcm_token"],
+        createdAt: json["createdAt"] == null
+            ? null
+            : DateTime.parse(json["createdAt"]),
+        updatedAt: json["updatedAt"] == null
+            ? null
+            : DateTime.parse(json["updatedAt"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "email": email,
+        "password": password,
+        "name": name,
+        "role": role,
+        "profile_image_url": profileImageUrl,
+        "fcm_token": fcmToken,
+        "createdAt": createdAt?.toIso8601String(),
+        "updatedAt": updatedAt?.toIso8601String(),
+      };
+}

@@ -209,7 +209,7 @@ class CounselorReservationDetailPage
                         height: 45,
                         label: 'Terjadwal',
                         isLoading: controller.isLoading,
-                        isEnabled: controller.mData?.status == 1,
+                        isEnabled: controller.mData?.status == 3,
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             controller.setReservationStatus(
@@ -223,7 +223,7 @@ class CounselorReservationDetailPage
                         height: 45,
                         label: 'Penanganan',
                         isLoading: controller.isLoading,
-                        isEnabled: controller.mData?.status == 2,
+                        isEnabled: controller.mData?.status == 4,
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             controller.setReservationStatus(
@@ -237,7 +237,7 @@ class CounselorReservationDetailPage
                         height: 45,
                         label: 'Selesai',
                         isLoading: controller.isLoading,
-                        isEnabled: controller.mData?.status == 3,
+                        isEnabled: controller.mData?.status == 5,
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             controller.showFinalReportDialog(

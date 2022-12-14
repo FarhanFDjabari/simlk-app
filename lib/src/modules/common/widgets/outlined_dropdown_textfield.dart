@@ -11,10 +11,12 @@ class OutlinedDropdownTextfield<T> extends StatelessWidget {
     this.hintText,
     this.onChanged,
     this.items,
+    this.initialValue,
     Key? key,
   }) : super(key: key);
 
   final String? hintText;
+  final T? initialValue;
   final TextNunito? label;
   final Function(T?)? onChanged;
   final List<DropdownMenuItem<T>>? items;
@@ -35,6 +37,7 @@ class OutlinedDropdownTextfield<T> extends StatelessWidget {
             }
             return null;
           },
+          value: initialValue,
           hint: TextNunito(
             text: hintText,
             size: 12.sp,

@@ -5,8 +5,10 @@ import 'package:retrofit/retrofit.dart';
 
 import 'package:simlk_app/src/data/model/auth/login_response.dart';
 import 'package:simlk_app/src/data/model/konselor/konselor.dart';
+import 'package:simlk_app/src/data/model/koordinator/koordinator.dart';
 import 'package:simlk_app/src/data/model/mahasiswa/mahasiswa.dart';
 import 'package:simlk_app/src/data/model/notification/notification.dart';
+import 'package:simlk_app/src/data/model/pengawas/pengawas.dart';
 import 'package:simlk_app/src/data/model/reservation/reservation_schedule.dart';
 import 'package:simlk_app/src/data/storage/secure_storage_manager.dart';
 import 'package:simlk_app/src/services/environment.dart';
@@ -34,9 +36,10 @@ abstract class RestClient {
 
     return RestClient(
       await AppDio().getDIO(
-          headers: defHeader,
-          connectTimeout: connectTimeout,
-          receiveTimeout: receiveTimeout),
+        headers: defHeader,
+        connectTimeout: connectTimeout,
+        receiveTimeout: receiveTimeout,
+      ),
       baseUrl: ConfigEnvironments.getEnvironments().toString(),
     );
   }
@@ -48,11 +51,29 @@ abstract class RestClient {
     @Field("fcm_token") String? fcmToken,
   );
 
-  @POST('/auth/login-konselor')
+  @POST('/auth/login-default')
   Future<ApiResponse<LoginResponse>> loginKonselor(
     @Field("email") String? email,
     @Field("password") String? password,
     @Field("fcm_token") String? fcmToken,
+    @Field("role") int? role,
+  );
+
+  @POST('/auth/register-conselour')
+  Future<ApiResponse<dynamic>> registerKonselor(
+    @Field("email") String? email,
+    @Field("password") String? password,
+    @Field("name") String? name,
+    @Field("major") String? prodi,
+    @Field("nim") String? nim,
+    @Field("no_hp") String? nohp,
+    @Field("id_line") String? lineId,
+  );
+
+  @POST('/auth/register-koordinator')
+  Future<ApiResponse<dynamic>> registerKoordinator(
+    @Field("email") String? email,
+    @Field("password") String? password,
   );
 
   @GET('/auth/logout')
@@ -103,9 +124,6 @@ abstract class RestClient {
   @GET('/konselor/history-completed')
   Future<ApiResponses<Mahasiswa>> fetchKonselorReservationHistory();
 
-  @GET('/mahasiswa/history-completed')
-  Future<ApiResponse<Mahasiswa>> fetchMahasiswaReservationHistory();
-
   @GET('/konselor/history-uncompleted')
   Future<ApiResponses<ReservationSchedule>> fetchKonselorOngoingReservation();
 
@@ -116,6 +134,10 @@ abstract class RestClient {
   @PUT('/konselor/profile')
   Future<ApiResponse<dynamic>> updateKonselorProfile({
     @Part(name: "avatar", contentType: "image/png") File? imageProfile,
+    @Part(name: "nim") String? nim,
+    @Part(name: "id_line") String? idLine,
+    @Part(name: "no_hp") String? noHp,
+    @Part(name: "is_available") int? status,
   });
 
   @GET('/reservation-status')
@@ -130,6 +152,12 @@ abstract class RestClient {
     @Path("nim") String? nim,
   });
 
+  @GET('/konselor/history/{id}')
+  Future<ApiResponses<ReservationSchedule>>
+      fetchReservationHistoryByKonselorId({
+    @Path("id") int? konselorId,
+  });
+
   @GET('/notifications')
   Future<ApiResponses<Notification>> fetchAllNotifications();
 
@@ -141,6 +169,96 @@ abstract class RestClient {
 
   @PUT('/notifications')
   Future<ApiResponse<dynamic>> markAllNotifications();
+
+  @PUT('/koordinator/jadwal/konselor')
+  Future<ApiResponse<dynamic>> setKonselorSchedule({
+    @Field("jadwal") String? jadwal,
+    @Field("id_konselor") int? idKonselor,
+  });
+
+  @GET('/konselor/ketersediaan/{is_available}')
+  Future<ApiResponses<Notification>> updateKonselorStatus({
+    @Path("is_available") required int isAvailable,
+  });
+
+  @GET('/pengawas/profile')
+  Future<ApiResponse<Pengawas>> fetchPengawasProfile();
+
+  @GET('/pengawas/take/{id}')
+  Future<ApiResponse<dynamic>> setReservationSupervisorHandle({
+    @Path("id") required int reservationId,
+  });
+
+  @GET('/pengawas/approved/{id}')
+  Future<ApiResponse<dynamic>> assignReservationToPeerCounselor({
+    @Path("id") required int reservationId,
+  });
+
+  @GET('/pengawas/reservation-uncompleted')
+  Future<ApiResponses<ReservationSchedule>> fetchPengawasOngoingReservation();
+
+  @GET('/pengawas/reservation-completed')
+  Future<ApiResponses<ReservationSchedule>> fetchPengawasReservationHistory();
+
+  @GET('/pengawas/notapproved')
+  Future<ApiResponses<ReservationSchedule>> fetchPengawasNewReservation();
+
+  @GET('/koordinator/profile')
+  Future<ApiResponse<Koordinator>> fetchKoordinatorProfile();
+
+  @GET('/koordinator/reservasi-diajukan')
+  Future<ApiResponses<ReservationSchedule>>
+      fetchKoordinatorOngoingReservation();
+
+  @GET('/koordinator/conselor-tersedia/reservasi/{idres}')
+  Future<ApiResponses<Konselor>> fetchKonselorAvailable({
+    @Path("idRes") required int reservationId,
+  });
+
+  @GET('/koordinator/reservation/{idres}/konselor/{idkon}')
+  Future<ApiResponses<dynamic>> assignKonselorToReservation({
+    @Path("idRes") required int reservationId,
+    @Path("idKon") required int konselorId,
+  });
+
+  @GET('/konselor/ketersediaan-hari/{hari}')
+  Future<ApiResponses<Konselor>> fetchKonselorOnDay({
+    @Path("hari") required int day,
+  });
+
+  @GET('/konselor/reservation/{id}')
+  Future<ApiResponses<ReservationSchedule>> fetchReservationByKonselorId({
+    @Path("id") int? konselorId,
+  });
+
+  @MultiPart()
+  @PUT('/pengawas/profile')
+  Future<ApiResponse<dynamic>> updateSupervisorProfile({
+    @Part(name: "avatar", contentType: "image/png") File? imageProfile,
+  });
+
+  @MultiPart()
+  @PUT('/koordinator/profile')
+  Future<ApiResponse<dynamic>> updateKoordinatorProfile({
+    @Part(name: "avatar", contentType: "image/png") File? imageProfile,
+    @Part(name: "nim") String? nim,
+    @Part(name: "name") String? name,
+  });
+
+  @GET('/konselor/mahasiswa-history')
+  Future<ApiResponses<Mahasiswa>> fetchReservationHistoryStudentList();
+
+  @GET('/konselor/mahasiswa-reservasi-history/{nim}')
+  Future<ApiResponses<ReservationSchedule>>
+      fetchMahasiswaReservationHistoryByNim({
+    @Path("nim") required String nim,
+  });
+
+  @GET('/konselor/mahasiswa-reservasi-uncompleted/{nim}')
+  Future<ApiResponses<ReservationSchedule>>
+      fetchMahasiswaReservationRequestByNim({
+    @Path("nim") required String nim,
+  });
 }
 
 const client = RestClient.create;

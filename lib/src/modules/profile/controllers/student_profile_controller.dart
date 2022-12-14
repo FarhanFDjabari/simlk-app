@@ -14,13 +14,12 @@ import 'package:simlk_app/src/services/errorhandler/error_handler.dart';
 import 'package:simlk_app/src/utils/routes/page_name.dart';
 
 class StudentProfileController extends BaseObjectController<Mahasiswa> {
+  Mahasiswa get localUserData {
+    return Mahasiswa.fromJson(StorageManager().get(StorageName.MAHASISWA));
+  }
+
   @override
   void onInit() {
-    if (StorageManager().has(StorageName.MAHASISWA)) {
-      final mahasiswa =
-          Mahasiswa.fromJson(StorageManager().get(StorageName.MAHASISWA));
-      setFinishCallbacks(mahasiswa);
-    }
     super.onInit();
   }
 
@@ -86,7 +85,7 @@ class StudentProfileController extends BaseObjectController<Mahasiswa> {
       value.logout().validateStatus().then((data) async {
         await SecureStorageManager().setToken(value: null);
         StorageManager().write(StorageName.MAHASISWA, null);
-        finishLoadData();
+        // finishLoadData();
         Get.offAllNamed(PageName.auth);
       }).handleError((onError) {
         debugPrint(onError.toString());

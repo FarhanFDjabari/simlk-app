@@ -17,6 +17,11 @@ class Konselor implements ModelFactory {
     this.fcmToken,
     this.createdAt,
     this.updatedAt,
+    this.isAvailable,
+    this.jadwal,
+    this.nim,
+    this.noHp,
+    this.idLine,
   });
 
   @HiveField(0)
@@ -39,6 +44,16 @@ class Konselor implements ModelFactory {
   DateTime? createdAt;
   @HiveField(9)
   DateTime? updatedAt;
+  @HiveField(10)
+  String? nim;
+  @HiveField(11)
+  String? noHp;
+  @HiveField(12)
+  String? idLine;
+  @HiveField(13)
+  int? isAvailable;
+  @HiveField(14)
+  String? jadwal;
 
   factory Konselor.fromJson(Map<String, dynamic> json) => Konselor(
         id: json["id"],
@@ -55,6 +70,11 @@ class Konselor implements ModelFactory {
         updatedAt: json["updatedAt"] == null
             ? null
             : DateTime.parse(json["updatedAt"]),
+        isAvailable: json['is_available'],
+        jadwal: json['jadwal'],
+        nim: json['nim'],
+        noHp: json['no_hp'],
+        idLine: json['id_line'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -68,5 +88,10 @@ class Konselor implements ModelFactory {
         "fcm_token": fcmToken,
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
+        'is_available': isAvailable,
+        'jadwal': jadwal,
+        'nim': nim,
+        'no_hp': noHp,
+        'id_line': idLine,
       };
 }

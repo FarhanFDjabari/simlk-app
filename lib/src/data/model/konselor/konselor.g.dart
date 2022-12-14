@@ -27,13 +27,18 @@ class KonselorAdapter extends TypeAdapter<Konselor> {
       fcmToken: fields[7] as String?,
       createdAt: fields[8] as DateTime?,
       updatedAt: fields[9] as DateTime?,
+      isAvailable: fields[13] as int?,
+      jadwal: fields[14] as String?,
+      nim: fields[10] as String?,
+      noHp: fields[11] as String?,
+      idLine: fields[12] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Konselor obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -53,7 +58,17 @@ class KonselorAdapter extends TypeAdapter<Konselor> {
       ..writeByte(8)
       ..write(obj.createdAt)
       ..writeByte(9)
-      ..write(obj.updatedAt);
+      ..write(obj.updatedAt)
+      ..writeByte(10)
+      ..write(obj.nim)
+      ..writeByte(11)
+      ..write(obj.noHp)
+      ..writeByte(12)
+      ..write(obj.idLine)
+      ..writeByte(13)
+      ..write(obj.isAvailable)
+      ..writeByte(14)
+      ..write(obj.jadwal);
   }
 
   @override

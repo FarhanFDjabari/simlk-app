@@ -13,13 +13,12 @@ import 'package:simlk_app/src/services/errorhandler/error_handler.dart';
 import 'package:simlk_app/src/utils/routes/page_name.dart';
 
 class CounselorProfileController extends BaseObjectController<Konselor> {
+  Konselor get localUserData {
+    return Konselor.fromJson(StorageManager().get(StorageName.KONSELOR));
+  }
+
   @override
   void onInit() {
-    if (StorageManager().has(StorageName.KONSELOR)) {
-      final konselor =
-          Konselor.fromJson(StorageManager().get(StorageName.KONSELOR));
-      setFinishCallbacks(konselor);
-    }
     super.onInit();
   }
 
@@ -40,6 +39,10 @@ class CounselorProfileController extends BaseObjectController<Konselor> {
         finishLoadData(errorMessage: onError.toString());
       });
     });
+  }
+
+  void goToCompleteProfile() {
+    Get.toNamed(PageName.profileCompleteCounselor);
   }
 
   void showPhotoProfileBottomSheet() {
@@ -81,7 +84,7 @@ class CounselorProfileController extends BaseObjectController<Konselor> {
       value.logout().validateStatus().then((data) async {
         await SecureStorageManager().setToken(value: null);
         StorageManager().write(StorageName.KONSELOR, null);
-        finishLoadData();
+        // finishLoadData();
         Get.offAllNamed(PageName.auth);
       }).handleError((onError) {
         debugPrint(onError.toString());

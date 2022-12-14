@@ -14,7 +14,9 @@ import 'package:simlk_app/firebase_options.dart';
 import 'package:simlk_app/src/data/hive/hive_adapters.dart';
 import 'package:simlk_app/src/data/hive/hive_constants.dart';
 import 'package:simlk_app/src/data/model/konselor/konselor.dart';
+import 'package:simlk_app/src/data/model/koordinator/koordinator.dart';
 import 'package:simlk_app/src/data/model/mahasiswa/mahasiswa.dart';
+import 'package:simlk_app/src/data/model/pengawas/pengawas.dart';
 import 'package:simlk_app/src/data/storage/secure_storage_manager.dart';
 import 'package:simlk_app/src/data/storage/storage_constants.dart';
 
@@ -63,6 +65,8 @@ class Initializer {
     HiveAdapters().registerAdapter();
     await Hive.openBox<Mahasiswa>(HiveConstants.MAHASISWA_BOX);
     await Hive.openBox<Konselor>(HiveConstants.KONSELOR_BOX);
+    await Hive.openBox<Pengawas>(HiveConstants.PENGAWAS_BOX);
+    await Hive.openBox<Koordinator>(HiveConstants.KOORDINATOR_BOX);
   }
 
   static void _initScreenPreference() {

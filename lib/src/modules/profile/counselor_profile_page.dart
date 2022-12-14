@@ -54,13 +54,13 @@ class CounselorProfilePage extends GetView<CounselorProfileController> {
                     radius: 45,
                     backgroundColor: Resources.color.indigo300,
                     backgroundImage: NetworkImage(
-                      controller.mData?.profileImageUrl ??
+                      controller.localUserData.profileImageUrl ??
                           "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png",
                     ),
                   ),
                   const SizedBox(height: 5),
                   TextNunito(
-                    text: '${controller.mData?.name}',
+                    text: '${controller.localUserData.name}',
                     size: 16.sp,
                     fontWeight: Weightenum.BOLD,
                     align: TextAlign.center,
@@ -68,12 +68,29 @@ class CounselorProfilePage extends GetView<CounselorProfileController> {
                   ),
                   const SizedBox(height: 2),
                   TextNunito(
-                    text: '${controller.mData?.email}',
+                    text: '${controller.localUserData.nim}',
+                    size: 14.sp,
+                    fontWeight: Weightenum.REGULAR,
+                    align: TextAlign.center,
+                  ),
+                  const SizedBox(height: 2),
+                  TextNunito(
+                    text: '${controller.localUserData.email}',
                     size: 14.sp,
                     fontWeight: Weightenum.REGULAR,
                     align: TextAlign.center,
                   ),
                   const SizedBox(height: 24),
+                  PrimaryButton(
+                    elevation: 0,
+                    height: 45,
+                    isLoading: controller.isLoading,
+                    label: 'Ubah Informasi Detail',
+                    onPressed: () {
+                      controller.goToCompleteProfile();
+                    },
+                  ),
+                  const SizedBox(height: 10),
                   PrimaryButton(
                     elevation: 0,
                     height: 45,

@@ -18,6 +18,7 @@ class ReservationSchedule implements ModelFactory {
     this.updatedAt,
     this.student,
     this.counselor,
+    this.model,
   });
 
   int? id;
@@ -34,6 +35,7 @@ class ReservationSchedule implements ModelFactory {
   DateTime? updatedAt;
   Mahasiswa? student;
   Konselor? counselor;
+  int? model;
 
   factory ReservationSchedule.fromJson(Map<String, dynamic> json) =>
       ReservationSchedule(
@@ -58,9 +60,10 @@ class ReservationSchedule implements ModelFactory {
         student: json["student"] == null
             ? null
             : Mahasiswa.fromJson(json['student']),
-        counselor: json["conselour"] == null
+        counselor: json["konselor"] == null
             ? null
-            : Konselor.fromJson(json['conselour']),
+            : Konselor.fromJson(json['konselor']),
+        model: json['model'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -77,5 +80,7 @@ class ReservationSchedule implements ModelFactory {
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
         "student": student?.toJson(),
+        "konselor": counselor?.toJson(),
+        "model": model,
       };
 }

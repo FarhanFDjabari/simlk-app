@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:simlk_app/src/data/model/notification/notification.dart';
+import 'package:simlk_app/src/modules/common/controllers/counselor_view_controller.dart';
 import 'package:simlk_app/src/modules/home/controller/counselor_home_controller.dart';
 import 'package:simlk_app/src/services/api/api_services.dart';
 import 'package:simlk_app/src/services/base/base_list_controller.dart';
@@ -24,7 +25,7 @@ class CounselorNotificationController extends BaseListController<Notification> {
     required int id,
     required int status,
   }) async {
-    if (status < 4) {
+    if (status < 6) {
       Get.toNamed('${PageName.reservationKonselor}/$id');
     } else {
       Get.toNamed('/konselor/history/$id');
@@ -38,7 +39,7 @@ class CounselorNotificationController extends BaseListController<Notification> {
         final notifUnreadCount =
             data.data?.where((element) => element.isRead == 0).length;
 
-        Get.find<CounselorHomeController>().badgeNumber(notifUnreadCount);
+        Get.find<CounselorViewController>().badgeNumber(notifUnreadCount);
 
         dataList.clear();
         setFinishCallbacks(data.data?.reversed.toList() ?? []);

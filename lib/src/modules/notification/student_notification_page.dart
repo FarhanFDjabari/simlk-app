@@ -41,7 +41,6 @@ class StudentNotificationPage extends GetView<StudentNotificationController> {
             onRetryPressed: () {
               // controller.getDashboard("", "");
             },
-            errorEnabled: controller.isError,
             errorText: 'txt_error_general'.tr,
             emptyImage: AssetImage(
               Assets.lib.src.res.images.notificationEmpty.path,

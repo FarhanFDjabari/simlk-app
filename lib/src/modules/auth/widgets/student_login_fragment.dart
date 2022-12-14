@@ -17,64 +17,69 @@ class StudentLoginFragment extends GetView<StudentLoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            OutlinedTextfield(
-              controller: controller.nimController,
-              keyboardType: TextInputType.number,
-              textInputAction: TextInputAction.next,
-              hintText: 'Masukkan NIM anda',
-              label: TextNunito(
-                text: 'NIM',
-                size: 14,
-                fontWeight: Weightenum.REGULAR,
-              ),
-              validator: Validator().notEmpty,
-            ),
-            SizedBox(height: 5.sp),
-            Obx(
-              () => OutlinedTextfield(
-                controller: controller.passwordController,
-                keyboardType: TextInputType.visiblePassword,
-                textInputAction: TextInputAction.done,
-                hintText: 'Masukkan password anda',
-                isObscured: controller.isObscured.isTrue,
-                maxLines: 1,
-                label: TextNunito(
-                  text: 'Password',
-                  size: 14,
-                  fontWeight: Weightenum.REGULAR,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                OutlinedTextfield(
+                  controller: controller.nimController,
+                  keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.next,
+                  hintText: 'Masukkan NIM anda',
+                  label: TextNunito(
+                    text: 'NIM',
+                    size: 14,
+                    fontWeight: Weightenum.REGULAR,
+                  ),
+                  validator: Validator().notEmpty,
                 ),
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    controller.isObscured(!controller.isObscured.value);
-                  },
-                  icon: controller.isObscured.isTrue
-                      ? const Icon(Remix.eye_close_line)
-                      : const Icon(Remix.eye_line),
+                SizedBox(height: 5.sp),
+                Obx(
+                  () => OutlinedTextfield(
+                    controller: controller.passwordController,
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    hintText: 'Masukkan password anda',
+                    isObscured: controller.isObscured.isTrue,
+                    maxLines: 1,
+                    label: TextNunito(
+                      text: 'Password',
+                      size: 14,
+                      fontWeight: Weightenum.REGULAR,
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        controller.isObscured(!controller.isObscured.value);
+                      },
+                      icon: controller.isObscured.isTrue
+                          ? const Icon(Remix.eye_close_line)
+                          : const Icon(Remix.eye_line),
+                    ),
+                    validator: Validator().notEmpty,
+                  ),
                 ),
-                validator: Validator().notEmpty,
-              ),
-            ),
-            SizedBox(height: 16.sp),
-            GetBuilder<StudentLoginController>(
-              init: StudentLoginController(),
-              builder: (_) {
-                return PrimaryButton(
-                  isLoading: controller.isLoading,
-                  elevation: 0,
-                  label: 'Masuk Sebagai Mahasiswa',
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      controller.loginMahasiswa();
-                    }
+                SizedBox(height: 16.sp),
+                GetBuilder<StudentLoginController>(
+                  init: StudentLoginController(),
+                  builder: (_) {
+                    return PrimaryButton(
+                      isLoading: controller.isLoading,
+                      elevation: 0,
+                      label: 'Masuk Sebagai Mahasiswa',
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          controller.loginMahasiswa();
+                        }
+                      },
+                    );
                   },
-                );
-              },
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

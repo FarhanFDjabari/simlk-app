@@ -70,11 +70,11 @@ class ReservationScheduleTile extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
-                    color: data?.status == 1
+                    color: data?.status == 1 || data?.status == 2
                         ? Resources.color.indigo10
-                        : data?.status == 2
+                        : data?.status == 3 || data?.status == 4
                             ? Resources.color.stateWarning50
-                            : data?.status == 3
+                            : data?.status == 5
                                 ? Resources.color.indigo50
                                 : Resources.color.statePositive50,
                   ),
@@ -87,11 +87,11 @@ class ReservationScheduleTile extends StatelessWidget {
                         height: 10,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: data?.status == 1
+                          color: data?.status == 1 || data?.status == 2
                               ? Resources.color.indigo800
-                              : data?.status == 2
+                              : data?.status == 3 || data?.status == 4
                                   ? Resources.color.stateWarning
-                                  : data?.status == 3
+                                  : data?.status == 5
                                       ? Resources.color.indigo800
                                       : Resources.color.statePositive,
                         ),
@@ -101,10 +101,14 @@ class ReservationScheduleTile extends StatelessWidget {
                         text: data?.status == 1
                             ? 'Diajukan'
                             : data?.status == 2
-                                ? 'Terjadwal'
+                                ? 'Diterima'
                                 : data?.status == 3
-                                    ? 'Penanganan'
-                                    : 'Selesai',
+                                    ? "Ditugaskan"
+                                    : data?.status == 4
+                                        ? 'Terjadwal'
+                                        : data?.status == 5
+                                            ? 'Penanganan'
+                                            : 'Selesai',
                         size: 14,
                         fontWeight: Weightenum.REGULAR,
                         align: TextAlign.center,
