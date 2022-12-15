@@ -283,9 +283,9 @@ class SupervisorReservationHistoryDetailPage
                           : Resources.color.neutral400,
                       textAlign: TextAlign.justify,
                     ),
-                    if (controller.mData?.report != null)
+                    if (controller.mData?.reportFileUrl != null)
                       const SizedBox(height: 8),
-                    if (controller.mData?.report != null)
+                    if (controller.mData?.reportFileUrl != null)
                       Obx(
                         () => DashedButtonIcon(
                           text: controller.isDownloading.isTrue

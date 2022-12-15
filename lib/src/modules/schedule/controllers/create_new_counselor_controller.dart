@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simlk_app/src/modules/common/widgets/simlk_snackbar.dart';
+import 'package:simlk_app/src/modules/schedule/controllers/coordinator_schedule_controller.dart';
 import 'package:simlk_app/src/services/api/api_services.dart';
 import 'package:simlk_app/src/services/base/base_object_controller.dart';
 import 'package:simlk_app/src/services/errorhandler/error_handler.dart';
@@ -30,6 +31,15 @@ class CreateNewCounselorController extends BaseObjectController {
     super.dispose();
   }
 
+  void formClear() {
+    nameController.clear();
+    emailController.clear();
+    majorController.clear();
+    nimController.clear();
+    phoneNumberController.clear();
+    lineIdController.clear();
+  }
+
   Future<void> registerKonselor() async {
     loadingState();
     await client().then((value) {
@@ -45,6 +55,8 @@ class CreateNewCounselorController extends BaseObjectController {
           )
           .validateStatus()
           .then((data) {
+        formClear();
+        Get.find<CoordinatorScheduleController>().getKonselorSchedule();
         finishLoadData();
         Get.showSnackbar(SIMLKSnackbar(
           snackbarMessage: 'Registrasi Konselor Berhasil',

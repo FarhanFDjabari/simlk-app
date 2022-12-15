@@ -140,7 +140,7 @@ class StudentHome extends GetView<StudentHomeController> {
                             return SIMLKCalendar(
                               focusedDay: controller.focusedDay.value,
                               selectedDay: controller.selectedDay.value,
-                              firstDay: controller.selectedDay.value,
+                              firstDay: controller.firstDay.value,
                               reservations: controller.dataList,
                               onDaySelected: (selectedDay, focusedDay) {
                                 controller.selectedDay(selectedDay);

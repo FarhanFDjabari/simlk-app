@@ -62,7 +62,9 @@ class Konselor implements ModelFactory {
         name: json["name"],
         major: json["major"],
         role: json["role"],
-        profileImageUrl: json["profile_image_url"],
+        profileImageUrl: json["profile_image_url"].toString().isEmpty
+            ? null
+            : json["profile_image_url"],
         fcmToken: json["fcm_token"],
         createdAt: json["createdAt"] == null
             ? null

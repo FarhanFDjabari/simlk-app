@@ -85,7 +85,7 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<ApiResponse<dynamic>> registerKonselor(
+  Future<ApiResponse<LoginResponse>> registerKonselor(
     email,
     password,
     name,
@@ -109,7 +109,7 @@ class _RestClient implements RestClient {
     };
     _data.removeWhere((k, v) => v == null);
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponse<dynamic>>(Options(
+        _setStreamType<ApiResponse<LoginResponse>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -121,7 +121,7 @@ class _RestClient implements RestClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponse<dynamic>.fromJson(_result.data!);
+    final value = ApiResponse<LoginResponse>.fromJson(_result.data!);
     return value;
   }
 

@@ -61,7 +61,7 @@ class CoordinatorCounselorAssignController
         ));
       }).handleError((onError) {
         debugPrint(onError);
-        finishLoadData(errorMessage: onError);
+        finishLoadData(errorMessage: onError.toString());
       });
     });
   }

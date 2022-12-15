@@ -60,7 +60,7 @@ abstract class RestClient {
   );
 
   @POST('/auth/register-conselour')
-  Future<ApiResponse<dynamic>> registerKonselor(
+  Future<ApiResponse<LoginResponse>> registerKonselor(
     @Field("email") String? email,
     @Field("password") String? password,
     @Field("name") String? name,

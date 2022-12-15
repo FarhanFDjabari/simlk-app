@@ -3,10 +3,13 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:simlk_app/src/data/model/reservation/reservation_schedule.dart';
+import 'package:simlk_app/src/data/storage/storage_constants.dart';
+import 'package:simlk_app/src/data/storage/storage_manager.dart';
 import 'package:simlk_app/src/modules/common/widgets/bottom_sheet/textfield_bottomsheet.dart';
 import 'package:simlk_app/src/modules/common/widgets/bottom_sheet/upload_file_bottomsheet.dart';
 import 'package:simlk_app/src/modules/common/widgets/simlk_report_dialog.dart';
 import 'package:simlk_app/src/modules/common/widgets/simlk_snackbar.dart';
+import 'package:simlk_app/src/modules/home/controller/counselor_home_controller.dart';
 import 'package:simlk_app/src/modules/reservation/controller/counselor_reservation_controller.dart';
 import 'package:simlk_app/src/services/api/api_services.dart';
 import 'package:simlk_app/src/services/base/base_object_controller.dart';
@@ -44,7 +47,7 @@ class CounselorReservationDetailController
                   id: id,
                   report: counselingFinalReportController.text,
                 );
-                await setReservationStatus(id: id, status: 4);
+                await setReservationStatus(id: id, status: 6);
                 counselingFinalReportController.clear();
               },
             ),
@@ -61,7 +64,7 @@ class CounselorReservationDetailController
                   id: id,
                   file: report,
                 );
-                await setReservationStatus(id: id, status: 4);
+                await setReservationStatus(id: id, status: 6);
               },
             ),
           );
@@ -101,13 +104,15 @@ class CounselorReservationDetailController
         finishLoadData();
         Get.showSnackbar(SIMLKSnackbar(
           snackbarMessage:
-              'Berhasil mengubah status reservasi: ${status == 2 ? 'TERJADWAL' : status == 3 ? 'PENANGANAN' : 'SELESAI'}',
+              'Berhasil mengubah status reservasi: ${status == 4 ? 'TERJADWAL' : status == 5 ? 'PENANGANAN' : 'SELESAI'}',
           snackbarStateEnum: SnackbarStateEnum.POSITIVE,
         ));
-        if (status < 4) {
+        if (status < 6) {
           getReservationDetail(id: id);
         } else {
-          Get.find<CounselorReservationController>().getOngoingReservations();
+          if (StorageManager().has(StorageName.KONSELOR)) {
+            Get.find<CounselorHomeController>().getOngoingReservations();
+          }
           goToHistoryDetail(id: id);
         }
       }).handleError((onError) {
