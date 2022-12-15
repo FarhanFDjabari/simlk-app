@@ -210,15 +210,15 @@ abstract class RestClient {
   Future<ApiResponses<ReservationSchedule>>
       fetchKoordinatorOngoingReservation();
 
-  @GET('/koordinator/conselor-tersedia/reservasi/{idres}')
+  @GET('/koordinator/conselor-tersedia/reservasi/{reservationId}')
   Future<ApiResponses<Konselor>> fetchKonselorAvailable({
-    @Path("idRes") required int reservationId,
+    @Path("reservationId") required int reservationId,
   });
 
-  @GET('/koordinator/reservation/{idres}/konselor/{idkon}')
+  @GET('/koordinator/reservation/{reservationId}/konselor/{konselorId}')
   Future<ApiResponses<dynamic>> assignKonselorToReservation({
-    @Path("idRes") required int reservationId,
-    @Path("idKon") required int konselorId,
+    @Path("reservationId") required int reservationId,
+    @Path("konselorId") required int konselorId,
   });
 
   @GET('/konselor/ketersediaan-hari/{hari}')

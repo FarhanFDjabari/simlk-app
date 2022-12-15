@@ -971,7 +971,7 @@ class _RestClient implements RestClient {
     )
             .compose(
               _dio.options,
-              '/koordinator/conselor-tersedia/reservasi/{idres}',
+              '/koordinator/conselor-tersedia/reservasi/${reservationId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -997,7 +997,7 @@ class _RestClient implements RestClient {
     )
             .compose(
               _dio.options,
-              '/koordinator/reservation/{idres}/konselor/{idkon}',
+              '/koordinator/reservation/${reservationId}/konselor/${konselorId}',
               queryParameters: queryParameters,
               data: _data,
             )
