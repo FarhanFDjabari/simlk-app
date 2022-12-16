@@ -25,8 +25,11 @@ class SupervisorNotificationController
   Future<void> goToDetail({
     required int id,
     required int status,
+    String? title,
   }) async {
-    if (status < 2) {
+    if (title?.contains('Selesai') == true) {
+      Get.toNamed('${PageName.reservationHistorySupervisor}/$id');
+    } else if (status < 2) {
       Get.toNamed('${PageName.newReservationSupervisor}/$id');
     } else if (status < 6) {
       Get.toNamed('${PageName.reservationKonselor}/$id');

@@ -1,23 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:simlk_app/src/modules/common/widgets/button/dashed_button_icon.dart';
 import 'package:simlk_app/src/modules/common/widgets/button/primary_button.dart';
 import 'package:simlk_app/src/modules/common/widgets/description_text_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/loading_overlay.dart';
 import 'package:simlk_app/src/modules/common/widgets/outlined_textfield.dart';
+import 'package:simlk_app/src/modules/common/widgets/simlk_snackbar.dart';
 import 'package:simlk_app/src/modules/common/widgets/state_handle_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
 import 'package:simlk_app/src/modules/history/controllers/supervisor/supervisor_reservation_history_detail_controller.dart';
 import 'package:simlk_app/src/res/resources.dart';
 import 'package:simlk_app/src/utils/helper/constant.dart';
 import 'package:simlk_app/src/utils/helper/extensions/date_time_extension.dart';
+import 'package:simlk_app/src/utils/helper/snackbar_state_enum.dart';
 import 'package:simlk_app/src/utils/helper/validator.dart';
 import 'package:sizer/sizer.dart';
 
 class SupervisorReservationHistoryDetailPage
     extends GetView<SupervisorReservationHistoryDetailController> {
   const SupervisorReservationHistoryDetailPage({Key? key}) : super(key: key);
+
+  Future<void> checkPermission({required Function() callback}) async {
+    var storagePermission = Permission.storage;
+    var mediaLibraryPermission = Permission.mediaLibrary;
+    if (await storagePermission.request().isGranted) {
+      callback();
+    } else if (await storagePermission.request().isDenied) {
+      Get.showSnackbar(
+        SIMLKSnackbar(
+          snackbarMessage:
+              'Mohon aktifkan izin aplikasi untuk mengakses penyimpanan',
+          snackbarStateEnum: SnackbarStateEnum.WARNING,
+        ),
+      );
+    } else if (await storagePermission.request().isPermanentlyDenied) {
+      await openAppSettings();
+    }
+
+    if (await mediaLibraryPermission.request().isDenied) {
+      Get.showSnackbar(
+        SIMLKSnackbar(
+          snackbarMessage:
+              'Mohon aktifkan izin aplikasi untuk mengakses penyimpanan media',
+          snackbarStateEnum: SnackbarStateEnum.WARNING,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -296,8 +327,10 @@ class SupervisorReservationHistoryDetailPage
                           isLoading: controller.isDownloading.value,
                           progressValue:
                               controller.fileReportDownloadProgress.value / 100,
-                          callback: () {
-                            controller.downloadReportFile();
+                          callback: () async {
+                            await checkPermission(callback: () {
+                              controller.downloadReportFile();
+                            });
                           },
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 16),

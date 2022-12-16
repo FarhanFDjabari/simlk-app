@@ -2,14 +2,11 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:simlk_app/src/data/model/konselor/konselor.dart';
-import 'package:simlk_app/src/data/model/mahasiswa/mahasiswa.dart';
 import 'package:simlk_app/src/data/model/reservation/reservation_schedule.dart';
 import 'package:simlk_app/src/services/api/api_services.dart';
 import 'package:simlk_app/src/services/base/base_object_controller.dart';
@@ -80,7 +77,7 @@ class SupervisorReservationHistoryDetailController
         fileName: fileName,
         showNotification: true,
         openFileFromNotification: true,
-        requiresStorageNotLow: true,
+        requiresStorageNotLow: false,
       );
 
       if (taskId != null) {

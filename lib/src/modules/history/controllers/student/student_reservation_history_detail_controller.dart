@@ -7,13 +7,13 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:simlk_app/src/data/model/mahasiswa/mahasiswa.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:simlk_app/src/data/model/reservation/reservation_schedule.dart';
-import 'package:simlk_app/src/data/storage/storage_constants.dart';
-import 'package:simlk_app/src/data/storage/storage_manager.dart';
+import 'package:simlk_app/src/modules/common/widgets/simlk_snackbar.dart';
 import 'package:simlk_app/src/services/api/api_services.dart';
 import 'package:simlk_app/src/services/base/base_object_controller.dart';
 import 'package:simlk_app/src/services/errorhandler/error_handler.dart';
+import 'package:simlk_app/src/utils/helper/snackbar_state_enum.dart';
 
 class StudentReservationHistoryDetailController
     extends BaseObjectController<ReservationSchedule> {
@@ -63,7 +63,38 @@ class StudentReservationHistoryDetailController
     });
   }
 
+  Future<bool> checkPermission() async {
+    var storagePermission = Permission.storage;
+    var mediaLibraryPermission = Permission.mediaLibrary;
+    if (await storagePermission.request().isDenied ||
+        await storagePermission.request().isPermanentlyDenied) {
+      Get.showSnackbar(
+        SIMLKSnackbar(
+          snackbarMessage:
+              'Mohon aktifkan izin aplikasi untuk mengakses penyimpanan',
+          snackbarStateEnum: SnackbarStateEnum.WARNING,
+        ),
+      );
+      return false;
+    }
+    if (await mediaLibraryPermission.request().isDenied ||
+        await mediaLibraryPermission.request().isPermanentlyDenied) {
+      Get.showSnackbar(
+        SIMLKSnackbar(
+          snackbarMessage:
+              'Mohon aktifkan izin aplikasi untuk mengakses penyimpanan media',
+          snackbarStateEnum: SnackbarStateEnum.WARNING,
+        ),
+      );
+      return false;
+    }
+    return true;
+  }
+
   Future<void> downloadReportFile() async {
+    if (await checkPermission() == false) {
+      return;
+    }
     final externalStorageDirectory = await getExternalStorageDirectory();
     final fileName = '${mData?.reportFileUrl?.split("/").last}';
     if (await File("${externalStorageDirectory?.absolute.path}/$fileName")
@@ -79,7 +110,7 @@ class StudentReservationHistoryDetailController
         fileName: fileName,
         showNotification: true,
         openFileFromNotification: true,
-        requiresStorageNotLow: true,
+        requiresStorageNotLow: false,
       );
 
       if (taskId != null) {
