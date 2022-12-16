@@ -35,7 +35,6 @@ class CounselorLoginController extends BaseObjectController {
   Future<void> loginKonselor() async {
     loadingState();
     final fcmToken = await SecureStorageManager().getDeviceToken();
-    print(role);
 
     await client().then((value) {
       value

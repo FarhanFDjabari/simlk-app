@@ -63,8 +63,8 @@ class CreateNewCounselorController extends BaseObjectController {
           snackbarStateEnum: SnackbarStateEnum.POSITIVE,
         ));
       }).handleError((onError) {
-        debugPrint(onError);
-        finishLoadData(errorMessage: onError);
+        debugPrint(onError.toString());
+        finishLoadData(errorMessage: onError.toString());
       });
     });
   }

@@ -9,6 +9,7 @@ class CoordinatorReservationDetailController
     extends BaseObjectController<ReservationSchedule> {
   final counselingLocationController = TextEditingController();
   final counselingFinalReportController = TextEditingController();
+  final RxBool isActionTaken = false.obs;
 
   @override
   void onInit() {

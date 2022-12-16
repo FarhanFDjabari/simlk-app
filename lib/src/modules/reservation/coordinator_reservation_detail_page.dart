@@ -186,16 +186,17 @@ class CoordinatorReservationDetailPage
                         textAlign: TextAlign.justify,
                       ),
                       const SizedBox(height: 32),
-                      PrimaryButton(
-                        elevation: 0,
-                        height: 45,
-                        label: 'Atur Konselor',
-                        isLoading: controller.isLoading,
-                        onPressed: () {
-                          controller.goToAssignCounselor(
-                              id: controller.mData?.id ?? 0);
-                        },
-                      ),
+                      Obx(() => PrimaryButton(
+                            elevation: 0,
+                            height: 45,
+                            label: 'Atur Konselor',
+                            isLoading: controller.isLoading,
+                            isEnabled: controller.isActionTaken.isFalse,
+                            onPressed: () {
+                              controller.goToAssignCounselor(
+                                  id: controller.mData?.id ?? 0);
+                            },
+                          )),
                     ],
                   ),
                 ),

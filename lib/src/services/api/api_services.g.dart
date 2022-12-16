@@ -981,7 +981,7 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<ApiResponses<dynamic>> assignKonselorToReservation({
+  Future<ApiResponse<dynamic>> assignKonselorToReservation({
     required reservationId,
     required konselorId,
   }) async {
@@ -990,7 +990,7 @@ class _RestClient implements RestClient {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ApiResponses<dynamic>>(Options(
+        _setStreamType<ApiResponse<dynamic>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -1002,7 +1002,7 @@ class _RestClient implements RestClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponses<dynamic>.fromJson(_result.data!);
+    final value = ApiResponse<dynamic>.fromJson(_result.data!);
     return value;
   }
 

@@ -58,8 +58,8 @@ class SupervisorCounselorScheduleController
         dataList.clear();
         setFinishCallbacks(data.data ?? []);
       }).handleError((onError) {
-        debugPrint(onError);
-        finishLoadData(errorMessage: onError);
+        debugPrint(onError.toString());
+        finishLoadData(errorMessage: onError.toString());
       });
     });
   }

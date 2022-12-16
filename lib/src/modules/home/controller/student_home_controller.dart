@@ -50,6 +50,7 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
 
   void resetForm() {
     descriptionController.clear();
+    refresh();
   }
 
   Mahasiswa get localUserData =>

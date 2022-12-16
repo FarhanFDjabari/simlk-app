@@ -35,8 +35,8 @@ class SupervisorReservationHistoryController
         dataList.clear();
         setFinishCallbacks(data.data?.reversed.toList() ?? []);
       }).handleError((onError) {
-        debugPrint(onError);
-        finishLoadData(errorMessage: onError);
+        debugPrint(onError.toString());
+        finishLoadData(errorMessage: onError.toString());
       });
     });
   }

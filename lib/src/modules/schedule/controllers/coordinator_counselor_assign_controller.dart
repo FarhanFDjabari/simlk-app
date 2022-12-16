@@ -2,6 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:simlk_app/src/data/model/konselor/konselor.dart';
 import 'package:simlk_app/src/modules/common/widgets/simlk_snackbar.dart';
+import 'package:simlk_app/src/modules/home/controller/coordinator_home_controller.dart';
+import 'package:simlk_app/src/modules/reservation/controller/coordinator_reservation_detail_controller.dart';
 import 'package:simlk_app/src/services/api/api_services.dart';
 import 'package:simlk_app/src/services/base/base_list_controller.dart';
 import 'package:simlk_app/src/services/errorhandler/error_handler.dart';
@@ -37,8 +39,8 @@ class CoordinatorCounselorAssignController
         dataList.clear();
         setFinishCallbacks(data.data?.reversed.toList() ?? []);
       }).handleError((onError) {
-        debugPrint(onError);
-        finishLoadData(errorMessage: onError);
+        debugPrint(onError.toString());
+        finishLoadData(errorMessage: onError.toString());
       });
     });
   }
@@ -54,13 +56,15 @@ class CoordinatorCounselorAssignController
               reservationId: reservationId, konselorId: konselorId)
           .validateStatus()
           .then((data) {
+        Get.find<CoordinatorHomeController>().getOngoingSchedule();
+        Get.find<CoordinatorReservationDetailController>().isActionTaken(true);
         finishLoadData();
         Get.showSnackbar(SIMLKSnackbar(
           snackbarMessage: 'Konselor Telah Ditugaskan',
           snackbarStateEnum: SnackbarStateEnum.POSITIVE,
         ));
       }).handleError((onError) {
-        debugPrint(onError);
+        debugPrint(onError.toString());
         finishLoadData(errorMessage: onError.toString());
       });
     });

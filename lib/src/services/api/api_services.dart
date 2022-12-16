@@ -216,7 +216,7 @@ abstract class RestClient {
   });
 
   @GET('/koordinator/reservation/{reservationId}/konselor/{konselorId}')
-  Future<ApiResponses<dynamic>> assignKonselorToReservation({
+  Future<ApiResponse<dynamic>> assignKonselorToReservation({
     @Path("reservationId") required int reservationId,
     @Path("konselorId") required int konselorId,
   });
