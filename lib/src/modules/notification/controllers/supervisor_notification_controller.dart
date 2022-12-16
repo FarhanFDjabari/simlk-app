@@ -56,7 +56,11 @@ class SupervisorNotificationController
     });
   }
 
-  Future<void> markReadNotificationById({required int id, int? status}) async {
+  Future<void> markReadNotificationById({
+    required int id,
+    int? status,
+    String? title,
+  }) async {
     loadingState();
     await client().then((value) {
       value
@@ -64,7 +68,7 @@ class SupervisorNotificationController
           .validateStatus()
           .then((data) {
         finishLoadData();
-        goToDetail(id: id, status: status ?? 0);
+        goToDetail(id: id, status: status ?? 0, title: title);
         getAllNotifications();
       }).handleError((onError) {
         debugPrint(onError.toString());

@@ -82,6 +82,7 @@ class SupervisorNotificationPage
                                     .dataList[index].data['id_reservasi'] ??
                                 0,
                             status: controller.dataList[index].data['status'],
+                            title: controller.dataList[index].title,
                           );
                         } else {
                           controller.markReadNotificationById(
@@ -89,6 +90,7 @@ class SupervisorNotificationPage
                                     .dataList[index].data['id_reservasi'] ??
                                 0,
                             status: controller.dataList[index].data['status'],
+                            title: controller.dataList[index].title,
                           );
                         }
                       },
