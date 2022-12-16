@@ -152,7 +152,7 @@ class SupervisorReservationHistoryDetailPage
                     const SizedBox(height: 5),
                     TextNunito(
                       text:
-                          '${controller.mData?.student?.noHp}/${controller.mData?.student?.idLine}',
+                          '${controller.mData?.student?.noHp ?? '-'}/${controller.mData?.student?.idLine ?? '-'}',
                       size: 16,
                       isSelectable: true,
                       fontWeight: Weightenum.REGULAR,
@@ -189,7 +189,7 @@ class SupervisorReservationHistoryDetailPage
                               align: TextAlign.center,
                             ),
                             TextNunito(
-                              text: '${controller.mData?.counselor?.nim}',
+                              text: controller.mData?.counselor?.nim ?? '-',
                               size: 14,
                               fontWeight: Weightenum.REGULAR,
                               maxLines: 2,
@@ -207,7 +207,7 @@ class SupervisorReservationHistoryDetailPage
                     ),
                     const SizedBox(height: 5),
                     TextNunito(
-                      text: '${controller.mData?.counselor?.email}',
+                      text: controller.mData?.counselor?.email,
                       size: 16,
                       fontWeight: Weightenum.REGULAR,
                     ),
@@ -220,7 +220,7 @@ class SupervisorReservationHistoryDetailPage
                     const SizedBox(height: 5),
                     TextNunito(
                       text:
-                          '${controller.mData?.counselor?.noHp}/${controller.mData?.counselor?.idLine}',
+                          '${controller.mData?.counselor?.noHp ?? '-'}/${controller.mData?.counselor?.idLine ?? '-'}',
                       size: 16,
                       isSelectable: true,
                       fontWeight: Weightenum.REGULAR,

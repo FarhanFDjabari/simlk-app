@@ -24,6 +24,9 @@ class SupervisorNewReservationDetailController
   }
 
   void refreshNewReservationList() {
+    if (!Get.isRegistered<SupervisorNewReservationController>()) {
+      Get.put(SupervisorNewReservationController());
+    }
     Get.find<SupervisorNewReservationController>().getOngoingReservations();
   }
 

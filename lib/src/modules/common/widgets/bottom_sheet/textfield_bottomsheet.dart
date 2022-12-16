@@ -11,12 +11,14 @@ class TextfieldBottomsheet extends StatelessWidget {
     this.label,
     required this.textInputController,
     required this.onSave,
+    this.isLoading,
     Key? key,
   }) : super(key: key);
 
-  final Function(String) onSave;
+  final Future<void> Function(String) onSave;
   final TextEditingController textInputController;
   final String? label;
+  final bool? isLoading;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -63,6 +65,7 @@ class TextfieldBottomsheet extends StatelessWidget {
                 const SizedBox(height: 16),
                 PrimaryButton(
                   elevation: 0,
+                  isLoading: isLoading == true,
                   label: 'Tambahkan Laporan',
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {

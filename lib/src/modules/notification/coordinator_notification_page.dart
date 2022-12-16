@@ -81,13 +81,14 @@ class CoordinatorNotificationPage
                             id: controller
                                     .dataList[index].data['id_reservasi'] ??
                                 0,
-                            status: controller.dataList[index].data['status'],
+                            status:
+                                controller.dataList[index].data['status'] ?? 1,
                           );
                         } else {
                           controller.markReadNotificationById(
-                            id: controller
-                                    .dataList[index].data['id_reservasi'] ??
-                                0,
+                            id: controller.dataList[index].id ?? 0,
+                            reservationId:
+                                controller.dataList[index].data['id_reservasi'],
                             status: controller.dataList[index].data['status'],
                           );
                         }

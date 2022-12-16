@@ -259,6 +259,13 @@ abstract class RestClient {
       fetchMahasiswaReservationRequestByNim({
     @Path("nim") required String nim,
   });
+
+  @GET('/pengawas/update')
+  Future<ApiResponse<dynamic>> updatePengawasReservationStatus({
+    @Query("status") required int status,
+    @Query("id") required int reservationId,
+    @Query("location") required String location,
+  });
 }
 
 const client = RestClient.create;

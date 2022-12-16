@@ -59,16 +59,17 @@ class SupervisorNotificationController
   Future<void> markReadNotificationById({
     required int id,
     int? status,
+    int? reservationId,
     String? title,
   }) async {
     loadingState();
     await client().then((value) {
       value
-          .markNotificationById(notificationId: id)
+          .markNotificationById(notificationId: id, isRead: 1)
           .validateStatus()
           .then((data) {
         finishLoadData();
-        goToDetail(id: id, status: status ?? 0, title: title);
+        goToDetail(id: reservationId ?? 0, status: status ?? 1, title: title);
         getAllNotifications();
       }).handleError((onError) {
         debugPrint(onError.toString());

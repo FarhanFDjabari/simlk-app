@@ -212,7 +212,7 @@ class CounselorReservationDetailPage
                         isEnabled: controller.mData?.status == 3,
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            controller.setReservationStatus(
+                            controller.reservationStatusUpdate(
                                 id: controller.mData?.id ?? 0, status: 4);
                           }
                         },
@@ -226,7 +226,7 @@ class CounselorReservationDetailPage
                         isEnabled: controller.mData?.status == 4,
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            controller.setReservationStatus(
+                            controller.reservationStatusUpdate(
                                 id: controller.mData?.id ?? 0, status: 5);
                           }
                         },

@@ -13,10 +13,12 @@ class UploadFileBottomsheet extends StatefulWidget {
   UploadFileBottomsheet({
     this.label,
     required this.onSave,
+    this.isLoading,
     Key? key,
   }) : super(key: key);
 
-  final Function(File) onSave;
+  final Future<void> Function(File) onSave;
+  final bool? isLoading;
   final String? label;
 
   @override
@@ -80,6 +82,7 @@ class _UploadFileBottomsheetState extends State<UploadFileBottomsheet> {
             PrimaryButton(
               elevation: 0,
               label: 'Tambahkan Laporan',
+              isLoading: widget.isLoading == true,
               onPressed: () {
                 if (pickedFile != null) {
                   widget.onSave(pickedFile!);

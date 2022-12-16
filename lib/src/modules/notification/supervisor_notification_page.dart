@@ -81,14 +81,15 @@ class SupervisorNotificationPage
                             id: controller
                                     .dataList[index].data['id_reservasi'] ??
                                 0,
-                            status: controller.dataList[index].data['status'],
+                            status:
+                                controller.dataList[index].data['status'] ?? 1,
                             title: controller.dataList[index].title,
                           );
                         } else {
                           controller.markReadNotificationById(
-                            id: controller
-                                    .dataList[index].data['id_reservasi'] ??
-                                0,
+                            id: controller.dataList[index].id ?? 0,
+                            reservationId:
+                                controller.dataList[index].data['id_reservasi'],
                             status: controller.dataList[index].data['status'],
                             title: controller.dataList[index].title,
                           );

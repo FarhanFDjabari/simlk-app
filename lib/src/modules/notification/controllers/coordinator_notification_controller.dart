@@ -52,16 +52,17 @@ class CoordinatorNotificationController
     });
   }
 
-  Future<void> markReadNotificationById({required int id, int? status}) async {
+  Future<void> markReadNotificationById(
+      {required int id, int? status, int? reservationId}) async {
     loadingState();
     await client().then((value) {
       value
-          .markNotificationById(notificationId: id)
+          .markNotificationById(notificationId: id, isRead: 1)
           .validateStatus()
           .then((data) {
         finishLoadData();
         getAllNotifications();
-        goToDetail(id: id, status: status ?? 0);
+        goToDetail(id: reservationId ?? 0, status: status ?? 1);
       }).handleError((onError) {
         debugPrint(onError.toString());
         finishLoadData(errorMessage: onError.toString());

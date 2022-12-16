@@ -49,8 +49,10 @@ class SupervisorHome extends GetView<SupervisorHomeController> {
                         radius: 40,
                         backgroundColor: Resources.color.indigo300,
                         backgroundImage: NetworkImage(
-                          controller.localUserData.profileImageUrl ??
-                              "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png",
+                          controller.localUserData.profileImageUrl?.isEmpty ==
+                                  true
+                              ? "https://dreamvilla.life/wp-content/uploads/2017/07/dummy-profile-pic.png"
+                              : controller.localUserData.profileImageUrl ?? '',
                         ),
                       ),
                     ),
