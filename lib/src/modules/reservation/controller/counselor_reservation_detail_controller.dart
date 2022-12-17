@@ -10,7 +10,6 @@ import 'package:simlk_app/src/modules/common/widgets/bottom_sheet/upload_file_bo
 import 'package:simlk_app/src/modules/common/widgets/simlk_report_dialog.dart';
 import 'package:simlk_app/src/modules/common/widgets/simlk_snackbar.dart';
 import 'package:simlk_app/src/modules/home/controller/counselor_home_controller.dart';
-import 'package:simlk_app/src/modules/reservation/controller/counselor_reservation_controller.dart';
 import 'package:simlk_app/src/modules/reservation/controller/supervisor_reservation_controller.dart';
 import 'package:simlk_app/src/services/api/api_services.dart';
 import 'package:simlk_app/src/services/base/base_object_controller.dart';
@@ -68,7 +67,6 @@ class CounselorReservationDetailController
                   label: 'Laporan Akhir Konseling',
                   isLoading: isLoading,
                   onSave: (report) async {
-                    print(report.path);
                     await setReservationReport(
                       id: id,
                       file: report,
@@ -102,6 +100,7 @@ class CounselorReservationDetailController
 
   Future<void> reservationStatusUpdate(
       {required int id, required int status}) async {
+    Get.back();
     if (StorageManager().has(StorageName.KONSELOR)) {
       await setReservationStatus(id: id, status: status);
     } else if (StorageManager().has(StorageName.SUPERVISOR)) {
@@ -134,9 +133,8 @@ class CounselorReservationDetailController
             if (!Get.isRegistered<CounselorHomeController>()) {
               Get.put(CounselorHomeController);
             }
-            Get.find<CounselorHomeController>().getOngoingReservations();
+            await Get.find<CounselorHomeController>().getOngoingReservations();
           }
-          Get.back();
           goToHistoryDetail(id: id);
         }
       }).handleError((onError) {
@@ -171,10 +169,9 @@ class CounselorReservationDetailController
             if (!Get.isRegistered<SupervisorReservationController>()) {
               Get.put(SupervisorReservationController());
             }
-            Get.find<SupervisorReservationController>()
+            await Get.find<SupervisorReservationController>()
                 .getOngoingReservations();
           }
-          Get.back();
           goToHistoryDetail(id: id);
         }
       }).handleError((onError) {

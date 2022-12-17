@@ -82,7 +82,6 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
         final availableTimeFromApi =
             data.data?.map((e) => e.timeHours ?? "").toList();
         reservationTimeAvailable(availableTimeFromApi);
-        timeHour("00:00");
         finishLoadData();
       }).handleError((onError) {
         debugPrint(onError.toString());
@@ -102,8 +101,8 @@ class StudentHomeController extends BaseListController<ReservationSchedule> {
             timeHours: timeHour.value,
           )
           .validateStatus()
-          .then((data) {
-        NotificationHelper().scheduleNotification(0, selectedDay.value);
+          .then((data) async {
+        await NotificationHelper().scheduleNotification(0, selectedDay.value);
         Get.showSnackbar(SIMLKSnackbar(
           snackbarMessage: 'Berhasil membuat reservasi',
           snackbarStateEnum: SnackbarStateEnum.POSITIVE,
