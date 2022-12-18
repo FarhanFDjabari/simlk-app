@@ -42,6 +42,9 @@ class SupervisorNewReservationDetailController
           .validateStatus()
           .then((data) {
         counselingLocationController.text = data.data?.location ?? "";
+        if ((data.data?.status ?? 0) > 1 == true) {
+          isActionTaken(true);
+        }
         setFinishCallbacks(data.data);
       }).handleError((onError) {
         debugPrint(onError.toString());

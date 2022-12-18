@@ -20,7 +20,6 @@ class SupervisorCounselorScheduleController
 
   @override
   void onInit() {
-    loadingState();
     getKonselorSchedule();
     super.onInit();
   }

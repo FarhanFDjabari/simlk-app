@@ -45,7 +45,7 @@ class SupervisorReservationHistoryFragment
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               itemBuilder: (_, index) {
                 return ReservationScheduleTile(
-                  isStudentHistoryLayout: true,
+                  isStudentHistoryLayout: false,
                   data: controller.dataList[index],
                   onTap: () {
                     controller.goToDetail(

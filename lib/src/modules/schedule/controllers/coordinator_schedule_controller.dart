@@ -22,7 +22,6 @@ class CoordinatorScheduleController extends BaseListController<Konselor> {
 
   @override
   void onInit() {
-    loadingState();
     getKonselorSchedule();
     super.onInit();
   }

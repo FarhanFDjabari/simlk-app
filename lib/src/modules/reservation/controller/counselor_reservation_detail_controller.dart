@@ -100,7 +100,9 @@ class CounselorReservationDetailController
 
   Future<void> reservationStatusUpdate(
       {required int id, required int status}) async {
-    Get.back();
+    if (status >= 6) {
+      Get.back();
+    }
     if (StorageManager().has(StorageName.KONSELOR)) {
       await setReservationStatus(id: id, status: status);
     } else if (StorageManager().has(StorageName.SUPERVISOR)) {
