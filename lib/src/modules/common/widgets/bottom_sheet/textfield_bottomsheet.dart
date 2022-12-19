@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:simlk_app/src/modules/common/widgets/button/primary_button.dart';
 import 'package:simlk_app/src/modules/common/widgets/outlined_textfield.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
@@ -53,7 +54,12 @@ class TextfieldBottomsheet extends StatelessWidget {
                   controller: textInputController,
                   keyboardType: TextInputType.multiline,
                   textInputAction: TextInputAction.newline,
-                  validator: Validator().notEmpty,
+                  validator: (text) {
+                    if (text?.isEmpty == true) {
+                      return 'txt_valid_notEmpty'.tr;
+                    }
+                    return null;
+                  },
                   label: TextNunito(
                     text: label,
                     size: 16,
