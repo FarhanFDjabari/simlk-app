@@ -55,7 +55,7 @@ class TextfieldBottomsheet extends StatelessWidget {
                   keyboardType: TextInputType.multiline,
                   textInputAction: TextInputAction.newline,
                   validator: (text) {
-                    if (text?.isEmpty == true) {
+                    if (textInputController.text.isEmpty == true) {
                       return 'txt_valid_notEmpty'.tr;
                     }
                     return null;
