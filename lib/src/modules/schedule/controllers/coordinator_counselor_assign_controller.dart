@@ -12,6 +12,8 @@ import 'package:simlk_app/src/utils/helper/snackbar_state_enum.dart';
 class CoordinatorCounselorAssignController
     extends BaseListController<Konselor> {
   late int resId;
+  final RxBool isReservationAssigned = false.obs;
+
   @override
   void onInit() {
     resId = int.parse(Get.parameters['id'].toString());
@@ -58,6 +60,7 @@ class CoordinatorCounselorAssignController
           .then((data) {
         Get.find<CoordinatorHomeController>().getOngoingSchedule();
         Get.find<CoordinatorReservationDetailController>().isActionTaken(true);
+        isReservationAssigned(true);
         finishLoadData();
         Get.showSnackbar(SIMLKSnackbar(
           snackbarMessage: 'Konselor Telah Ditugaskan',

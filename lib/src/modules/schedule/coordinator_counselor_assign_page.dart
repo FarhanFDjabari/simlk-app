@@ -57,14 +57,19 @@ class CoordinatorCounselorAssignPage
                   physics: const ScrollPhysics(),
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                   itemBuilder: (_, index) {
-                    return CounselorHistoryTile(
-                      data: controller.dataList[index],
-                      displayStatus: true,
-                      onTap: () {
-                        controller.setKonselorToReservation(
-                            reservationId: controller.resId,
-                            konselorId: controller.dataList[index].id ?? 0);
-                      },
+                    return Obx(
+                      () => CounselorHistoryTile(
+                        data: controller.dataList[index],
+                        displayStatus: true,
+                        onTap: controller.isReservationAssigned.isTrue
+                            ? null
+                            : () {
+                                controller.setKonselorToReservation(
+                                    reservationId: controller.resId,
+                                    konselorId:
+                                        controller.dataList[index].id ?? 0);
+                              },
+                      ),
                     );
                   },
                   separatorBuilder: (_, index) {
