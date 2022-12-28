@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:remixicon/remixicon.dart';
+import 'package:simlk_app/src/modules/common/widgets/button/primary_button.dart';
 import 'package:simlk_app/src/modules/common/widgets/description_text_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/loading_overlay.dart';
+import 'package:simlk_app/src/modules/common/widgets/simlk_dialog.dart';
 import 'package:simlk_app/src/modules/common/widgets/state_handle_widget.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
 import 'package:simlk_app/src/modules/reservation/controller/student_reservation_detail_controller.dart';
@@ -214,6 +217,34 @@ class StudentReservationDetailPage
                       ),
                     ),
                   ),
+                  if (controller.mData?.status == 1)
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                      child: PrimaryButton(
+                        onPressed: () {
+                          Get.dialog(
+                            SIMLKDialog(
+                              title: 'Batal Reservasi',
+                              description:
+                                  'Apakah anda yakin untuk membatalkan penjadwalan bimbingan konseling?',
+                              onCancelPressed: () {
+                                Get.back();
+                              },
+                              onSuccessPressed: () {
+                                Get.back();
+                                controller.cancelReservation(
+                                    id: controller.mData?.id ?? 0);
+                              },
+                              successButtonLabel: 'Yakin',
+                              cancelButtonLabel: 'Batal',
+                            ),
+                          );
+                        },
+                        elevation: 0,
+                        primaryColor: Resources.color.stateNegative,
+                        label: 'Batal Reservasi',
+                      ),
+                    ),
                 ],
               ),
             ),

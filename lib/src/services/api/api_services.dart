@@ -266,6 +266,11 @@ abstract class RestClient {
     @Query("id") required int reservationId,
     @Query("location") required String location,
   });
+
+  @DELETE('/reservation-schedules/{id}')
+  Future<ApiResponse<dynamic>> deleteMahasiswaReservation({
+    @Path("id") int? id,
+  });
 }
 
 const client = RestClient.create;

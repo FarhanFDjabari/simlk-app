@@ -55,6 +55,11 @@ class NotificationHelper {
     }
   }
 
+  Future<void> cancelScheduledNotification(int id) async {
+    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    await flutterLocalNotificationsPlugin.cancel(0);
+  }
+
   Future<void> scheduleNotification(
       int reservationId, DateTime scheduleTime) async {
     tz.initializeTimeZones();
