@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simlk_app/src/modules/common/widgets/shimmers/list_view_shimmer.dart';
 import 'package:simlk_app/src/modules/common/widgets/text/text_nunito.dart';
+import 'package:simlk_app/src/res/gen/assets.gen.dart';
 import 'package:simlk_app/src/res/resources.dart';
 import 'package:simlk_app/src/utils/helper/constant.dart';
 import 'package:sizer/sizer.dart';
@@ -119,8 +120,7 @@ class _StateHandleWidgetState extends State<StateHandleWidget> {
                 child: Image(
                   image: widget.emptyImage ??
                       AssetImage(
-                        // Assets.lib.theme.resources.images.appLogo.path,
-                        '',
+                        Assets.lib.src.res.images.dataEmpty.path,
                       ),
                   fit: BoxFit.fitHeight,
                 ),
@@ -168,8 +168,7 @@ class _StateHandleWidgetState extends State<StateHandleWidget> {
                   alignment: Alignment.center,
                   child: Image(
                     image: AssetImage(
-                      // Assets.lib.theme.resources.images.appLogo.path,
-                      '',
+                      Assets.lib.src.res.images.dataEmpty.path,
                     ),
                     fit: BoxFit.fill,
                   ),
